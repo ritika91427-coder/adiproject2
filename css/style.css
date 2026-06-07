@@ -811,9 +811,9 @@ textarea {
 
 .director__photo-img {
   width: 100%;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 4 / 5;
   object-fit: cover;
-  object-position: center top;
+  object-position: center bottom;
   border-radius: var(--radius-xl);
   display: block;
   box-shadow: var(--shadow-lg);
