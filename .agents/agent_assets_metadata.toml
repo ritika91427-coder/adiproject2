@@ -24,3 +24,15 @@ id = "LK0TqZ5nsp8yI1q1s2hkv"
 uri = "file://assets/svc-diagnostics.png"
 type = "image"
 title = "diagnostics lab equipment"
+
+[[generated]]
+id = "9NH9AxoI_GPq6PoxKwDU9"
+uri = "file://assets/svc-mri.png"
+type = "image"
+title = "MRI scanner machine hospital"
+
+[[generated]]
+id = "-ir9Zmp16gPxnxM7ehDAF"
+uri = "file://assets/svc-ct.png"
+type = "image"
+title = "CT scan machine radiology"
