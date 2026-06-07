@@ -402,18 +402,18 @@
             </div>
           </article>
 
-          <article class="service-card glass reveal">
-            <div class="service-card__image">
-              <img src="assets/svc-general.jpg" alt="General medicine consultation" width="600" height="400" loading="lazy" class="img--face">
-              <div class="service-card__image-overlay" aria-hidden="true"></div>
-            </div>
-            <div class="service-card__body">
-              <div class="service-card__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          <article class="service-card updates-card glass reveal" id="updatesServiceCard">
+            <div class="updates-card__header">
+              <div class="updates-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
               </div>
-              <h3 class="service-card__title">General Medicine</h3>
-              <p class="service-card__desc">Primary healthcare services for prevention, diagnosis, and treatment.</p>
-              <a href="#appointment" class="service-card__link">Learn More <span aria-hidden="true">&rarr;</span></a>
+              <h3 class="updates-card__title">Latest Updates</h3>
+            </div>
+            <div class="updates-card__list" id="updatesCardList">
+              <div class="updates-card__empty" id="updatesCardEmpty">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                <p>No announcements yet.<br>Check back soon.</p>
+              </div>
             </div>
           </article>
         </div>
@@ -484,7 +484,6 @@
                     <option value="diagnostics">Diagnostics</option>
                     <option value="mri">MRI Services</option>
                     <option value="ct-scan">CT Scan Services</option>
-                    <option value="general">General Medicine</option>
                   </select>
                   <span class="form-error" id="departmentError" role="alert"></span>
                 </div>
@@ -634,7 +633,7 @@
             <li><a href="#services">Emergency Care</a></li>
             <li><a href="#services">MRI Services</a></li>
             <li><a href="#services">CT Scan Services</a></li>
-            <li><a href="#services">General Medicine</a></li>
+            <li><a href="#updatesServiceCard">Latest Updates</a></li>
           </ul>
         </div>
 
@@ -655,9 +654,65 @@
 
       <div class="footer__bottom">
         <p>&copy; Wangduk Health and Research | All Rights Reserved</p>
+        <a href="#" class="footer__admin-link" id="adminTrigger" aria-label="Admin access">&#9679;</a>
       </div>
     </div>
   </footer>
+
+  <!-- Admin Panel Modal -->
+  <div class="admin-overlay" id="adminOverlay" role="dialog" aria-modal="true" aria-labelledby="adminTitle" hidden>
+    <div class="admin-modal">
+      <button class="admin-modal__close" id="adminClose" aria-label="Close admin panel">&times;</button>
+
+      <!-- Login Screen -->
+      <div id="adminLogin">
+        <div class="admin-modal__logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <h2 class="admin-modal__title" id="adminTitle">Admin Access</h2>
+        <p class="admin-modal__subtitle">Wangduk Health &amp; Research</p>
+        <div class="form-group">
+          <label for="adminPassword">Password</label>
+          <input type="password" id="adminPassword" placeholder="Enter admin password" autocomplete="current-password">
+          <span class="form-error" id="adminPasswordError" role="alert"></span>
+        </div>
+        <button class="btn btn--primary admin-modal__btn" id="adminLoginBtn">Sign In</button>
+      </div>
+
+      <!-- Dashboard Screen -->
+      <div id="adminDashboard" hidden>
+        <div class="admin-dashboard__header">
+          <div>
+            <h2 class="admin-modal__title">Updates Dashboard</h2>
+            <p class="admin-modal__subtitle">Manage hospital announcements</p>
+          </div>
+          <button class="admin-logout-btn" id="adminLogoutBtn" aria-label="Sign out">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Sign Out
+          </button>
+        </div>
+
+        <div class="admin-form glass">
+          <h3 class="admin-form__heading">Post New Update</h3>
+          <div class="form-group">
+            <label for="updateTitle">Title</label>
+            <input type="text" id="updateTitle" placeholder="e.g. New OPD Timings" maxlength="80">
+            <span class="form-error" id="updateTitleError" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label for="updateBody">Message</label>
+            <textarea id="updateBody" rows="3" placeholder="Write the announcement details…" maxlength="300"></textarea>
+            <span class="form-error" id="updateBodyError" role="alert"></span>
+          </div>
+          <button class="btn btn--primary admin-form__btn" id="postUpdateBtn">Post Update</button>
+        </div>
+
+        <div class="admin-updates-list" id="adminUpdatesList">
+          <p class="admin-updates-list__empty" id="adminListEmpty">No updates posted yet.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="js/main.js" defer></script>
 </body>
