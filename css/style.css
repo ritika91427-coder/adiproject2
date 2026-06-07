@@ -1692,6 +1692,7 @@ textarea {
   flex-direction: column;
   padding: 0;
   overflow: hidden;
+  grid-column: span 2;
 }
 
 .updates-card__header {
