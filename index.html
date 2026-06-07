@@ -6,7 +6,7 @@
   <meta name="description" content="Wangduk Health and Research — Advanced healthcare with compassion and excellence. 24×7 modern medical services, MRI & CT scan facilities, expert staff led by Prof. Laslong Wangduk.">
   <meta name="keywords" content="Wangduk Health, hospital, healthcare, cardiology, orthopedics, MRI, CT scan, emergency care, book appointment">
   <meta name="author" content="Wangduk Health and Research">
-  <meta name="theme-color" content="#0c2340">
+  <meta name="theme-color" content="#0a1f44">
   <title>Wangduk Health and Research | Advanced Healthcare with Compassion</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,10 +57,13 @@
     <section class="hero" id="home" aria-label="Hero">
       <div class="hero__carousel" id="heroCarousel" aria-roledescription="carousel" aria-label="Hospital highlights">
         <div class="hero__slide hero__slide--active" data-slide="0">
-          <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1920&q=80&auto=format&fit=crop" alt="Modern hospital building with clean architecture" width="1920" height="1080" loading="eager" fetchpriority="high">
+          <img src="assets/hero-1.jpg" alt="Modern hospital building with clean architecture" width="1920" height="1080" loading="eager" fetchpriority="high">
         </div>
         <div class="hero__slide" data-slide="1">
-          <img src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=1920&q=80&auto=format&fit=crop" alt="Healthcare professionals providing patient care" width="1920" height="1080" loading="lazy">
+          <img src="assets/hero-2.jpg" alt="Expert medical team delivering compassionate care" width="1920" height="1080" loading="lazy">
+        </div>
+        <div class="hero__slide" data-slide="2">
+          <img src="assets/hero-3.jpg" alt="Healthcare professionals providing patient care" width="1920" height="1080" loading="lazy">
         </div>
         <div class="hero__overlay" aria-hidden="true"></div>
       </div>
@@ -81,6 +84,7 @@
       <div class="hero__pagination" id="heroPagination" role="tablist" aria-label="Hero slides">
         <button class="hero__dot hero__dot--active" role="tab" aria-selected="true" aria-label="Slide 1" data-slide="0"></button>
         <button class="hero__dot" role="tab" aria-selected="false" aria-label="Slide 2" data-slide="1"></button>
+        <button class="hero__dot" role="tab" aria-selected="false" aria-label="Slide 3" data-slide="2"></button>
       </div>
     </section>
 
@@ -91,6 +95,21 @@
           <span class="section__eyebrow">Our Legacy</span>
           <h2 class="section__title" id="about-heading">About Wangduk Health and Research</h2>
           <div class="section__divider" aria-hidden="true"></div>
+        </div>
+
+        <div class="about__showcase reveal">
+          <figure class="showcase-card showcase-card--large">
+            <img src="assets/showcase-1.jpg" alt="Wangduk Health and Research — modern hospital campus" width="900" height="600" loading="lazy">
+            <figcaption class="showcase-card__caption">State-of-the-Art Medical Campus</figcaption>
+          </figure>
+          <figure class="showcase-card">
+            <img src="assets/showcase-2.jpg" alt="Advanced MRI and diagnostic technology" width="600" height="400" loading="lazy">
+            <figcaption class="showcase-card__caption">Advanced Diagnostics</figcaption>
+          </figure>
+          <figure class="showcase-card">
+            <img src="assets/showcase-3.jpg" alt="Dedicated healthcare professionals at work" width="600" height="400" loading="lazy" class="img--face">
+            <figcaption class="showcase-card__caption">Expert Care Team</figcaption>
+          </figure>
         </div>
 
         <div class="about__grid">
@@ -139,13 +158,13 @@
         <div class="director__grid">
           <div class="director__photo reveal">
             <div class="director__photo-frame">
-              <div class="director__photo-placeholder" role="img" aria-label="Prof. Laslong Wangduk — Director photo placeholder">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                  <circle cx="12" cy="7" r="4"/>
-                </svg>
-                <span>Director Photo</span>
-              </div>
+              <img
+                src="assets/director.png"
+                alt="Prof. Laslong Wangduk, Director of Wangduk Health and Research"
+                class="director__photo-img"
+                width="480"
+                height="600"
+                loading="lazy">
               <div class="director__photo-accent" aria-hidden="true"></div>
             </div>
           </div>
@@ -186,6 +205,16 @@
           <h2 class="section__title" id="features-heading">Excellence in Every Detail</h2>
           <p class="section__subtitle">World-class facilities and compassionate care designed around your wellbeing.</p>
           <div class="section__divider" aria-hidden="true"></div>
+        </div>
+
+        <div class="features__banner reveal">
+          <img src="assets/banner.jpg" alt="Premium healthcare facility interior" width="1200" height="400" loading="lazy">
+          <div class="features__banner-overlay">
+            <div class="features__banner-text">
+              <h3>World-Class Facilities, Human-Centered Care</h3>
+              <p>Every detail of our hospital is designed to deliver comfort, safety, and excellence in patient experience.</p>
+            </div>
+          </div>
         </div>
 
         <div class="features__grid">
@@ -284,66 +313,108 @@
 
         <div class="services__grid">
           <article class="service-card glass reveal">
-            <div class="service-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            <div class="service-card__image">
+              <img src="assets/svc-cardiology.jpg" alt="Cardiology department" width="600" height="400" loading="lazy">
+              <div class="service-card__image-overlay" aria-hidden="true"></div>
             </div>
-            <h3 class="service-card__title">Cardiology</h3>
-            <p class="service-card__desc">Expert cardiac care with advanced diagnostics and treatment for heart conditions.</p>
-            <a href="#appointment" class="service-card__link">Learn More <span aria-hidden="true">&rarr;</span></a>
+            <div class="service-card__body">
+              <div class="service-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </div>
+              <h3 class="service-card__title">Cardiology</h3>
+              <p class="service-card__desc">Expert cardiac care with advanced diagnostics and treatment for heart conditions.</p>
+              <a href="#appointment" class="service-card__link">Learn More <span aria-hidden="true">&rarr;</span></a>
+            </div>
           </article>
 
           <article class="service-card glass reveal">
-            <div class="service-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+            <div class="service-card__image">
+              <img src="assets/svc-orthopedics.jpg" alt="Orthopedics department" width="600" height="400" loading="lazy" class="img--face">
+              <div class="service-card__image-overlay" aria-hidden="true"></div>
             </div>
-            <h3 class="service-card__title">Orthopedics</h3>
-            <p class="service-card__desc">Specialized bone, joint, and musculoskeletal care from experienced specialists.</p>
-            <a href="#appointment" class="service-card__link">Learn More <span aria-hidden="true">&rarr;</span></a>
+            <div class="service-card__body">
+              <div class="service-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+              </div>
+              <h3 class="service-card__title">Orthopedics</h3>
+              <p class="service-card__desc">Specialized bone, joint, and musculoskeletal care from experienced specialists.</p>
+              <a href="#appointment" class="service-card__link">Learn More <span aria-hidden="true">&rarr;</span></a>
+            </div>
           </article>
 
           <article class="service-card glass reveal">
-            <div class="service-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <div class="service-card__image">
+              <img src="assets/svc-emergency.jpg" alt="Emergency care unit" width="600" height="400" loading="lazy" class="img--face">
+              <div class="service-card__image-overlay" aria-hidden="true"></div>
             </div>
-            <h3 class="service-card__title">Emergency Care</h3>
-            <p class="service-card__desc">24×7 emergency services with rapid response and critical care support.</p>
-            <a href="#appointment" class="service-card__link">Learn More <span aria-hidden="true">&rarr;</span></a>
+            <div class="service-card__body">
+              <div class="service-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
+              <h3 class="service-card__title">Emergency Care</h3>
+              <p class="service-card__desc">24×7 emergency services with rapid response and critical care support.</p>
+              <a href="#appointment" class="service-card__link">Learn More <span aria-hidden="true">&rarr;</span></a>
+            </div>
           </article>
 
           <article class="service-card glass reveal">
-            <div class="service-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            <div class="service-card__image">
+              <img src="assets/svc-diagnostics.jpg" alt="Diagnostics laboratory" width="600" height="400" loading="lazy" class="img--face">
+              <div class="service-card__image-overlay" aria-hidden="true"></div>
             </div>
-            <h3 class="service-card__title">Diagnostics</h3>
-            <p class="service-card__desc">Comprehensive diagnostic services for accurate and timely medical assessments.</p>
-            <a href="#appointment" class="service-card__link">Learn More <span aria-hidden="true">&rarr;</span></a>
+            <div class="service-card__body">
+              <div class="service-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              </div>
+              <h3 class="service-card__title">Diagnostics</h3>
+              <p class="service-card__desc">Comprehensive diagnostic services for accurate and timely medical assessments.</p>
+              <a href="#appointment" class="service-card__link">Learn More <span aria-hidden="true">&rarr;</span></a>
+            </div>
           </article>
 
           <article class="service-card glass reveal">
-            <div class="service-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <div class="service-card__image">
+              <img src="assets/svc-mri.jpg" alt="MRI scanning facility" width="600" height="400" loading="lazy">
+              <div class="service-card__image-overlay" aria-hidden="true"></div>
             </div>
-            <h3 class="service-card__title">MRI Services</h3>
-            <p class="service-card__desc">State-of-the-art MRI imaging for detailed internal body analysis.</p>
-            <a href="#appointment" class="service-card__link">Learn More <span aria-hidden="true">&rarr;</span></a>
+            <div class="service-card__body">
+              <div class="service-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+              </div>
+              <h3 class="service-card__title">MRI Services</h3>
+              <p class="service-card__desc">State-of-the-art MRI imaging for detailed internal body analysis.</p>
+              <a href="#appointment" class="service-card__link">Learn More <span aria-hidden="true">&rarr;</span></a>
+            </div>
           </article>
 
           <article class="service-card glass reveal">
-            <div class="service-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            <div class="service-card__image">
+              <img src="assets/svc-ct.jpg" alt="CT scan services" width="600" height="400" loading="lazy">
+              <div class="service-card__image-overlay" aria-hidden="true"></div>
             </div>
-            <h3 class="service-card__title">CT Scan Services</h3>
-            <p class="service-card__desc">Advanced computed tomography for precise cross-sectional imaging.</p>
-            <a href="#appointment" class="service-card__link">Learn More <span aria-hidden="true">&rarr;</span></a>
+            <div class="service-card__body">
+              <div class="service-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              </div>
+              <h3 class="service-card__title">CT Scan Services</h3>
+              <p class="service-card__desc">Advanced computed tomography for precise cross-sectional imaging.</p>
+              <a href="#appointment" class="service-card__link">Learn More <span aria-hidden="true">&rarr;</span></a>
+            </div>
           </article>
 
           <article class="service-card glass reveal">
-            <div class="service-card__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            <div class="service-card__image">
+              <img src="assets/svc-general.jpg" alt="General medicine consultation" width="600" height="400" loading="lazy" class="img--face">
+              <div class="service-card__image-overlay" aria-hidden="true"></div>
             </div>
-            <h3 class="service-card__title">General Medicine</h3>
-            <p class="service-card__desc">Primary healthcare services for prevention, diagnosis, and treatment.</p>
-            <a href="#appointment" class="service-card__link">Learn More <span aria-hidden="true">&rarr;</span></a>
+            <div class="service-card__body">
+              <div class="service-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              </div>
+              <h3 class="service-card__title">General Medicine</h3>
+              <p class="service-card__desc">Primary healthcare services for prevention, diagnosis, and treatment.</p>
+              <a href="#appointment" class="service-card__link">Learn More <span aria-hidden="true">&rarr;</span></a>
+            </div>
           </article>
         </div>
       </div>
@@ -362,8 +433,8 @@
           <div class="appointment__map reveal">
             <div class="map-container">
               <iframe
-                src="https://maps.google.com/maps?q=Wangduk+Health+and+Research&output=embed"
-                title="Wangduk Health and Research location map"
+                src="https://maps.google.com/maps?q=Bistupur,+Jamshedpur,+Jharkhand&output=embed"
+                title="Wangduk Health and Research — Bistupur, Jamshedpur, Jharkhand"
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
                 allowfullscreen>
@@ -375,7 +446,7 @@
               </div>
               <div>
                 <h3 class="location-card__title">Our Location</h3>
-                <p class="location-card__address">Wangduk Health and Research Hospital Campus</p>
+                <p class="location-card__address">Bistupur, Jamshedpur, Jharkhand</p>
                 <p class="location-card__detail">Open 24×7 for emergency and scheduled care</p>
               </div>
             </div>
@@ -491,7 +562,7 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             </div>
             <h3 class="contact-card__title">Visit Us</h3>
-            <p class="contact-card__value">Wangduk Health and Research<br>Hospital Campus</p>
+            <p class="contact-card__value">Bistupur, Jamshedpur<br>Jharkhand</p>
             <a href="#appointment" class="btn btn--outline btn--sm">View on Map</a>
           </article>
 
