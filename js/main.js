@@ -230,7 +230,7 @@
       }
     });
 
-    appointmentForm.addEventListener('submit', (e) => {
+    appointmentForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       let isValid = true;
@@ -247,9 +247,44 @@
         return;
       }
 
-      appointmentForm.hidden = true;
-      formSuccess.hidden = false;
-      formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const submitBtn = appointmentForm.querySelector('button[type="submit"]');
+      const originalText = submitBtn ? submitBtn.textContent : '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Confirming…';
+      }
+
+      const payload = {
+        fullName:   document.getElementById('fullName').value.trim(),
+        phone:      document.getElementById('phone').value.trim(),
+        email:      document.getElementById('email').value.trim(),
+        department: document.getElementById('department').value,
+        date:       document.getElementById('date').value,
+        time:       document.getElementById('time').value,
+        message:    (document.getElementById('message') ? document.getElementById('message').value.trim() : '')
+      };
+
+      try {
+        const res = await fetch('/api/appointments', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          appointmentForm.hidden = true;
+          formSuccess.hidden = false;
+          formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          alert(data.error || 'Something went wrong. Please try again.');
+          if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalText; }
+        }
+      } catch {
+        alert('Unable to reach the server. Please check your connection and try again.');
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalText; }
+      }
     });
   }
 

@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — Wangduk Health</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1e3a6e;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --info: #06b6d4;
+      --surface: #ffffff;
+      --bg: #f1f5f9;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --muted: #64748b;
+      --radius: 10px;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      font-size: 14px;
+    }
+
+    /* ── Login ── */
+    #loginScreen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a6e 50%, #2563eb 100%);
+      padding: 1rem;
+    }
+
+    .login-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+    }
+
+    .login-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .login-logo-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #1e3a6e, #2563eb);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-logo-icon svg { color: #fff; }
+
+    .login-logo-text { line-height: 1.2; }
+    .login-logo-text strong { font-size: 1rem; font-weight: 700; color: #0f172a; display: block; }
+    .login-logo-text span { font-size: 0.75rem; color: #64748b; }
+
+    .login-card h1 { font-size: 1.35rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .login-card p { color: #64748b; font-size: 0.875rem; margin-bottom: 1.75rem; }
+
+    .field { margin-bottom: 1rem; }
+    .field label { display: block; font-weight: 600; font-size: 0.8rem; margin-bottom: 0.4rem; color: #374151; }
+    .field input {
+      width: 100%;
+      padding: 0.65rem 0.9rem;
+      border: 1.5px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .field input:focus { border-color: var(--primary); }
+
+    .login-error {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #dc2626;
+      padding: 0.6rem 0.9rem;
+      border-radius: 7px;
+      font-size: 0.8rem;
+      margin-bottom: 1rem;
+      display: none;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.25rem;
+      border: none;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+      text-decoration: none;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary { background: var(--primary); color: #fff; width: 100%; justify-content: center; padding: 0.75rem; font-size: 0.95rem; }
+    .btn-primary:hover { opacity: 0.9; }
+    .btn-sm { padding: 0.35rem 0.75rem; font-size: 0.78rem; }
+    .btn-ghost { background: transparent; color: var(--muted); border: 1.5px solid var(--border); }
+    .btn-ghost:hover { background: var(--bg); }
+    .btn-danger-ghost { background: transparent; color: var(--danger); border: 1.5px solid #fecaca; }
+    .btn-danger-ghost:hover { background: #fef2f2; }
+
+    /* ── App Shell ── */
+    #appScreen { display: none; min-height: 100vh; }
+
+    .topbar {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--primary-dark);
+    }
+
+    .topbar-brand-icon {
+      width: 34px;
+      height: 34px;
+      background: linear-gradient(135deg, #1e3a6e, #2563eb);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .topbar-right { display: flex; align-items: center; gap: 1rem; }
+    .topbar-badge {
+      background: #eff6ff;
+      color: var(--primary);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.25rem 0.6rem;
+      border-radius: 99px;
+      border: 1px solid #bfdbfe;
+    }
+
+    main { padding: 1.75rem 1.5rem; max-width: 1400px; margin: 0 auto; }
+
+    h2.page-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--primary-dark);
+    }
+
+    /* ── Stats ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .stat-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 1.1rem 1.25rem;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .stat-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .stat-icon.blue   { background: #eff6ff; color: var(--primary); }
+    .stat-icon.amber  { background: #fffbeb; color: var(--warning); }
+    .stat-icon.green  { background: #f0fdf4; color: var(--success); }
+    .stat-icon.teal   { background: #ecfeff; color: var(--info); }
+    .stat-icon.red    { background: #fef2f2; color: var(--danger); }
+
+    .stat-label { font-size: 0.72rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+    .stat-value { font-size: 1.65rem; font-weight: 700; line-height: 1; margin-top: 2px; }
+
+    /* ── Filters ── */
+    .filter-bar {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      align-items: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .filter-bar input,
+    .filter-bar select {
+      border: 1.5px solid var(--border);
+      border-radius: 7px;
+      padding: 0.5rem 0.8rem;
+      font-family: inherit;
+      font-size: 0.85rem;
+      outline: none;
+      background: #fff;
+      transition: border-color 0.2s;
+    }
+    .filter-bar input:focus,
+    .filter-bar select:focus { border-color: var(--primary); }
+    .filter-bar input[type="search"] { flex: 1; min-width: 180px; }
+
+    .filter-bar .btn-reset {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 0.8rem;
+      cursor: pointer;
+      padding: 0.4rem 0.5rem;
+      border-radius: 6px;
+      font-family: inherit;
+    }
+    .filter-bar .btn-reset:hover { background: var(--bg); }
+
+    /* ── Table ── */
+    .table-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .table-header {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .table-header strong { font-size: 0.95rem; font-weight: 700; }
+    .table-count { color: var(--muted); font-size: 0.8rem; }
+
+    .table-wrap { overflow-x: auto; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+    }
+
+    thead th {
+      background: #f8fafc;
+      padding: 0.7rem 1rem;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    tbody tr { border-bottom: 1px solid #f1f5f9; transition: background 0.1s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #f8fafc; }
+
+    td {
+      padding: 0.75rem 1rem;
+      vertical-align: middle;
+    }
+
+    .patient-name { font-weight: 600; color: #0f172a; }
+    .patient-contact { color: var(--muted); font-size: 0.78rem; margin-top: 2px; }
+
+    .dept-badge {
+      display: inline-block;
+      background: #eff6ff;
+      color: #1d4ed8;
+      padding: 0.2rem 0.55rem;
+      border-radius: 99px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .appt-date { white-space: nowrap; }
+    .appt-time { color: var(--muted); font-size: 0.78rem; }
+
+    .status-select {
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      padding: 0.3rem 0.5rem;
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s;
+      appearance: auto;
+    }
+
+    .status-select.Pending   { border-color: #fcd34d; background: #fffbeb; color: #92400e; }
+    .status-select.Confirmed { border-color: #6ee7b7; background: #f0fdf4; color: #065f46; }
+    .status-select.Completed { border-color: #93c5fd; background: #eff6ff; color: #1e40af; }
+    .status-select.Cancelled { border-color: #fca5a5; background: #fef2f2; color: #7f1d1d; }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--muted);
+    }
+    .empty-state svg { opacity: 0.25; margin-bottom: 0.75rem; }
+    .empty-state p { font-size: 0.9rem; }
+
+    .loading-row td { text-align: center; padding: 3rem; color: var(--muted); }
+
+    .id-col { color: var(--muted); font-size: 0.78rem; }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background: #0f172a;
+      color: #fff;
+      padding: 0.7rem 1.1rem;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 500;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.22s, transform 0.22s;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    #toast.show { opacity: 1; transform: translateY(0); }
+    #toast.success { background: #065f46; }
+    #toast.error   { background: #7f1d1d; }
+
+    @media (max-width: 640px) {
+      .topbar { padding: 0 1rem; }
+      main { padding: 1.25rem 1rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      thead th:nth-child(5),
+      td:nth-child(5) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Login Screen ─────────────────────────────────────────── -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-logo-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      <div class="login-logo-text">
+        <strong>Wangduk Health</strong>
+        <span>Admin Portal</span>
+      </div>
+    </div>
+    <h1>Welcome back</h1>
+    <p>Sign in to manage appointments</p>
+    <div class="login-error" id="loginError"></div>
+    <div class="field">
+      <label for="passwordInput">Admin Password</label>
+      <input type="password" id="passwordInput" placeholder="Enter your password" autocomplete="current-password">
+    </div>
+    <button class="btn btn-primary" id="loginBtn">Sign In</button>
+  </div>
+</div>
+
+<!-- ── App Screen ────────────────────────────────────────────── -->
+<div id="appScreen">
+  <header class="topbar">
+    <div class="topbar-brand">
+      <div class="topbar-brand-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      Wangduk Health — Admin
+    </div>
+    <div class="topbar-right">
+      <span class="topbar-badge">🔒 Secure Session</span>
+      <button class="btn btn-sm btn-ghost" id="logoutBtn">Sign Out</button>
+    </div>
+  </header>
+
+  <main>
+    <h2 class="page-title">Appointment Management</h2>
+
+    <!-- Stats -->
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-card"><div class="stat-icon blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div><div class="stat-label">Total</div><div class="stat-value" id="statTotal">—</div></div></div>
+      <div class="stat-card"><div class="stat-icon amber"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div class="stat-label">Pending</div><div class="stat-value" id="statPending">—</div></div></div>
+      <div class="stat-card"><div class="stat-icon green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="stat-label">Confirmed</div><div class="stat-value" id="statConfirmed">—</div></div></div>
+      <div class="stat-card"><div class="stat-icon teal"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div><div class="stat-label">Completed</div><div class="stat-value" id="statCompleted">—</div></div></div>
+      <div class="stat-card"><div class="stat-icon red"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div><div><div class="stat-label">Cancelled</div><div class="stat-value" id="statCancelled">—</div></div></div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filter-bar">
+      <input type="search" id="filterSearch" placeholder="🔍  Search patient, email or phone…">
+      <select id="filterDept">
+        <option value="">All Departments</option>
+        <option>Cardiology</option>
+        <option>Orthopedics</option>
+        <option>MRI Scan</option>
+        <option>CT Scan</option>
+        <option>Diagnostics & Lab</option>
+        <option>Emergency Care</option>
+        <option>General Medicine</option>
+        <option>Physiotherapy</option>
+        <option>Women's Health</option>
+        <option>Pediatrics</option>
+      </select>
+      <input type="date" id="filterDate" title="Filter by date">
+      <select id="filterStatus">
+        <option value="">All Statuses</option>
+        <option>Pending</option>
+        <option>Confirmed</option>
+        <option>Completed</option>
+        <option>Cancelled</option>
+      </select>
+      <button class="btn-reset" id="resetFilters">✕ Clear</button>
+    </div>
+
+    <!-- Table -->
+    <div class="table-card">
+      <div class="table-header">
+        <strong>Appointments</strong>
+        <span class="table-count" id="tableCount"></span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Patient</th>
+              <th>Department</th>
+              <th>Date &amp; Time</th>
+              <th>Notes</th>
+              <th>Booked On</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="apptTableBody">
+            <tr class="loading-row"><td colspan="7">Loading appointments…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="toast"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  const loginScreen = document.getElementById('loginScreen');
+  const appScreen   = document.getElementById('appScreen');
+  const loginError  = document.getElementById('loginError');
+  const passwordInput = document.getElementById('passwordInput');
+  const loginBtn    = document.getElementById('loginBtn');
+  const logoutBtn   = document.getElementById('logoutBtn');
+  const tbody       = document.getElementById('apptTableBody');
+  const tableCount  = document.getElementById('tableCount');
+  const toast       = document.getElementById('toast');
+
+  let toastTimer;
+
+  function showToast(msg, type = '') {
+    toast.textContent = msg;
+    toast.className = 'show' + (type ? ' ' + type : '');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.className = '', 3000);
+  }
+
+  function formatDate(iso) {
+    if (!iso) return '—';
+    return new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+
+  function formatTime(t) {
+    if (!t) return '—';
+    const [h, m] = t.split(':');
+    const hr = parseInt(h, 10);
+    return `${hr % 12 || 12}:${m} ${hr < 12 ? 'AM' : 'PM'}`;
+  }
+
+  function esc(str) {
+    return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  // ── Auth ──────────────────────────────────────────────────────────
+  async function tryLogin() {
+    const password = passwordInput.value.trim();
+    if (!password) { loginError.textContent = 'Please enter the password.'; loginError.style.display = 'block'; return; }
+    loginBtn.textContent = 'Signing in…';
+    loginBtn.disabled = true;
+    try {
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password })
+      });
+      if (res.ok) {
+        enterApp();
+      } else {
+        const data = await res.json();
+        loginError.textContent = data.error || 'Incorrect password.';
+        loginError.style.display = 'block';
+        passwordInput.value = '';
+        passwordInput.focus();
+      }
+    } catch {
+      loginError.textContent = 'Connection error. Please try again.';
+      loginError.style.display = 'block';
+    } finally {
+      loginBtn.textContent = 'Sign In';
+      loginBtn.disabled = false;
+    }
+  }
+
+  function enterApp() {
+    loginScreen.style.display = 'none';
+    appScreen.style.display = 'block';
+    loadStats();
+    loadAppointments();
+  }
+
+  async function checkSession() {
+    try {
+      const res = await fetch('/api/admin/check');
+      if (res.ok) enterApp();
+    } catch {}
+  }
+
+  loginBtn.addEventListener('click', tryLogin);
+  passwordInput.addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
+
+  logoutBtn.addEventListener('click', async () => {
+    await fetch('/api/admin/logout', { method: 'POST' });
+    loginScreen.style.display = 'flex';
+    appScreen.style.display = 'none';
+    passwordInput.value = '';
+    loginError.style.display = 'none';
+  });
+
+  // ── Stats ─────────────────────────────────────────────────────────
+  async function loadStats() {
+    try {
+      const res = await fetch('/api/admin/stats');
+      const data = await res.json();
+      document.getElementById('statTotal').textContent     = data.total || 0;
+      document.getElementById('statPending').textContent   = data.pending || 0;
+      document.getElementById('statConfirmed').textContent = data.confirmed || 0;
+      document.getElementById('statCompleted').textContent = data.completed || 0;
+      document.getElementById('statCancelled').textContent = data.cancelled || 0;
+    } catch {}
+  }
+
+  // ── Appointments ─────────────────────────────────────────────────
+  function buildRow(appt) {
+    const tr = document.createElement('tr');
+    const statusClass = appt.status.replace(/\s+/g, '');
+    tr.innerHTML = `
+      <td class="id-col">#${appt.id}</td>
+      <td>
+        <div class="patient-name">${esc(appt.full_name)}</div>
+        <div class="patient-contact">${esc(appt.email)}<br>${esc(appt.phone)}</div>
+      </td>
+      <td><span class="dept-badge">${esc(appt.department)}</span></td>
+      <td class="appt-date">
+        ${formatDate(appt.appointment_date)}
+        <div class="appt-time">${formatTime(appt.appointment_time)}</div>
+      </td>
+      <td style="max-width:180px;color:var(--muted);font-size:0.78rem">${esc(appt.message) || '<span style="opacity:.4">—</span>'}</td>
+      <td class="appt-date">${formatDate(appt.created_at)}</td>
+      <td>
+        <select class="status-select ${statusClass}" data-id="${appt.id}">
+          <option ${appt.status === 'Pending'   ? 'selected' : ''}>Pending</option>
+          <option ${appt.status === 'Confirmed' ? 'selected' : ''}>Confirmed</option>
+          <option ${appt.status === 'Completed' ? 'selected' : ''}>Completed</option>
+          <option ${appt.status === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
+        </select>
+      </td>`;
+
+    tr.querySelector('.status-select').addEventListener('change', async function () {
+      const newStatus = this.value;
+      const id = this.dataset.id;
+      try {
+        const res = await fetch(`/api/admin/appointments/${id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: newStatus })
+        });
+        if (res.ok) {
+          this.className = 'status-select ' + newStatus.replace(/\s+/g,'');
+          showToast(`Status updated to "${newStatus}"`, 'success');
+          loadStats();
+        } else {
+          showToast('Failed to update status', 'error');
+        }
+      } catch {
+        showToast('Connection error', 'error');
+      }
+    });
+
+    return tr;
+  }
+
+  async function loadAppointments() {
+    tbody.innerHTML = '<tr class="loading-row"><td colspan="7">Loading…</td></tr>';
+    const params = new URLSearchParams();
+    const search = document.getElementById('filterSearch').value.trim();
+    const dept   = document.getElementById('filterDept').value;
+    const date   = document.getElementById('filterDate').value;
+    const status = document.getElementById('filterStatus').value;
+    if (search) params.set('search', search);
+    if (dept)   params.set('department', dept);
+    if (date)   params.set('date', date);
+    if (status) params.set('status', status);
+
+    try {
+      const res = await fetch('/api/admin/appointments?' + params);
+      const data = await res.json();
+      tbody.innerHTML = '';
+      tableCount.textContent = `${data.length} record${data.length !== 1 ? 's' : ''}`;
+
+      if (!data.length) {
+        tbody.innerHTML = `<tr><td colspan="7">
+          <div class="empty-state">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <p>No appointments found for the selected filters.</p>
+          </div>
+        </td></tr>`;
+        return;
+      }
+
+      data.forEach(appt => tbody.appendChild(buildRow(appt)));
+    } catch {
+      tbody.innerHTML = '<tr class="loading-row"><td colspan="7">Failed to load appointments. Please refresh.</td></tr>';
+    }
+  }
+
+  // Debounced filter triggers
+  let debounceTimer;
+  function debouncedLoad() {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(loadAppointments, 350);
+  }
+
+  document.getElementById('filterSearch').addEventListener('input', debouncedLoad);
+  document.getElementById('filterDept').addEventListener('change', loadAppointments);
+  document.getElementById('filterDate').addEventListener('change', loadAppointments);
+  document.getElementById('filterStatus').addEventListener('change', loadAppointments);
+
+  document.getElementById('resetFilters').addEventListener('click', () => {
+    document.getElementById('filterSearch').value = '';
+    document.getElementById('filterDept').value = '';
+    document.getElementById('filterDate').value = '';
+    document.getElementById('filterStatus').value = '';
+    loadAppointments();
+  });
+
+  // Auto-refresh every 60 seconds
+  setInterval(() => {
+    if (appScreen.style.display !== 'none') {
+      loadAppointments();
+      loadStats();
+    }
+  }, 60000);
+
+  checkSession();
+})();
+</script>
+</body>
+</html>
