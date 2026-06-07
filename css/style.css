@@ -813,9 +813,10 @@ textarea {
   width: 100%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
-  object-position: center bottom;
+  object-position: center top;
   border-radius: var(--radius-xl);
   display: block;
+  image-rendering: auto;
   box-shadow: var(--shadow-lg);
 }
 

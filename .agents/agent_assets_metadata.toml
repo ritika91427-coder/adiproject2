@@ -42,6 +42,12 @@ uri = "file://assets/showcase-3.png"
 type = "image"
 title = "Indian doctors care team"
 
+[[generated]]
+id = "CrdEqJQmGdzjzJY88-Cdt"
+uri = "file://attached_assets/generated_images/professional_portrait_of_a_7827.png"
+type = "image"
+title = "generated_image"
+
 [[outputs]]
 id = "BxKVZBk8fWy0jHI_H_Y6o"
 uri = "file://attached_assets/stock_images/indian_care_team.jpg"
