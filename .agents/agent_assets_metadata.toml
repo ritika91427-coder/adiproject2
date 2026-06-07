@@ -12,3 +12,15 @@ id = "uKB9Tl2weOxxoQSoxyUQH"
 uri = "file://assets/showcase-2.png"
 type = "image"
 title = "expert medical care team"
+
+[[generated]]
+id = "huyNCl7hgEtboPDu4C3zI"
+uri = "file://assets/svc-orthopedics.png"
+type = "image"
+title = "orthopedics bone joint care"
+
+[[generated]]
+id = "LK0TqZ5nsp8yI1q1s2hkv"
+uri = "file://assets/svc-diagnostics.png"
+type = "image"
+title = "diagnostics lab equipment"
