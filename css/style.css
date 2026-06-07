@@ -1981,6 +1981,7 @@ textarea {
   box-shadow: 0 12px 36px rgba(37,99,235,0.6);
 }
 .chatbot__toggle-icon { display: flex; }
+.chatbot__toggle-icon[hidden] { display: none !important; }
 .chatbot__toggle-icon svg { width: 24px; height: 24px; }
 
 .chatbot__badge {
