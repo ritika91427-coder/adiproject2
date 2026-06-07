@@ -1692,7 +1692,10 @@ textarea {
   flex-direction: column;
   padding: 0;
   overflow: hidden;
-  grid-column: span 2;
+  grid-column: 1 / -1;
+  max-width: 660px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .updates-card__header {

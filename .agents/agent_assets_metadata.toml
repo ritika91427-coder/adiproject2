@@ -1,5 +1,4 @@
 uploads = []
-outputs = []
 
 [[generated]]
 id = "aR5rmXo7BpXMsK3Vvf1N4"
@@ -42,3 +41,9 @@ id = "skgEF1MU2KxJfPxkZu91F"
 uri = "file://assets/showcase-3.png"
 type = "image"
 title = "Indian doctors care team"
+
+[[outputs]]
+id = "BxKVZBk8fWy0jHI_H_Y6o"
+uri = "file://attached_assets/stock_images/indian_care_team.jpg"
+type = "image"
+title = "Indian doctors team group photo hospital smiling professionals"
