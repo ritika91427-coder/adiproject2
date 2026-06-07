@@ -1,0 +1,14 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "aR5rmXo7BpXMsK3Vvf1N4"
+uri = "file://assets/showcase-1.png"
+type = "image"
+title = "modern hospital campus exterior"
+
+[[generated]]
+id = "uKB9Tl2weOxxoQSoxyUQH"
+uri = "file://assets/showcase-2.png"
+type = "image"
+title = "expert medical care team"
