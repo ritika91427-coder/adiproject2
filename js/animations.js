@@ -5,38 +5,43 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ─────────────────────────────────────────
      1. HERO TITLE — word slide-up from clip
   ───────────────────────────────────────────── */
+  // ── Hero title: 3-line curtain reveal ──
   const heroTitle = document.querySelector('.hero__title');
   if (heroTitle) {
     const raw = heroTitle.textContent.trim();
-    heroTitle.innerHTML = raw
-      .split(' ')
-      .map((word, i) =>
-        `<span class="hero__word-wrap" aria-hidden="true">` +
-          `<span class="hero__word" style="animation-delay:${0.1 + i * 0.11}s">${word}</span>` +
-        `</span>`
-      )
-      .join(' ');
+    // Split into 3 natural phrase groups
+    const words = raw.split(' ');
+    const mid   = Math.ceil(words.length / 3);
+    const lines = [
+      words.slice(0, mid).join(' '),
+      words.slice(mid, mid * 2).join(' '),
+      words.slice(mid * 2).join(' '),
+    ].filter(Boolean);
+
     heroTitle.setAttribute('aria-label', raw);
+    heroTitle.innerHTML = lines.map((line, i) => {
+      const accentClass = i === lines.length - 1 ? ' hero__line--accent' : '';
+      return `<span class="hero__line-wrap">` +
+               `<span class="hero__line${accentClass}" style="animation-delay:${0.05 + i * 0.15}s">${line}</span>` +
+             `</span>`;
+    }).join('');
   }
 
-  // Blur-fade the hero badge, subtitle and CTAs in sequence after title
+  // Sequence: badge → subtitle → CTA after lines finish
   const heroSequence = [
-    { sel: '.hero__badge',   delay: 0.65 },
-    { sel: '.hero__subtitle', delay: 0.8  },
-    { sel: '.hero__cta',      delay: 0.95 },
+    { sel: '.hero__badge',    delay: 0.6  },
+    { sel: '.hero__subtitle', delay: 0.75 },
+    { sel: '.hero__cta',      delay: 0.9  },
   ];
   heroSequence.forEach(({ sel, delay }) => {
     const el = document.querySelector(sel);
     if (!el) return;
-    el.style.opacity = '0';
-    el.style.filter  = 'blur(8px)';
-    el.style.transform = 'translateY(8px)';
-    el.style.transition = `opacity 1s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s,
-                           filter  1s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s,
-                           transform 1s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`;
+    el.style.opacity   = '0';
+    el.style.transform = 'translateY(16px)';
+    el.style.transition = `opacity 0.75s cubic-bezier(0.16,1,0.3,1) ${delay}s,
+                            transform 0.75s cubic-bezier(0.16,1,0.3,1) ${delay}s`;
     requestAnimationFrame(() => requestAnimationFrame(() => {
-      el.style.opacity = '1';
-      el.style.filter  = 'blur(0px)';
+      el.style.opacity   = '1';
       el.style.transform = 'translateY(0)';
     }));
   });
