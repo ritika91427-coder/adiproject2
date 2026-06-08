@@ -5,7 +5,7 @@ const { Pool } = require('pg');
 const session = require('express-session');
 const nodemailer = require('nodemailer');
 const path = require('path');
-const OpenAI = require('openai');
+const Groq = require('groq-sdk');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -73,7 +73,7 @@ function sendAdminEmail(appointment) {
 }
 
 // ── AI Chatbot ────────────────────────────────────────────────────────────
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 const SYSTEM_PROMPT = `You are a helpful, friendly, and professional AI assistant for Wangduk Health and Research, a hospital located in Bistupur, Jamshedpur, Jharkhand, India.
 
@@ -117,8 +117,8 @@ app.post('/api/chat', async (req, res) => {
       { role: 'user', content: message }
     ];
 
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
+    const completion = await groq.chat.completions.create({
+      model: 'llama-3.1-8b-instant',
       messages,
       max_tokens: 400,
       temperature: 0.7
