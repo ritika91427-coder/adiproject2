@@ -1627,7 +1627,19 @@ textarea {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-xl);
-  align-items: start;
+  align-items: stretch;
+}
+
+.appointment__map {
+  display: flex;
+  flex-direction: column;
+}
+
+.appointment__map .tracker__inline {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .map-container {
