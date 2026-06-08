@@ -78,7 +78,7 @@ body > * {
 .about {
   background: transparent;
 }
-.about__text { color: rgba(255,255,255,0.65); }
+.about__text { color: rgba(255,255,255,0.82); }
 
 .stat-card {
   background: rgba(255,255,255,0.05);
