@@ -975,12 +975,15 @@
         </div>
         <h2 class="admin-modal__title" id="adminTitle">Admin Access</h2>
         <p class="admin-modal__subtitle">Wangduk Health &amp; Research</p>
-        <div class="form-group">
-          <label for="adminPassword">Password</label>
-          <input type="password" id="adminPassword" placeholder="Enter admin password" autocomplete="current-password">
-          <span class="form-error" id="adminPasswordError" role="alert"></span>
-        </div>
-        <button class="btn btn--primary admin-modal__btn" id="adminLoginBtn">Sign In</button>
+        <form id="adminLoginForm" autocomplete="on">
+          <input type="text" name="username" value="admin" autocomplete="username" style="display:none" aria-hidden="true">
+          <div class="form-group">
+            <label for="adminPassword">Password</label>
+            <input type="password" id="adminPassword" name="password" placeholder="Enter admin password" autocomplete="current-password">
+            <span class="form-error" id="adminPasswordError" role="alert"></span>
+          </div>
+          <button type="submit" class="btn btn--primary admin-modal__btn" id="adminLoginBtn">Sign In</button>
+        </form>
       </div>
 
       <!-- Dashboard Screen -->

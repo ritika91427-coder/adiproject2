@@ -45,6 +45,10 @@
               inset 0 1px 0 rgba(255,255,255,0.65);
   letter-spacing: 0.14em !important;
   font-size: 0.72rem !important;
+  -webkit-text-fill-color: #3b5bdb !important;
+  background-clip: initial !important;
+  -webkit-background-clip: initial !important;
+  color: #3b5bdb !important;
 }
 
 /* Thicker, wider divider */
@@ -232,6 +236,9 @@
   background: rgba(255,255,255,0.1) !important;
   border-color: rgba(255,255,255,0.18) !important;
   color: rgba(255,255,255,0.88) !important;
+  -webkit-text-fill-color: rgba(255,255,255,0.88) !important;
+  background-clip: initial !important;
+  -webkit-background-clip: initial !important;
   box-shadow: none !important;
 }
 .features .section__divider {
@@ -310,6 +317,9 @@
   background: rgba(255,255,255,0.09) !important;
   border-color: rgba(255,255,255,0.16) !important;
   color: rgba(255,255,255,0.85) !important;
+  -webkit-text-fill-color: rgba(255,255,255,0.85) !important;
+  background-clip: initial !important;
+  -webkit-background-clip: initial !important;
   box-shadow: none !important;
 }
 .testimonials .section__divider {
@@ -475,6 +485,9 @@
   background: rgba(255,255,255,0.09) !important;
   border-color: rgba(255,255,255,0.16) !important;
   color: rgba(255,255,255,0.85) !important;
+  -webkit-text-fill-color: rgba(255,255,255,0.85) !important;
+  background-clip: initial !important;
+  -webkit-background-clip: initial !important;
   box-shadow: none !important;
 }
 .contact .section__divider {

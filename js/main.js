@@ -365,6 +365,10 @@
   if (adminClose && adminOverlay) {
     adminClose.addEventListener('click', () => { adminOverlay.hidden = true; document.body.style.overflow = ''; });
   }
+  const adminLoginForm = document.getElementById('adminLoginForm');
+  if (adminLoginForm) {
+    adminLoginForm.addEventListener('submit', (e) => { e.preventDefault(); });
+  }
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && adminOverlay && !adminOverlay.hidden) {
       adminOverlay.hidden = true;
