@@ -645,6 +645,7 @@ textarea {
   grid-template-rows: 1fr 1fr;
   gap: var(--space-sm);
   margin-bottom: var(--space-md);
+  max-height: 320px;
 }
 
 .showcase-card {
@@ -653,11 +654,13 @@ textarea {
   overflow: hidden;
   box-shadow: var(--shadow-lg);
   margin: 0;
+  max-height: 155px;
 }
 
 .showcase-card--large {
   grid-row: span 2;
-  min-height: 300px;
+  min-height: unset;
+  max-height: 320px;
 }
 
 .showcase-card img {
