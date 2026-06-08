@@ -542,4 +542,106 @@
 
   // Initial render
   renderPublicUpdates();
+
+  // ── Appointment Status Tracker ─────────────────────────────────────────
+  const trackerInput  = document.getElementById('trackerInput');
+  const trackerBtn    = document.getElementById('trackerBtn');
+  const trackerResult = document.getElementById('trackerResult');
+  const trackerFound  = document.getElementById('trackerFound');
+  const trackerError  = document.getElementById('trackerError');
+  const trackerErrorMsg = document.getElementById('trackerErrorMsg');
+
+  function formatDate(dateStr) {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+
+  function formatTime(timeStr) {
+    const [h, m] = timeStr.split(':');
+    const hour = parseInt(h, 10);
+    const ampm = hour >= 12 ? 'PM' : 'AM';
+    const display = hour % 12 || 12;
+    return `${display}:${m} ${ampm}`;
+  }
+
+  function setSteps(status) {
+    const steps    = document.querySelectorAll('.tracker__step');
+    const lines    = document.querySelectorAll('.tracker__step-line');
+    const order    = ['Pending', 'Confirmed', 'Completed'];
+    const activeIdx = order.indexOf(status);
+    const cancelled = status === 'Cancelled';
+
+    steps.forEach((step, i) => {
+      step.classList.remove('is-active', 'is-done', 'is-cancelled');
+      if (cancelled) {
+        if (i === 0) step.classList.add('is-cancelled');
+      } else {
+        if (i < activeIdx)  step.classList.add('is-done');
+        if (i === activeIdx) step.classList.add('is-active');
+      }
+    });
+
+    lines.forEach((line, i) => {
+      line.classList.remove('is-done');
+      if (!cancelled && i < activeIdx) line.classList.add('is-done');
+    });
+  }
+
+  function showResult(data) {
+    trackerResult.hidden = false;
+    trackerFound.hidden  = false;
+    trackerError.hidden  = true;
+
+    const badge = document.getElementById('trackerBadge');
+    const statusKey = (data.status || 'pending').toLowerCase();
+    badge.className = `tracker__badge tracker__badge--${statusKey}`;
+    badge.textContent = data.status;
+
+    document.getElementById('trackerApptId').textContent = `Appointment #${data.id}`;
+    document.getElementById('trackerName').textContent   = data.full_name;
+    document.getElementById('trackerDept').textContent   = data.department;
+    document.getElementById('trackerDate').textContent   = formatDate(data.appointment_date);
+    document.getElementById('trackerTime').textContent   = formatTime(data.appointment_time);
+
+    setSteps(data.status);
+  }
+
+  function showError(msg) {
+    trackerResult.hidden = false;
+    trackerFound.hidden  = true;
+    trackerError.hidden  = false;
+    trackerErrorMsg.textContent = msg;
+  }
+
+  async function checkStatus() {
+    const id = trackerInput.value.trim();
+    if (!id || isNaN(id) || parseInt(id) < 1) {
+      showError('Please enter a valid appointment ID.');
+      trackerResult.hidden = false;
+      return;
+    }
+
+    trackerBtn.classList.add('is-loading');
+    trackerBtn.textContent = 'Checking…';
+
+    try {
+      const res  = await fetch(`/api/appointments/status/${parseInt(id)}`);
+      const data = await res.json();
+      if (!res.ok) {
+        showError(data.error || 'Something went wrong. Please try again.');
+      } else {
+        showResult(data);
+      }
+    } catch {
+      showError('Could not reach the server. Please check your connection.');
+    } finally {
+      trackerBtn.classList.remove('is-loading');
+      trackerBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Check Status`;
+    }
+  }
+
+  if (trackerBtn) {
+    trackerBtn.addEventListener('click', checkStatus);
+    trackerInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') checkStatus(); });
+  }
 })();

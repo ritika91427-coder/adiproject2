@@ -42,6 +42,7 @@
           <li><a href="#about" class="nav__link">About Us</a></li>
           <li><a href="#services" class="nav__link">Services</a></li>
           <li><a href="#team" class="nav__link">Our Team</a></li>
+          <li><a href="#track" class="nav__link">Track</a></li>
           <li><a href="#reach-us" class="nav__link">Reach Us</a></li>
         </ul>
         <a href="#appointment" class="btn btn--primary btn--nav">Book Appointment</a>
@@ -695,6 +696,104 @@
               <p>Thank you for choosing Wangduk Health and Research. Our team will contact you shortly to confirm your appointment.</p>
               <button type="button" class="btn btn--outline" id="bookAnother">Book Another Appointment</button>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Appointment Status Tracker Section -->
+    <section class="section tracker" id="track" aria-labelledby="tracker-heading">
+      <div class="container">
+        <div class="section__header reveal">
+          <span class="section__eyebrow">Track Your Visit</span>
+          <h2 class="section__title" id="tracker-heading">Appointment Status</h2>
+          <p class="section__subtitle">Enter your appointment ID to instantly check the current status of your booking.</p>
+          <div class="section__divider" aria-hidden="true"></div>
+        </div>
+
+        <div class="tracker__card glass reveal">
+          <div class="tracker__search">
+            <div class="tracker__input-wrap">
+              <svg class="tracker__input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <input
+                type="number"
+                id="trackerInput"
+                class="tracker__input"
+                placeholder="Enter Appointment ID (e.g. 42)"
+                min="1"
+                aria-label="Appointment ID"
+              />
+            </div>
+            <button class="btn btn--primary tracker__btn" id="trackerBtn" aria-label="Check appointment status">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              Check Status
+            </button>
+          </div>
+
+          <!-- Result panel (hidden until lookup) -->
+          <div class="tracker__result" id="trackerResult" aria-live="polite" hidden>
+
+            <!-- Success state -->
+            <div class="tracker__found" id="trackerFound" hidden>
+              <div class="tracker__status-row">
+                <span class="tracker__badge" id="trackerBadge"></span>
+                <span class="tracker__appt-id" id="trackerApptId"></span>
+              </div>
+              <div class="tracker__details">
+                <div class="tracker__detail-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  <div>
+                    <p class="tracker__detail-label">Patient</p>
+                    <p class="tracker__detail-value" id="trackerName"></p>
+                  </div>
+                </div>
+                <div class="tracker__detail-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                  <div>
+                    <p class="tracker__detail-label">Department</p>
+                    <p class="tracker__detail-value" id="trackerDept"></p>
+                  </div>
+                </div>
+                <div class="tracker__detail-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  <div>
+                    <p class="tracker__detail-label">Date</p>
+                    <p class="tracker__detail-value" id="trackerDate"></p>
+                  </div>
+                </div>
+                <div class="tracker__detail-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <div>
+                    <p class="tracker__detail-label">Time</p>
+                    <p class="tracker__detail-value" id="trackerTime"></p>
+                  </div>
+                </div>
+              </div>
+              <!-- Status progress steps -->
+              <div class="tracker__steps" id="trackerSteps">
+                <div class="tracker__step" data-step="Pending">
+                  <div class="tracker__step-dot"></div>
+                  <span>Pending</span>
+                </div>
+                <div class="tracker__step-line"></div>
+                <div class="tracker__step" data-step="Confirmed">
+                  <div class="tracker__step-dot"></div>
+                  <span>Confirmed</span>
+                </div>
+                <div class="tracker__step-line"></div>
+                <div class="tracker__step" data-step="Completed">
+                  <div class="tracker__step-dot"></div>
+                  <span>Completed</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Error state -->
+            <div class="tracker__error" id="trackerError" hidden>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <p id="trackerErrorMsg"></p>
+            </div>
+
           </div>
         </div>
       </div>

@@ -172,6 +172,28 @@ app.post('/api/appointments', async (req, res) => {
   }
 });
 
+// ── Public: check appointment status ──────────────────────────────────────
+app.get('/api/appointments/status/:id', async (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  if (!Number.isInteger(id) || id <= 0) {
+    return res.status(400).json({ error: 'Invalid appointment ID' });
+  }
+  try {
+    const result = await pool.query(
+      `SELECT id, full_name, department, appointment_date, appointment_time, status
+       FROM appointments WHERE id = $1`,
+      [id]
+    );
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'No appointment found with that ID' });
+    }
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error('[DB] Status check error:', err.message);
+    res.status(500).json({ error: 'Database error. Please try again.' });
+  }
+});
+
 // ── Admin: login / logout ─────────────────────────────────────────────────
 app.post('/api/admin/login', (req, res) => {
   const { password } = req.body;

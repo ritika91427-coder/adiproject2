@@ -1521,6 +1521,279 @@ textarea {
 }
 
 /* ============================================
+   Appointment Tracker Section
+   ============================================ */
+.tracker {
+  background: linear-gradient(135deg, #f0f6ff 0%, #f8fafc 60%, #eef4ff 100%);
+}
+
+.tracker__card {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-xl);
+  border-radius: var(--radius-xl);
+}
+
+.tracker__search {
+  display: flex;
+  gap: 0.75rem;
+  align-items: stretch;
+}
+
+.tracker__input-wrap {
+  flex: 1;
+  position: relative;
+}
+
+.tracker__input-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: var(--color-gray-400);
+  pointer-events: none;
+}
+
+.tracker__input {
+  width: 100%;
+  height: 52px;
+  padding: 0 1rem 0 2.75rem;
+  border: 1.5px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  color: var(--color-navy);
+  background: var(--color-white);
+  transition: border-color 0.25s, box-shadow 0.25s;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.tracker__input::-webkit-outer-spin-button,
+.tracker__input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+.tracker__input:focus {
+  outline: none;
+  border-color: var(--color-blue, #2563eb);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+
+.tracker__btn {
+  height: 52px;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.tracker__btn svg {
+  width: 17px;
+  height: 17px;
+}
+
+/* Result panel */
+.tracker__result {
+  margin-top: var(--space-lg);
+  border-top: 1px solid var(--color-gray-100);
+  padding-top: var(--space-lg);
+}
+
+/* Status badge */
+.tracker__status-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: var(--space-md);
+}
+
+.tracker__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.tracker__badge::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  display: inline-block;
+}
+
+.tracker__badge--pending   { background: #fef9c3; color: #854d0e; }
+.tracker__badge--confirmed { background: #dbeafe; color: #1e40af; }
+.tracker__badge--completed { background: #dcfce7; color: #166534; }
+.tracker__badge--cancelled { background: #fee2e2; color: #991b1b; }
+
+.tracker__appt-id {
+  font-size: 0.85rem;
+  color: var(--color-gray-400);
+  font-family: monospace;
+}
+
+/* Detail grid */
+.tracker__details {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.tracker__detail-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  background: rgba(37,99,235,0.04);
+  border: 1px solid rgba(37,99,235,0.08);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+}
+
+.tracker__detail-item svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: var(--color-blue, #2563eb);
+  margin-top: 2px;
+}
+
+.tracker__detail-label {
+  font-size: 0.72rem;
+  color: var(--color-gray-400);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.2rem;
+}
+
+.tracker__detail-value {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-navy);
+}
+
+/* Progress steps */
+.tracker__steps {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: rgba(0,0,0,0.025);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.5rem;
+}
+
+.tracker__step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.tracker__step span {
+  font-size: 0.75rem;
+  color: var(--color-gray-400);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.tracker__step-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2.5px solid var(--color-gray-200);
+  background: var(--color-white);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.tracker__step-line {
+  flex: 1;
+  height: 2.5px;
+  background: var(--color-gray-200);
+  margin-bottom: 1.4rem;
+  transition: background 0.3s ease;
+}
+
+/* Active / done step states */
+.tracker__step.is-active .tracker__step-dot {
+  border-color: #2563eb;
+  background: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37,99,235,0.15);
+}
+
+.tracker__step.is-active span { color: #2563eb; font-weight: 700; }
+
+.tracker__step.is-done .tracker__step-dot {
+  border-color: #16a34a;
+  background: #16a34a;
+}
+
+.tracker__step.is-done .tracker__step-dot::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 10 10' fill='none' stroke='white' stroke-width='2' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='1.5,5 4,7.5 8.5,2.5'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+.tracker__step.is-done span { color: #16a34a; }
+
+.tracker__step-line.is-done { background: #16a34a; }
+
+/* Cancelled state */
+.tracker__step.is-cancelled .tracker__step-dot {
+  border-color: #dc2626;
+  background: #dc2626;
+}
+
+.tracker__step.is-cancelled span { color: #dc2626; font-weight: 700; }
+
+/* Error panel */
+.tracker__error {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #fff5f5;
+  border: 1px solid #fecaca;
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  color: #dc2626;
+}
+
+.tracker__error svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.tracker__error p {
+  font-size: 0.9375rem;
+  color: #dc2626;
+}
+
+/* Loading spinner on button */
+.tracker__btn.is-loading {
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+@media (max-width: 540px) {
+  .tracker__search { flex-direction: column; }
+  .tracker__btn    { width: 100%; justify-content: center; }
+  .tracker__steps  { padding: 0.75rem 0.75rem; }
+  .tracker__step span { font-size: 0.65rem; }
+}
+
+/* ============================================
    Contact Section
    ============================================ */
 .contact {
