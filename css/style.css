@@ -680,17 +680,6 @@ textarea {
   transform: scale(1.04);
 }
 
-.showcase-card:not(.showcase-card--large) {
-  background: #0a1f44;
-}
-
-.showcase-card:not(.showcase-card--large) img {
-  transform: scale(0.78);
-}
-
-.showcase-card:not(.showcase-card--large):hover img {
-  transform: scale(0.82);
-}
 
 .showcase-card__caption {
   position: absolute;
