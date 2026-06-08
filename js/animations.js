@@ -6,21 +6,6 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ── Page Load Progress Bar ──────────────────
-  const bar = document.createElement('div');
-  bar.id = 'page-progress';
-  document.body.prepend(bar);
-
-  let scrollProgress = 0;
-  window.addEventListener('scroll', () => {
-    const doc = document.documentElement;
-    const scrolled = doc.scrollTop;
-    const total = doc.scrollHeight - doc.clientHeight;
-    scrollProgress = total > 0 ? (scrolled / total) * 100 : 0;
-    bar.style.width = scrollProgress + '%';
-  }, { passive: true });
-
-
   // ── Hero Title — Word-by-Word Animation ─────
   const heroTitle = document.querySelector('.hero__title');
   if (heroTitle) {

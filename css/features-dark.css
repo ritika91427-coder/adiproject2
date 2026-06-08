@@ -1,0 +1,274 @@
+/* ============================================================
+   Wangduk Health — Features Section Dark Theme
+   Matches reference: dark navy bg, photo cards, circular icons
+   ============================================================ */
+
+/* ── Section Background ── */
+.features {
+  background: linear-gradient(135deg, #080f2a 0%, #0d1838 45%, #130835 75%, #070d22 100%) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hex grid pattern overlay */
+.features::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='92'%3E%3Cpath d='M40 4L76 24v44L40 88 4 68V24z' fill='none' stroke='rgba(100,130,255,0.07)' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 80px 92px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.features .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Section Header on Dark ── */
+.features .section__title    { color: #fff; }
+.features .section__subtitle { color: rgba(255,255,255,0.6); }
+
+/* ── Grid: 4 columns ── */
+.features__grid {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+@media (max-width: 1100px) { .features__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px)  { .features__grid { grid-template-columns: 1fr; } }
+
+/* ── Feature Card Base ── */
+.features .feature-card.glass {
+  /* Strip the light glass */
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.feature-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px !important;
+  padding: 1.6rem !important;
+  min-height: 270px;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.35s ease !important;
+  border: 1px solid rgba(255,255,255,0.09) !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4) !important;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px) scale(1.015) !important;
+  box-shadow: 0 20px 56px rgba(0,0,0,0.55) !important;
+}
+
+/* ── Per-card photo + gradient backgrounds ── */
+.feature-card:nth-child(1) {
+  background:
+    linear-gradient(160deg, rgba(0,30,100,0.92) 0%, rgba(0,90,130,0.55) 55%, rgba(0,0,0,0.1) 100%),
+    url('../assets/svc-mri.jpg') center/cover no-repeat !important;
+}
+.feature-card:nth-child(2) {
+  background:
+    linear-gradient(160deg, rgba(0,50,80,0.92) 0%, rgba(0,110,140,0.5) 55%, rgba(0,0,0,0.1) 100%),
+    url('../assets/svc-ct.jpg') center/cover no-repeat !important;
+}
+.feature-card:nth-child(3) {
+  background:
+    linear-gradient(160deg, rgba(45,0,110,0.92) 0%, rgba(80,0,160,0.5) 55%, rgba(0,0,0,0.1) 100%),
+    url('../assets/team-group.jpg') center/cover no-repeat !important;
+}
+.feature-card:nth-child(4) {
+  background:
+    linear-gradient(160deg, rgba(0,50,60,0.92) 0%, rgba(0,80,80,0.5) 55%, rgba(0,0,0,0.1) 100%),
+    url('../assets/banner.jpg') center/cover no-repeat !important;
+}
+.feature-card:nth-child(5) {
+  background:
+    linear-gradient(160deg, rgba(100,35,0,0.92) 0%, rgba(80,50,0,0.55) 55%, rgba(0,0,0,0.1) 100%),
+    url('../assets/svc-cardiology.jpg') center/cover no-repeat !important;
+}
+.feature-card:nth-child(6) {
+  background:
+    linear-gradient(160deg, rgba(50,0,100,0.92) 0%, rgba(80,0,140,0.5) 55%, rgba(0,0,0,0.1) 100%),
+    url('../assets/svc-orthopedics.jpg') center/cover no-repeat !important;
+}
+.feature-card:nth-child(7) {
+  background:
+    linear-gradient(160deg, rgba(0,25,80,0.92) 0%, rgba(0,60,130,0.5) 55%, rgba(0,0,0,0.1) 100%),
+    url('../assets/hero-1.jpg') center/cover no-repeat !important;
+}
+.feature-card:nth-child(8) {
+  background:
+    linear-gradient(160deg, rgba(60,0,80,0.92) 0%, rgba(100,0,60,0.5) 55%, rgba(0,0,0,0.1) 100%),
+    url('../assets/svc-emergency.jpg') center/cover no-repeat !important;
+}
+
+/* ── Icon — circular ── */
+.feature-card .feature-card__icon {
+  width: 62px !important;
+  height: 62px !important;
+  border-radius: 50% !important;
+  padding: 14px !important;
+  margin-bottom: 1.1rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.25) !important;
+}
+
+/* Per-card icon gradient colors */
+.feature-card:nth-child(1) .feature-card__icon { background: linear-gradient(135deg, #3b82f6, #06b6d4) !important; }
+.feature-card:nth-child(2) .feature-card__icon { background: linear-gradient(135deg, #06b6d4, #0891b2) !important; }
+.feature-card:nth-child(3) .feature-card__icon { background: linear-gradient(135deg, #8b5cf6, #6d28d9) !important; }
+.feature-card:nth-child(4) .feature-card__icon { background: linear-gradient(135deg, #10b981, #047857) !important; }
+.feature-card:nth-child(5) .feature-card__icon { background: linear-gradient(135deg, #f97316, #dc2626) !important; }
+.feature-card:nth-child(6) .feature-card__icon { background: linear-gradient(135deg, #a78bfa, #7c3aed) !important; }
+.feature-card:nth-child(7) .feature-card__icon { background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important; }
+.feature-card:nth-child(8) .feature-card__icon { background: linear-gradient(135deg, #ec4899, #be123c) !important; }
+
+.feature-card .feature-card__icon svg {
+  width: 28px !important;
+  height: 28px !important;
+  color: #fff;
+  stroke: #fff;
+}
+
+/* ── Title ── */
+.feature-card .feature-card__title {
+  font-size: 1.175rem !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+  line-height: 1.35 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Colored accent line under each title */
+.feature-card .feature-card__title::after {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 3px;
+  border-radius: 2px;
+  margin-top: 0.55rem;
+  margin-bottom: 0.8rem;
+}
+
+.feature-card:nth-child(1) .feature-card__title::after { background: linear-gradient(90deg, #3b82f6, #06b6d4); }
+.feature-card:nth-child(2) .feature-card__title::after { background: linear-gradient(90deg, #06b6d4, #22d3ee); }
+.feature-card:nth-child(3) .feature-card__title::after { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+.feature-card:nth-child(4) .feature-card__title::after { background: linear-gradient(90deg, #10b981, #34d399); }
+.feature-card:nth-child(5) .feature-card__title::after { background: linear-gradient(90deg, #f97316, #fbbf24); }
+.feature-card:nth-child(6) .feature-card__title::after { background: linear-gradient(90deg, #a78bfa, #c4b5fd); }
+.feature-card:nth-child(7) .feature-card__title::after { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+.feature-card:nth-child(8) .feature-card__title::after { background: linear-gradient(90deg, #ec4899, #f472b6); }
+
+/* ── Description ── */
+.feature-card .feature-card__desc {
+  font-size: 0.9rem !important;
+  color: rgba(255,255,255,0.68) !important;
+  line-height: 1.65 !important;
+}
+
+/* ── 24/7 Badge (card 8) ── */
+.feature-card__badge-24 {
+  position: absolute;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ec4899, #be123c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 16px rgba(236,72,153,0.5), 0 0 0 4px rgba(236,72,153,0.2);
+  animation: badge24Pulse 2s ease-in-out infinite;
+  z-index: 2;
+}
+
+@keyframes badge24Pulse {
+  0%, 100% { box-shadow: 0 4px 16px rgba(236,72,153,0.5), 0 0 0 4px rgba(236,72,153,0.2); }
+  50%       { box-shadow: 0 4px 20px rgba(236,72,153,0.7), 0 0 0 8px rgba(236,72,153,0.12); }
+}
+
+/* ── Banner — dark style ── */
+.features__banner {
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.features__banner-overlay {
+  background: linear-gradient(90deg, rgba(6,13,40,0.9) 0%, rgba(6,13,40,0.55) 60%, transparent 100%);
+}
+
+/* ── Trust Bar ── */
+.features__trust-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: rgba(255,255,255,0.07);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  margin-top: 2rem;
+  overflow: hidden;
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem 1.5rem;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  transition: background 0.3s ease;
+}
+.trust-item:last-child { border-right: none; }
+.trust-item:hover { background: rgba(255,255,255,0.05); }
+
+.trust-item__icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  background: rgba(255,255,255,0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.trust-item__icon svg {
+  width: 18px;
+  height: 18px;
+  stroke: rgba(255,255,255,0.75);
+}
+.trust-item__text {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.82);
+  line-height: 1.35;
+}
+
+@media (max-width: 768px) {
+  .features__trust-bar { grid-template-columns: repeat(2, 1fr); }
+  .trust-item:nth-child(2) { border-right: none; }
+  .trust-item:nth-child(3),
+  .trust-item:nth-child(4) { border-top: 1px solid rgba(255,255,255,0.08); }
+}
+@media (max-width: 480px) {
+  .features__trust-bar { grid-template-columns: 1fr; }
+  .trust-item { border-right: none !important; border-top: 1px solid rgba(255,255,255,0.08) !important; }
+  .trust-item:first-child { border-top: none !important; }
+}
