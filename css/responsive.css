@@ -1,25 +1,49 @@
 /* ============================================================
-   Wangduk Health — Responsive Stylesheet
-   Only mobile/tablet overrides. Desktop (>992px) untouched.
+   Wangduk Health — Mobile UX Stylesheet
+   Pure mobile/tablet overrides — desktop (>992px) is untouched.
    Breakpoints:
-     992px  — tablet landscape / hamburger nav
+     992px  — tablet landscape
      768px  — tablet portrait
      576px  — large phone
      400px  — small phone
    ============================================================ */
 
-/* ── Base overflow guard ── */
-html, body {
-  overflow-x: hidden;
-  max-width: 100%;
+/* ── Overflow guard & box model ── */
+html, body { overflow-x: hidden; }
+*, *::before, *::after { box-sizing: border-box; }
+img, iframe, video, embed, object { max-width: 100%; }
+
+/* ============================================================
+   TYPOGRAPHY — 16px minimum body text on mobile
+   ============================================================ */
+@media (max-width: 768px) {
+  body {
+    font-size: 1rem;           /* 16px guaranteed */
+    line-height: 1.7;
+    -webkit-text-size-adjust: 100%;
+    hyphens: auto;
+  }
+
+  p { font-size: 1rem; line-height: 1.75; }
+
+  .section__title    { font-size: clamp(1.6rem, 5.5vw, 2.2rem); }
+  .section__subtitle { font-size: 1rem; line-height: 1.7; }
+  .section__eyebrow  { font-size: 0.75rem; }
+
+  /* Tighter section header margin */
+  .section__header { margin-bottom: 1.5rem; }
 }
 
-* {
-  box-sizing: border-box;
+/* ============================================================
+   GLOBAL SPACING — halve the section vertical whitespace
+   ============================================================ */
+@media (max-width: 768px) {
+  .section { padding: 2.5rem 0; }
 }
 
-/* ── Container padding on small screens ── */
 @media (max-width: 576px) {
+  .section { padding: 2rem 0; }
+
   .container {
     padding-left: 1rem;
     padding-right: 1rem;
@@ -30,88 +54,110 @@ html, body {
    HERO
    ============================================================ */
 @media (max-width: 768px) {
-  .hero {
-    min-height: 85vh;
-  }
+  .hero { min-height: 80vh; }
 
   .hero__content {
     max-width: 100%;
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-    padding-top: calc(var(--header-height) + 1rem);
+    padding: calc(var(--header-height) + 1.25rem) 1.25rem 2rem;
   }
 
   .hero__badge {
     font-size: 0.7rem;
-    padding: 0.4rem 0.75rem;
-    margin-bottom: 1rem;
+    padding: 0.35rem 0.75rem;
+    margin-bottom: 0.875rem;
   }
 
   .hero__title {
-    font-size: clamp(2rem, 8vw, 2.75rem);
+    font-size: clamp(1.9rem, 7.5vw, 2.6rem);
     margin-bottom: 0.75rem;
+    line-height: 1.2;
   }
 
   .hero__subtitle {
-    font-size: 0.9375rem;
+    font-size: 1rem;
+    max-width: 100%;
     margin-bottom: 1.5rem;
   }
 
   .hero__actions {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+    gap: 0.625rem;
   }
 
   .hero__actions .btn {
     width: 100%;
     justify-content: center;
-    max-width: 320px;
   }
+
+  .hero__pagination { bottom: 1.25rem; }
 }
 
 @media (max-width: 400px) {
-  .hero__title {
-    font-size: clamp(1.75rem, 9vw, 2.25rem);
-  }
-
-  .hero__badge {
-    white-space: normal;
-    text-align: center;
-  }
+  .hero__title { font-size: clamp(1.65rem, 8.5vw, 2rem); }
+  .hero__content { padding-left: 1rem; padding-right: 1rem; }
 }
 
 /* ============================================================
-   SECTION HEADERS
+   ABOUT — showcase + text
    ============================================================ */
 @media (max-width: 768px) {
-  .section__title {
-    font-size: clamp(1.65rem, 5.5vw, 2.25rem);
+  /* Showcase: single column, natural heights, no max-height cap */
+  .about__showcase {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    max-height: none;
+    gap: 0.625rem;
+    margin-bottom: 1.25rem;
   }
 
-  .section__subtitle {
-    font-size: 0.9375rem;
+  .showcase-card--large {
+    grid-row: span 1;
+    max-height: none;
+    min-height: 200px;
   }
-}
 
-@media (max-width: 400px) {
-  .section__title {
-    font-size: clamp(1.5rem, 7vw, 2rem);
+  .showcase-card {
+    max-height: none;
+    min-height: 160px;
   }
-}
 
-/* ============================================================
-   ABOUT SECTION
-   ============================================================ */
-@media (max-width: 768px) {
+  /* Text + stats: single column, full width */
+  .about__grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .about__text {
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  /* Stats: 2 columns on tablet, tight padding */
   .about__stats {
     grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
   }
 }
 
-@media (max-width: 400px) {
-  .about__stats {
-    grid-template-columns: 1fr;
+@media (max-width: 576px) {
+  .stat-card {
+    padding: 1.125rem 0.875rem;
+    text-align: center;
   }
+
+  .stat-card__icon { margin: 0 auto 0.5rem; }
+
+  .stat-card__value {
+    font-size: 1.875rem;
+    line-height: 1.1;
+  }
+
+  .stat-card__label { font-size: 0.8rem; }
+}
+
+@media (max-width: 400px) {
+  .about__stats { grid-template-columns: 1fr; }
 }
 
 /* ============================================================
@@ -124,48 +170,79 @@ html, body {
   }
 
   .director__photo {
-    max-width: 280px;
+    max-width: 240px;
     margin: 0 auto;
   }
 
+  .director__name { font-size: 1.25rem; }
+
+  .director__badges { margin-bottom: 1rem; gap: 0.375rem; }
+
+  .badge { font-size: 0.7rem; padding: 0.3rem 0.75rem; }
+
   .director__quote {
+    padding: 1rem 1rem 1rem calc(1rem + 4px);
+    margin-bottom: 1rem;
+  }
+
+  .director__quote p {
     font-size: 1rem;
-    padding: 1rem 1.25rem;
-  }
-
-  .director__credentials {
-    font-size: 0.85rem;
-  }
-
-  .director__name {
-    font-size: 1.25rem;
+    line-height: 1.75;
+    padding-left: 0.875rem;
+    margin-bottom: 0.625rem;
   }
 }
 
 /* ============================================================
    FEATURES (dark grid)
    ============================================================ */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .features__grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.75rem;
   }
+}
+
+@media (max-width: 500px) {
+  .features__grid { grid-template-columns: 1fr !important; }
 
   .feature-card {
-    padding: 1.25rem !important;
+    padding: 1.125rem !important;
+    min-height: unset !important;
   }
+
+  .feature-card .feature-card__icon {
+    width: 52px !important;
+    height: 52px !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .feature-card__title  { font-size: 1rem !important; }
+  .feature-card__desc   { font-size: 0.9rem !important; line-height: 1.6 !important; }
 }
 
 /* ============================================================
    EXPERT TEAM
    ============================================================ */
 @media (max-width: 768px) {
-  .expert-team__title {
-    font-size: 1.65rem;
+  .expert-team__inner {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
   }
 
-  .expert-team__highlights {
-    gap: 0.75rem;
+  .expert-team__image-wrap { order: -1; }
+
+  .expert-team__title { font-size: 1.6rem; }
+
+  .expert-team__desc {
+    font-size: 1rem;
+    max-width: 100%;
+    line-height: 1.75;
   }
+
+  .expert-team__highlights { gap: 0.625rem; }
+
+  .expert-team__highlight-text { font-size: 0.9375rem; }
 }
 
 /* ============================================================
@@ -174,6 +251,16 @@ html, body {
 @media (max-width: 640px) {
   .services__grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .service-card__body { padding: 1.125rem; }
+
+  .service-card__title { font-size: 1.05rem; }
+
+  .service-card__desc {
+    font-size: 0.9375rem;
+    line-height: 1.65;
   }
 }
 
@@ -184,39 +271,55 @@ html, body {
   .appointment__grid {
     grid-template-columns: 1fr;
     align-items: start;
+    gap: 1.5rem;
   }
 
-  /* Disable flex stretch on the left column when stacked */
-  .appointment__map {
-    display: block;
-  }
+  /* Disable flex-stretch when stacked */
+  .appointment__map { display: block; }
+  .appointment__map .tracker__inline { flex: unset; display: block; }
 
-  .appointment__map .tracker__inline {
-    flex: unset;
-    display: block;
-  }
+  .map-container { aspect-ratio: 16 / 9; }
 
-  .map-container {
-    aspect-ratio: 16 / 10;
-  }
+  .form-row { grid-template-columns: 1fr; gap: 0; }
 
-  .form-row {
-    grid-template-columns: 1fr;
-  }
+  .appointment-form.glass { padding: 1.25rem; }
 
-  .appointment-form.glass {
-    padding: 1.25rem;
+  .form-group { margin-bottom: 0.875rem; }
+
+  .form-group label { font-size: 0.875rem; margin-bottom: 0.3rem; }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 1rem;      /* iOS zoom prevention */
+    padding: 0.625rem 0.875rem;
   }
 }
 
 @media (max-width: 576px) {
-  .map-container {
-    aspect-ratio: 4 / 3;
+  .map-container { aspect-ratio: 4 / 3; }
+
+  .location-card {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+  }
+
+  .location-card__icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+  }
+
+  .tracker__inline {
+    padding: 1rem 1.125rem;
+    margin-top: 0.75rem;
   }
 
   .tracker__search {
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.625rem;
   }
 
   .tracker__btn {
@@ -224,221 +327,133 @@ html, body {
     justify-content: center;
   }
 
-  .tracker__steps {
-    padding: 0.75rem;
-    overflow-x: auto;
-  }
+  .tracker__steps { padding: 0.75rem 0.5rem; overflow-x: auto; }
+  .tracker__step span { font-size: 0.7rem; }
 }
 
 /* ============================================================
-   CONTACT CARDS
+   CONTACT CARDS — 2-col on phones, compact padding
    ============================================================ */
-@media (max-width: 576px) {
+@media (max-width: 768px) {
   .contact__grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
   }
+
+  .contact-card {
+    padding: 1.25rem 1rem;
+  }
+
+  .contact-card__icon { width: 46px; height: 46px; margin-bottom: 0.75rem; }
+
+  .contact-card__label { font-size: 0.75rem; }
+  .contact-card__value { font-size: 0.9375rem; word-break: break-all; }
+  .contact-card__desc  { font-size: 0.8rem; line-height: 1.5; }
+
+  .contact-card .btn { font-size: 0.8125rem; padding: 0.5rem 1rem; }
+}
+
+@media (max-width: 400px) {
+  .contact__grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+@media (max-width: 768px) {
+  .testimonials__grid { grid-template-columns: 1fr; gap: 1rem; }
+
+  .testimonial-card {
+    padding: 1.25rem;
+    gap: 0.75rem;
+  }
+
+  .testimonial-card__text { font-size: 0.9375rem; line-height: 1.7; }
+  .testimonial-card__name { font-size: 0.9375rem; }
 }
 
 /* ============================================================
    FOOTER
    ============================================================ */
 @media (max-width: 992px) {
-  .footer__grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-  }
+  .footer__grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
 }
 
 @media (max-width: 576px) {
-  .footer__grid {
-    grid-template-columns: 1fr;
-  }
+  .footer__grid { grid-template-columns: 1fr; gap: 1.5rem; }
 
-  .footer__brand {
-    text-align: center;
-  }
+  .footer__brand { text-align: center; }
+  .footer__social { justify-content: center; }
 
-  .footer__social {
-    justify-content: center;
-  }
+  .footer__heading { font-size: 0.9rem; }
+  .footer__links a,
+  .footer__contact a { font-size: 0.875rem; }
 
   .footer__bottom {
     flex-direction: column;
     text-align: center;
-    gap: 0.5rem;
+    gap: 0.375rem;
   }
+  .footer__bottom p { font-size: 0.8rem; }
 }
 
 /* ============================================================
-   CHATBOT & FAB
+   CHATBOT — doesn't block page content
    ============================================================ */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .chatbot {
-    right: 0.75rem;
-    bottom: 0.75rem;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 1100;
   }
 
+  /* Chatbot window opens upward, full width minus gutters */
   .chatbot__window {
-    width: calc(100vw - 1.5rem);
-    max-height: 70vh;
+    width: calc(100vw - 2rem);
+    max-height: 65vh;
+    border-radius: 14px;
   }
 
-  .chatbot__messages {
-    max-height: 42vh;
-  }
+  .chatbot__messages { max-height: 38vh; }
+}
 
+/* Extra bottom padding so last page content isn't hidden by the toggle button */
+@media (max-width: 768px) {
+  .footer { padding-bottom: 5rem; }
+}
+
+/* ============================================================
+   FAB BUTTONS
+   ============================================================ */
+@media (max-width: 480px) {
   .fab-cta {
-    bottom: 5.5rem;
-    right: 0.75rem;
+    bottom: 5rem;
+    right: 1rem;
+    padding: 0.85rem;
+    border-radius: 50%;
   }
+  .fab-cta span { display: none; }
+
+  .fab--sos { bottom: 9rem; }
+  .fab--top { bottom: 1rem; right: 5rem; }
 }
 
 /* ============================================================
-   TESTIMONIALS
+   TICKER / PARTNERS
    ============================================================ */
 @media (max-width: 576px) {
-  .testimonials__grid {
-    grid-template-columns: 1fr;
-  }
-
-  .testimonial-card {
-    padding: 1.25rem;
-  }
+  .ticker-bar, .partners-strip { font-size: 0.8125rem; }
 }
 
 /* ============================================================
-   TICKER / PARTNERS STRIP
+   ADMIN MODAL
    ============================================================ */
-@media (max-width: 576px) {
-  .ticker-bar,
-  .partners-strip {
-    font-size: 0.8rem;
-  }
-}
-
-/* ============================================================
-   STAT CARDS (about section)
-   ============================================================ */
-@media (max-width: 576px) {
-  .stat-card {
-    padding: 1.25rem 1rem;
-  }
-
-  .stat-card__value {
-    font-size: 2rem;
-  }
-}
-
-/* ============================================================
-   LOCATION CARD
-   ============================================================ */
-@media (max-width: 480px) {
-  .location-card {
-    flex-direction: column;
-    gap: 0.75rem;
-    padding: 1rem 1.25rem;
-  }
-}
-
-/* ============================================================
-   GLASS FORM — appointment
-   ============================================================ */
-@media (max-width: 480px) {
-  .form-group label {
-    font-size: 0.875rem;
-  }
-
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    font-size: 0.9rem;
-    padding: 0.65rem 0.85rem;
-  }
-
-  .btn--submit,
-  [type="submit"] {
-    width: 100%;
-  }
-}
-
-/* ============================================================
-   MISC LAYOUT GUARDS
-   ============================================================ */
-
-/* Prevent images from overflowing */
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-/* Prevent wide tables / embeds from causing horizontal scroll */
-iframe, video, embed, object {
-  max-width: 100%;
-}
-
-/* Fix admin modal on mobile */
 @media (max-width: 576px) {
   .admin-modal__box {
     width: calc(100vw - 2rem);
     max-height: 90vh;
     overflow-y: auto;
     padding: 1.25rem;
-  }
-}
-
-/* ============================================================
-   HERO SECTION — very small phones
-   ============================================================ */
-@media (max-width: 400px) {
-  .hero__content {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  .hero__actions .btn {
-    max-width: 100%;
-  }
-}
-
-/* ============================================================
-   SHOWCASE CARDS (about)
-   ============================================================ */
-@media (max-width: 768px) {
-  /* Remove the fixed max-height so stacked cards aren't squashed */
-  .about__showcase {
-    max-height: none;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    gap: 0.75rem;
-  }
-
-  /* Reset span so large card doesn't try to span 2 rows in 1-col layout */
-  .showcase-card--large {
-    grid-row: span 1;
-    max-height: none;
-    min-height: 220px;
-  }
-
-  .showcase-card {
-    max-height: none;
-    min-height: 180px;
-  }
-}
-
-/* ============================================================
-   DIRECTOR QUOTE block
-   ============================================================ */
-@media (max-width: 576px) {
-  .director__quote-block {
-    padding: 1rem 1.25rem;
-  }
-
-  .director__quote-text {
-    font-size: 0.9375rem;
-  }
-
-  .director__tags {
-    flex-wrap: wrap;
-    gap: 0.4rem;
+    border-radius: 12px;
   }
 }
