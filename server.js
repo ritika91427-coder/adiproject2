@@ -268,6 +268,48 @@ app.patch('/api/admin/appointments/:id', requireAdmin, async (req, res) => {
   }
 });
 
+// ── Public: get updates ───────────────────────────────────────────────────
+app.get('/api/updates', async (req, res) => {
+  try {
+    const result = await pool.query(
+      'SELECT id, title, body, created_at FROM hospital_updates ORDER BY created_at DESC LIMIT 20'
+    );
+    res.json(result.rows);
+  } catch (err) {
+    console.error('[DB] Updates fetch error:', err.message);
+    res.status(500).json({ error: 'Database error' });
+  }
+});
+
+// ── Admin: create update ──────────────────────────────────────────────────
+app.post('/api/admin/updates', requireAdmin, async (req, res) => {
+  const { title, body } = req.body;
+  if (!title || !body) return res.status(400).json({ error: 'Title and body are required' });
+  try {
+    const result = await pool.query(
+      'INSERT INTO hospital_updates (title, body) VALUES ($1, $2) RETURNING *',
+      [title.trim().slice(0, 120), body.trim().slice(0, 500)]
+    );
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error('[DB] Update insert error:', err.message);
+    res.status(500).json({ error: 'Database error' });
+  }
+});
+
+// ── Admin: delete update ──────────────────────────────────────────────────
+app.delete('/api/admin/updates/:id', requireAdmin, async (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  if (!Number.isInteger(id)) return res.status(400).json({ error: 'Invalid ID' });
+  try {
+    await pool.query('DELETE FROM hospital_updates WHERE id = $1', [id]);
+    res.json({ success: true });
+  } catch (err) {
+    console.error('[DB] Update delete error:', err.message);
+    res.status(500).json({ error: 'Database error' });
+  }
+});
+
 // ── Admin: stats ──────────────────────────────────────────────────────────
 app.get('/api/admin/stats', requireAdmin, async (req, res) => {
   try {
@@ -307,7 +349,15 @@ async function initDB() {
       created_at       TIMESTAMP    DEFAULT NOW()
     )
   `);
-  console.log('[DB] appointments table ready');
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS hospital_updates (
+      id         SERIAL PRIMARY KEY,
+      title      VARCHAR(120) NOT NULL,
+      body       VARCHAR(500) NOT NULL,
+      created_at TIMESTAMP    DEFAULT NOW()
+    )
+  `);
+  console.log('[DB] appointments + hospital_updates tables ready');
 }
 
 app.listen(PORT, '0.0.0.0', async () => {

@@ -309,94 +309,7 @@
     }
   });
 
-  // ── Updates & Admin Panel ──
-  const STORAGE_KEY = 'whr_updates';
-  const ADMIN_PASSWORD = 'wangduk@admin';
-
-  function getUpdates() {
-    try {
-      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    } catch (_) {
-      return [];
-    }
-  }
-
-  function saveUpdates(updates) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updates));
-  }
-
-  function formatDate(iso) {
-    const d = new Date(iso);
-    return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
-  }
-
-  // Render updates in the public card
-  function renderPublicUpdates() {
-    const list = document.getElementById('updatesCardList');
-    const empty = document.getElementById('updatesCardEmpty');
-    if (!list) return;
-    const updates = getUpdates();
-
-    // Remove old items (keep empty placeholder)
-    Array.from(list.querySelectorAll('.update-item')).forEach((el) => el.remove());
-
-    if (updates.length === 0) {
-      if (empty) empty.hidden = false;
-    } else {
-      if (empty) empty.hidden = true;
-      updates.forEach((u) => {
-        const item = document.createElement('div');
-        item.className = 'update-item';
-        item.innerHTML = `
-          <div class="update-item__title">${escapeHtml(u.title)}</div>
-          <div class="update-item__body">${escapeHtml(u.body)}</div>
-          <div class="update-item__date">${formatDate(u.date)}</div>`;
-        list.appendChild(item);
-      });
-    }
-  }
-
-  // Render updates in admin dashboard list
-  function renderAdminUpdates() {
-    const list = document.getElementById('adminUpdatesList');
-    const emptyMsg = document.getElementById('adminListEmpty');
-    if (!list) return;
-    const updates = getUpdates();
-
-    Array.from(list.querySelectorAll('.admin-update-row')).forEach((el) => el.remove());
-
-    if (updates.length === 0) {
-      if (emptyMsg) emptyMsg.hidden = false;
-    } else {
-      if (emptyMsg) emptyMsg.hidden = true;
-      updates.forEach((u, idx) => {
-        const row = document.createElement('div');
-        row.className = 'admin-update-row';
-        row.innerHTML = `
-          <div class="admin-update-row__content">
-            <div class="admin-update-row__title">${escapeHtml(u.title)}</div>
-            <div class="admin-update-row__body">${escapeHtml(u.body)}</div>
-            <div class="admin-update-row__date">${formatDate(u.date)}</div>
-          </div>
-          <button class="admin-update-row__delete" aria-label="Delete update" data-idx="${idx}">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
-          </button>`;
-        list.appendChild(row);
-      });
-
-      list.querySelectorAll('.admin-update-row__delete').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          const i = parseInt(btn.dataset.idx, 10);
-          const updates = getUpdates();
-          updates.splice(i, 1);
-          saveUpdates(updates);
-          renderAdminUpdates();
-          renderPublicUpdates();
-        });
-      });
-    }
-  }
-
+  // ── Updates (API-backed) ──────────────────────────────────────────────────
   function escapeHtml(str) {
     return String(str)
       .replace(/&/g, '&amp;')
@@ -405,138 +318,55 @@
       .replace(/"/g, '&quot;');
   }
 
-  // Admin modal elements
+  function formatUpdateDate(iso) {
+    return new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+
+  async function renderPublicUpdates() {
+    const list  = document.getElementById('updatesCardList');
+    const empty = document.getElementById('updatesCardEmpty');
+    if (!list) return;
+    try {
+      const res     = await fetch('/api/updates');
+      const updates = await res.json();
+      Array.from(list.querySelectorAll('.update-item')).forEach(el => el.remove());
+      if (!Array.isArray(updates) || updates.length === 0) {
+        if (empty) empty.hidden = false;
+      } else {
+        if (empty) empty.hidden = true;
+        updates.forEach(u => {
+          const item = document.createElement('div');
+          item.className = 'update-item';
+          item.innerHTML = `
+            <div class="update-item__title">${escapeHtml(u.title)}</div>
+            <div class="update-item__body">${escapeHtml(u.body)}</div>
+            <div class="update-item__date">${formatUpdateDate(u.created_at)}</div>`;
+          list.appendChild(item);
+        });
+      }
+    } catch {
+      if (empty) empty.hidden = false;
+    }
+  }
+
+  // Admin overlay (legacy inline panel — kept for ESC key only)
   const adminOverlay = document.getElementById('adminOverlay');
-  const adminClose = document.getElementById('adminClose');
+  const adminClose   = document.getElementById('adminClose');
   const adminTrigger = document.getElementById('adminTrigger');
-  const adminLogin = document.getElementById('adminLogin');
-  const adminDashboard = document.getElementById('adminDashboard');
-  const adminLoginBtn = document.getElementById('adminLoginBtn');
-  const adminLogoutBtn = document.getElementById('adminLogoutBtn');
-  const adminPasswordInput = document.getElementById('adminPassword');
-  const adminPasswordError = document.getElementById('adminPasswordError');
-  const postUpdateBtn = document.getElementById('postUpdateBtn');
-  const updateTitleInput = document.getElementById('updateTitle');
-  const updateBodyInput = document.getElementById('updateBody');
-  const updateTitleError = document.getElementById('updateTitleError');
-  const updateBodyError = document.getElementById('updateBodyError');
-
-  let adminLoggedIn = false;
-
-  function openAdmin() {
-    adminOverlay.hidden = false;
-    document.body.style.overflow = 'hidden';
-    if (adminLoggedIn) {
-      showDashboard();
-    } else {
-      showLogin();
-    }
-  }
-
-  function closeAdmin() {
-    adminOverlay.hidden = true;
-    document.body.style.overflow = '';
-    if (adminPasswordInput) {
-      adminPasswordInput.value = '';
-      adminPasswordError.textContent = '';
-    }
-  }
-
-  function showLogin() {
-    adminLogin.hidden = false;
-    adminDashboard.hidden = true;
-    setTimeout(() => adminPasswordInput && adminPasswordInput.focus(), 50);
-  }
-
-  function showDashboard() {
-    adminLogin.hidden = true;
-    adminDashboard.hidden = false;
-    renderAdminUpdates();
-  }
 
   if (adminTrigger) {
     adminTrigger.addEventListener('click', (e) => {
       e.preventDefault();
-      openAdmin();
+      window.location.href = '/admin';
     });
   }
-
-  if (adminClose) {
-    adminClose.addEventListener('click', closeAdmin);
+  if (adminClose && adminOverlay) {
+    adminClose.addEventListener('click', () => { adminOverlay.hidden = true; document.body.style.overflow = ''; });
   }
-
-  if (adminOverlay) {
-    adminOverlay.addEventListener('click', (e) => {
-      if (e.target === adminOverlay) closeAdmin();
-    });
-  }
-
-  if (adminLoginBtn) {
-    adminLoginBtn.addEventListener('click', () => {
-      const val = adminPasswordInput ? adminPasswordInput.value : '';
-      if (!val) {
-        adminPasswordError.textContent = 'Please enter the password.';
-        return;
-      }
-      if (val !== ADMIN_PASSWORD) {
-        adminPasswordError.textContent = 'Incorrect password. Please try again.';
-        adminPasswordInput.value = '';
-        adminPasswordInput.focus();
-        return;
-      }
-      adminPasswordError.textContent = '';
-      adminLoggedIn = true;
-      showDashboard();
-    });
-
-    adminPasswordInput && adminPasswordInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') adminLoginBtn.click();
-    });
-  }
-
-  if (adminLogoutBtn) {
-    adminLogoutBtn.addEventListener('click', () => {
-      adminLoggedIn = false;
-      showLogin();
-    });
-  }
-
-  if (postUpdateBtn) {
-    postUpdateBtn.addEventListener('click', () => {
-      const title = updateTitleInput ? updateTitleInput.value.trim() : '';
-      const body = updateBodyInput ? updateBodyInput.value.trim() : '';
-      let valid = true;
-
-      if (!title) {
-        updateTitleError.textContent = 'Please enter a title.';
-        valid = false;
-      } else {
-        updateTitleError.textContent = '';
-      }
-
-      if (!body) {
-        updateBodyError.textContent = 'Please enter a message.';
-        valid = false;
-      } else {
-        updateBodyError.textContent = '';
-      }
-
-      if (!valid) return;
-
-      const updates = getUpdates();
-      updates.unshift({ title, body, date: new Date().toISOString() });
-      saveUpdates(updates);
-
-      updateTitleInput.value = '';
-      updateBodyInput.value = '';
-      renderAdminUpdates();
-      renderPublicUpdates();
-    });
-  }
-
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && adminOverlay && !adminOverlay.hidden) {
-      closeAdmin();
+      adminOverlay.hidden = true;
+      document.body.style.overflow = '';
     }
   });
 
