@@ -3,8 +3,8 @@
 
   const KB = [
     {
-      keys: ['hello', 'hi', 'hey', 'namaste', 'good morning', 'good afternoon', 'good evening', 'howdy', 'greet'],
-      reply: "Namaste! 🙏 Welcome to Wangduk Health and Research. I'm your virtual assistant. How can I help you today?\n\nYou can ask me about our services, doctors, timings, appointments, or anything else!"
+      keys: ['hello', 'hi', 'hey', 'namaste', 'good morning', 'good afternoon', 'good evening', 'howdy'],
+      reply: "Namaste! 🙏 Welcome to Wangduk Health and Research. I'm your virtual assistant. How can I help you today?\n\nHere are some things I can help with:\n• 📅 Book an appointment\n• 🏥 Learn about our services\n• 👨‍⚕️ Find a doctor or specialist\n• 📍 Get directions & contact info\n• 🚑 Emergency assistance"
     },
     {
       keys: ['service', 'specialit', 'department', 'treatment', 'offer', 'provide', 'facility', 'facilities'],
@@ -31,15 +31,15 @@
       reply: "🩺 <b>Diagnostics & Laboratory</b>\n\nOur pathology lab offers:\n• Complete blood count (CBC)\n• Thyroid, sugar & liver panels\n• Urine & stool analysis\n• Culture & sensitivity\n• X-ray & ultrasound\n• All routine & special tests\n\n⏰ Sample collection: 7 AM – 12 PM\n📋 Reports: usually same-day or next-day\n📞 <b>9263403905</b>"
     },
     {
-      keys: ['emergency', 'urgent', 'ambulance', 'accident', 'casualty', 'icu', 'critical', '24 hour', '24×7', '24/7'],
-      reply: "🚑 <b>Emergency Services — 24×7</b>\n\nOur emergency department is open round the clock!\n\n📞 <b>Emergency Hotline: 9263403905</b>\n\nWe handle:\n• Road accidents & trauma\n• Cardiac emergencies\n• Stroke care\n• Respiratory emergencies\n• Surgical emergencies\n• Pediatric emergencies\n\nAn ambulance can be dispatched immediately. Please call us right away in case of an emergency."
+      keys: ['emergency', 'urgent', 'ambulance', 'accident', 'casualty', 'icu', 'critical', '24 hour', '24×7', '24/7', 'chest pain', 'breathing', 'unconscious', 'bleeding', 'stroke', 'heart attack', 'faint', 'collapse'],
+      reply: "🚨 <b>EMERGENCY — Please Act Immediately</b>\n\n📞 <b>Call us right now: 9263403905</b>\n\nOur emergency department is open <b>24×7</b>. An ambulance can be dispatched immediately.\n\nPlease do not delay — call us or proceed directly to our Emergency Department at:\n📍 Bistupur, Jamshedpur, Jharkhand"
     },
     {
       keys: ['appointment', 'book', 'schedule', 'consult', 'visit', 'opd', 'register', 'walk-in'],
-      reply: "📅 <b>Book an Appointment</b>\n\nYou can book an appointment in 3 ways:\n\n1️⃣ <b>Online</b> — Use the <a href='#appointment' style='color:#2563eb'>Book Appointment</a> form on this page\n2️⃣ <b>Phone</b> — Call us at <b>9263403905</b>\n3️⃣ <b>Walk-in</b> — Visit our reception at Bistupur, Jamshedpur\n\n⏰ OPD Hours: Mon–Sat 9 AM – 7 PM\n⏰ Emergency: 24×7"
+      reply: "📅 <b>Book an Appointment</b>\n\nYou can book an appointment in 3 ways:\n\n1️⃣ <b>Online</b> — Use the <a href='#appointment' style='color:#2563eb'>Book Appointment</a> form on this page\n2️⃣ <b>Phone</b> — Call us at <b>9263403905</b>\n3️⃣ <b>Walk-in</b> — Visit our reception at Bistupur, Jamshedpur\n\n⏰ OPD Hours: Mon–Sat 9 AM – 7 PM\n⏰ Emergency: 24×7\n\nWhich department would you like to book for?"
     },
     {
-      keys: ['timing', 'time', 'hour', 'opd', 'open', 'close', 'when', 'schedule'],
+      keys: ['timing', 'time', 'hour', 'open', 'close', 'when', 'schedule'],
       reply: "⏰ <b>Hospital Timings</b>\n\n🏥 <b>OPD (Out-Patient)</b>: Mon–Sat, 9:00 AM – 7:00 PM\n🚑 <b>Emergency</b>: 24 Hours, 7 Days a Week\n🔬 <b>Lab & Diagnostics</b>: 7:00 AM – 8:00 PM\n🧠 <b>MRI / CT Scan</b>: 8:00 AM – 8:00 PM\n💊 <b>Pharmacy</b>: 24×7\n\nFor Sunday appointments, please call us in advance."
     },
     {
@@ -99,19 +99,44 @@
       reply: "🏥 <b>About Wangduk Health and Research</b>\n\nFounded in <b>1889</b>, Wangduk Health and Research has over 135 years of healing legacy.\n\nWe are a multi-speciality hospital located in Bistupur, Jamshedpur, committed to delivering advanced healthcare with compassion and excellence.\n\nLed by <b>Prof. Laslong Wangduk</b>, our team combines modern technology with personalised patient care."
     },
     {
+      keys: ['fever', 'cough', 'cold', 'flu', 'headache', 'pain', 'vomit', 'nausea', 'diarrhea', 'rash', 'dizzy', 'fatigue', 'weak', 'sore throat', 'infection', 'sugar', 'diabetes', 'pressure', 'hypertension'],
+      reply: "🩺 <b>General Health Query</b>\n\nThank you for sharing your concern. While I can offer general information, please note that only a qualified doctor can provide a proper diagnosis.\n\nFor symptoms like these, we recommend:\n• Consulting our <b>General Medicine</b> OPD (Mon–Sat, 9 AM – 7 PM)\n• Calling us at <b>9263403905</b> for guidance\n\nIf your symptoms are severe or worsening, please visit our <b>Emergency Department</b> (24×7) immediately.\n\nWould you like help booking an appointment?"
+    },
+    {
       keys: ['thank', 'thanks', 'thnx', 'ty', 'great', 'good', 'awesome', 'wonderful', 'helpful', 'bye', 'goodbye', 'see you'],
       reply: "😊 Thank you for reaching out! We're always here to help.\n\nFor any further queries, feel free to call us at <b>9263403905</b> or visit us at Bistupur, Jamshedpur.\n\nWishing you good health! 🌿"
     }
   ];
 
-  const FALLBACK = "I'm sorry, I didn't quite catch that. Could you please rephrase?\n\nYou can ask me about:\n• Services & Departments\n• Appointment booking\n• Timings & Location\n• Doctors & Staff\n• Fees & Insurance\n• Emergency contact\n\nOr call us directly at <b>9263403905</b>.";
+  const FALLBACKS = [
+    "Could you provide a little more detail? I want to make sure I point you in the right direction.\n\nAre you looking for a <b>doctor</b>, an <b>appointment</b>, or information about a specific <b>hospital service</b>?",
+    "Are you looking for a doctor, an appointment, or hospital service? I'm here to help — just let me know!",
+    "Can you tell me which department or service you need help with? For example: Cardiology, Orthopedics, Lab tests, or Appointments.",
+    "I want to make sure I understand correctly. Could you rephrase that?\n\nOr feel free to call us directly at <b>9263403905</b> and our staff will assist you.",
+    "I'm not sure I caught that — could you be a bit more specific?\n\nYou can ask about:\n• Booking an appointment\n• Doctors & departments\n• Timings & location\n• Fees & insurance\n• Emergency contact"
+  ];
+
+  let fallbackIndex = 0;
+
+  function isEmergency(text) {
+    const emergencyTerms = ['chest pain', 'chest tight', 'heart attack', 'breathing difficult', 'can\'t breathe', 'cannot breathe', 'severe bleeding', 'unconscious', 'fainted', 'collapsed', 'stroke', 'seizure', 'not breathing', 'choking'];
+    return emergencyTerms.some(t => text.includes(t));
+  }
 
   function getReply(text) {
     const lower = text.toLowerCase().trim();
+
+    if (isEmergency(lower)) {
+      return "🚨 <b>This sounds like a medical emergency!</b>\n\nPlease call us immediately:\n📞 <b>9263403905</b> (24×7 Emergency)\n\nOr go directly to our Emergency Department at:\n📍 Bistupur, Jamshedpur\n\nDo not wait — please act right away.";
+    }
+
     for (const item of KB) {
       if (item.keys.some(k => lower.includes(k))) return item.reply;
     }
-    return FALLBACK;
+
+    const reply = FALLBACKS[fallbackIndex % FALLBACKS.length];
+    fallbackIndex++;
+    return reply;
   }
 
   function createMsg(html, from) {
@@ -160,7 +185,7 @@
       if (!opened) {
         opened = true;
         setTimeout(() => {
-          appendMsg(messages, "Namaste! 🙏 I'm the Wangduk Health virtual assistant. How can I help you today?", 'bot');
+          appendMsg(messages, "Namaste! 🙏 I'm the Wangduk Health virtual assistant. How can I help you today?\n\nYou can ask me about appointments, services, doctors, timings, or emergency contact.", 'bot');
         }, 300);
       }
       setTimeout(() => input.focus(), 100);

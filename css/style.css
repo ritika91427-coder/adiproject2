@@ -1846,63 +1846,6 @@ textarea {
 }
 
 /* ── Top Info Bar ── */
-.top-bar {
-  background: linear-gradient(90deg, var(--color-navy-dark) 0%, var(--color-royal) 50%, var(--color-navy-dark) 100%);
-  color: rgba(255,255,255,0.88);
-  font-size: 0.78rem;
-  font-family: var(--font-sans);
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  overflow: hidden;
-  white-space: nowrap;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  position: relative;
-  z-index: 200;
-}
-
-.top-bar__track {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 0 2rem;
-  animation: topBarScroll 22s linear infinite;
-}
-
-@keyframes topBarScroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.top-bar__item {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  white-space: nowrap;
-}
-
-.top-bar__item svg {
-  width: 13px;
-  height: 13px;
-  opacity: 0.75;
-  flex-shrink: 0;
-}
-
-.top-bar__item strong {
-  color: #fff;
-  font-weight: 700;
-}
-
-.top-bar__dot {
-  display: inline-block;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.35);
-  flex-shrink: 0;
-}
-
 /* ── Hero Decorative Orbs ── */
 .hero__orb {
   position: absolute;
