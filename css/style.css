@@ -1011,7 +1011,7 @@ textarea {
   width: 100%;
   aspect-ratio: 3 / 4;
   object-fit: cover;
-  object-position: 62% 20%;
+  object-position: 78% 20%;
   border-radius: var(--radius-xl);
   display: block;
   image-rendering: auto;
