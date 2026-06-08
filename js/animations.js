@@ -178,4 +178,18 @@ document.addEventListener('DOMContentLoaded', () => {
     io.observe(trustBar); // reuse the same observer
   }
 
+
+  /* ─────────────────────────────────────────
+     7. SCROLL-TO-TOP FAB
+  ───────────────────────────────────────────── */
+  const scrollTopBtn = document.getElementById('scrollTop');
+  if (scrollTopBtn) {
+    window.addEventListener('scroll', () => {
+      scrollTopBtn.classList.toggle('visible', window.scrollY > 420);
+    }, { passive: true });
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
 });

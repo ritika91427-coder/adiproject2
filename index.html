@@ -19,6 +19,53 @@
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
+  <!-- Announcement Ticker Bar -->
+  <div class="ticker-bar" role="marquee" aria-label="Hospital announcements">
+    <div class="ticker-bar__track">
+      <span class="ticker-bar__item">
+        <span class="ticker-bar__dot" aria-hidden="true"></span>
+        Emergency Line: <strong>9263403905</strong> — Available 24×7
+      </span>
+      <span class="ticker-bar__item">
+        <span class="ticker-bar__dot" aria-hidden="true"></span>
+        Now Accepting New Patients — Book your appointment today
+      </span>
+      <span class="ticker-bar__item">
+        <span class="ticker-bar__dot" aria-hidden="true"></span>
+        Advanced MRI &amp; CT Scan Facilities Now Open
+      </span>
+      <span class="ticker-bar__item">
+        <span class="ticker-bar__dot" aria-hidden="true"></span>
+        Prof. Laslong Wangduk — Director, 35+ Years of Clinical Excellence
+      </span>
+      <span class="ticker-bar__item">
+        <span class="ticker-bar__dot" aria-hidden="true"></span>
+        Serving Bistupur, Jamshedpur since 1889
+      </span>
+      <!-- Duplicate for seamless loop -->
+      <span class="ticker-bar__item" aria-hidden="true">
+        <span class="ticker-bar__dot"></span>
+        Emergency Line: <strong>9263403905</strong> — Available 24×7
+      </span>
+      <span class="ticker-bar__item" aria-hidden="true">
+        <span class="ticker-bar__dot"></span>
+        Now Accepting New Patients — Book your appointment today
+      </span>
+      <span class="ticker-bar__item" aria-hidden="true">
+        <span class="ticker-bar__dot"></span>
+        Advanced MRI &amp; CT Scan Facilities Now Open
+      </span>
+      <span class="ticker-bar__item" aria-hidden="true">
+        <span class="ticker-bar__dot"></span>
+        Prof. Laslong Wangduk — Director, 35+ Years of Clinical Excellence
+      </span>
+      <span class="ticker-bar__item" aria-hidden="true">
+        <span class="ticker-bar__dot"></span>
+        Serving Bistupur, Jamshedpur since 1889
+      </span>
+    </div>
+  </div>
+
   <!-- Sticky Navbar -->
   <header class="header" id="header" role="banner">
     <div class="container header__inner">
@@ -335,6 +382,83 @@
       </div>
     </section>
 
+    <!-- Patient Testimonials Section -->
+    <section class="section testimonials" id="testimonials" aria-labelledby="testimonials-heading">
+      <div class="container">
+        <div class="section__header reveal">
+          <span class="section__eyebrow">Patient Stories</span>
+          <h2 class="section__title" id="testimonials-heading">Trusted by Thousands</h2>
+          <div class="section__divider" aria-hidden="true"></div>
+          <p class="section__subtitle">Real experiences from patients who've trusted us with their care.</p>
+        </div>
+
+        <div class="testimonials__grid">
+          <article class="testimonial-card reveal">
+            <div class="testimonial-card__stars" aria-label="5 stars">
+              ★★★★★
+            </div>
+            <blockquote class="testimonial-card__quote">
+              "The doctors here were incredibly attentive. From diagnosis to recovery, every step was handled with precision and genuine care. I felt safe the entire time."
+            </blockquote>
+            <footer class="testimonial-card__author">
+              <div class="testimonial-card__avatar" aria-hidden="true">RP</div>
+              <div>
+                <strong class="testimonial-card__name">Rahul Prasad</strong>
+                <span class="testimonial-card__role">Cardiology Patient</span>
+              </div>
+            </footer>
+          </article>
+
+          <article class="testimonial-card reveal">
+            <div class="testimonial-card__stars" aria-label="5 stars">
+              ★★★★★
+            </div>
+            <blockquote class="testimonial-card__quote">
+              "Exceptional MRI facilities and a team that explains everything clearly. Prof. Wangduk personally reviewed my case. World-class care right here in Jamshedpur."
+            </blockquote>
+            <footer class="testimonial-card__author">
+              <div class="testimonial-card__avatar" style="background:linear-gradient(135deg,#7c3aed,#4f46e5)" aria-hidden="true">SM</div>
+              <div>
+                <strong class="testimonial-card__name">Sunita Mehta</strong>
+                <span class="testimonial-card__role">Radiology Patient</span>
+              </div>
+            </footer>
+          </article>
+
+          <article class="testimonial-card reveal">
+            <div class="testimonial-card__stars" aria-label="5 stars">
+              ★★★★★
+            </div>
+            <blockquote class="testimonial-card__quote">
+              "Emergency response was immediate and professional. The 24×7 team handled my father's critical condition with absolute expertise. We are grateful beyond words."
+            </blockquote>
+            <footer class="testimonial-card__author">
+              <div class="testimonial-card__avatar" style="background:linear-gradient(135deg,#0891b2,#0d9488)" aria-hidden="true">AK</div>
+              <div>
+                <strong class="testimonial-card__name">Arjun Kumar</strong>
+                <span class="testimonial-card__role">Emergency Care</span>
+              </div>
+            </footer>
+          </article>
+        </div>
+
+        <div class="testimonials__rating-bar reveal">
+          <div class="rating-pill">
+            <span class="rating-pill__stars" aria-hidden="true">★★★★★</span>
+            <span><strong>4.9 / 5</strong> average rating</span>
+          </div>
+          <div class="rating-pill">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span><strong>2,400+</strong> patients served</span>
+          </div>
+          <div class="rating-pill">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <span><strong>98%</strong> recommend us</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Expert Care Team Section -->
     <section class="section expert-team" id="expert-team" aria-labelledby="expert-team-heading">
       <div class="container">
@@ -497,6 +621,25 @@
       </div>
     </section>
 
+    <!-- Accreditations & Partners Strip -->
+    <div class="partners-strip" aria-label="Accreditations and affiliations">
+      <div class="partners-strip__track">
+        <span class="partners-strip__item"><span class="partners-strip__logo" aria-hidden="true">🏥</span> NABH Accredited</span>
+        <span class="partners-strip__item"><span class="partners-strip__logo" aria-hidden="true">🔬</span> NABL Certified Lab</span>
+        <span class="partners-strip__item"><span class="partners-strip__logo" aria-hidden="true">❤️</span> Cardiology Centre of Excellence</span>
+        <span class="partners-strip__item"><span class="partners-strip__logo" aria-hidden="true">🩻</span> ISO 9001:2015 Certified</span>
+        <span class="partners-strip__item"><span class="partners-strip__logo" aria-hidden="true">🏆</span> Best Hospital — Jharkhand 2023</span>
+        <span class="partners-strip__item"><span class="partners-strip__logo" aria-hidden="true">🌐</span> WHO Partner Institution</span>
+        <!-- Duplicate for seamless scroll -->
+        <span class="partners-strip__item" aria-hidden="true"><span class="partners-strip__logo">🏥</span> NABH Accredited</span>
+        <span class="partners-strip__item" aria-hidden="true"><span class="partners-strip__logo">🔬</span> NABL Certified Lab</span>
+        <span class="partners-strip__item" aria-hidden="true"><span class="partners-strip__logo">❤️</span> Cardiology Centre of Excellence</span>
+        <span class="partners-strip__item" aria-hidden="true"><span class="partners-strip__logo">🩻</span> ISO 9001:2015 Certified</span>
+        <span class="partners-strip__item" aria-hidden="true"><span class="partners-strip__logo">🏆</span> Best Hospital — Jharkhand 2023</span>
+        <span class="partners-strip__item" aria-hidden="true"><span class="partners-strip__logo">🌐</span> WHO Partner Institution</span>
+      </div>
+    </div>
+
     <!-- Map + Appointment Section -->
     <section class="section appointment" id="appointment" aria-labelledby="appointment-heading">
       <div class="container">
@@ -655,6 +798,21 @@
       </div>
     </section>
   </main>
+
+  <!-- Floating Action Buttons -->
+  <div class="fab-group" aria-label="Quick actions">
+    <a href="tel:9263403905" class="fab fab--sos" aria-label="Call emergency: 9263403905">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6.12 6.12l.96-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>
+      <span class="fab__label">SOS</span>
+    </a>
+    <button class="fab fab--top" id="scrollTop" aria-label="Scroll to top">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+        <polyline points="18 15 12 9 6 15"/>
+      </svg>
+    </button>
+  </div>
 
   <!-- Footer -->
   <footer class="footer" role="contentinfo">
