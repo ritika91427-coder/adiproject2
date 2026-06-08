@@ -12,12 +12,34 @@ document.addEventListener('DOMContentLoaded', () => {
       .split(' ')
       .map((word, i) =>
         `<span class="hero__word-wrap" aria-hidden="true">` +
-          `<span class="hero__word" style="animation-delay:${0.15 + i * 0.08}s">${word}</span>` +
+          `<span class="hero__word" style="animation-delay:${0.1 + i * 0.11}s">${word}</span>` +
         `</span>`
       )
       .join(' ');
     heroTitle.setAttribute('aria-label', raw);
   }
+
+  // Blur-fade the hero badge, subtitle and CTAs in sequence after title
+  const heroSequence = [
+    { sel: '.hero__badge',   delay: 0.65 },
+    { sel: '.hero__subtitle', delay: 0.8  },
+    { sel: '.hero__cta',      delay: 0.95 },
+  ];
+  heroSequence.forEach(({ sel, delay }) => {
+    const el = document.querySelector(sel);
+    if (!el) return;
+    el.style.opacity = '0';
+    el.style.filter  = 'blur(8px)';
+    el.style.transform = 'translateY(8px)';
+    el.style.transition = `opacity 1s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s,
+                           filter  1s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s,
+                           transform 1s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`;
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      el.style.opacity = '1';
+      el.style.filter  = 'blur(0px)';
+      el.style.transform = 'translateY(0)';
+    }));
+  });
 
   /* ─────────────────────────────────────────
      2. SCROLL REVEAL — IntersectionObserver
@@ -63,8 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
   cardGroups.forEach(selector => {
     document.querySelectorAll(selector).forEach((card, i) => {
       card.style.opacity = '0';
-      card.style.transform = 'translateY(28px)';
-      card.style.transition = `opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.1}s, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.1}s`;
+      card.style.transform = 'translateY(18px)';
+      card.style.transition = `opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.07}s, transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.07}s`;
       card.style.willChange = 'transform, opacity';
 
       const cardObs = new IntersectionObserver(entries => {
