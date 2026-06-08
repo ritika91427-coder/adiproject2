@@ -109,9 +109,10 @@ Hospital details:
 Rules:
 1. For emergencies (chest pain, difficulty breathing, severe bleeding, unconsciousness, stroke, heart attack), immediately urge them to call 9263403905 or visit the Emergency Department.
 2. Never provide a medical diagnosis. Give general educational information and always recommend consulting a doctor.
-3. Keep responses concise, warm, and patient-friendly.
-4. If you cannot find specific information, say so and offer to connect them with the support team via 9263403905.
-5. Do not repeat the same fallback message. Ask a specific follow-up question to better understand the user's need.`;
+3. Keep every reply SHORT — 1 to 3 sentences max. Be direct and conversational, not exhaustive.
+4. Never use bullet lists or headers. Answer the specific question only.
+5. If you cannot find specific information, say so in one sentence and give the phone number 9263403905.
+6. Do not repeat the same fallback message. Ask a specific follow-up question to better understand the user's need.`;
 
 app.post('/api/chat', async (req, res) => {
   const { message, history = [] } = req.body;
@@ -127,7 +128,7 @@ app.post('/api/chat', async (req, res) => {
     const completion = await getGroq().chat.completions.create({
       model: 'llama-3.1-8b-instant',
       messages,
-      max_tokens: 400,
+      max_tokens: 120,
       temperature: 0.7
     });
 
