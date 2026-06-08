@@ -67,6 +67,10 @@
   box-shadow: 0 4px 24px rgba(0,0,0,0.4) !important;
 }
 
+.feature-card::after {
+  display: none !important;
+}
+
 .feature-card:hover {
   transform: translateY(-8px) scale(1.015) !important;
   box-shadow: 0 20px 56px rgba(0,0,0,0.55) !important;
