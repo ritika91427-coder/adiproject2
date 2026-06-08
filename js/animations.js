@@ -1,90 +1,140 @@
 'use strict';
 
 /* ============================================
-   Wangduk Health — Premium Animations
+   Wangduk Health — Animation Engine
+   Studio-grade: lerp tilt, clip-path reveals,
+   expo easing, no cheap loops
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ── Hero Title — Word-by-Word Animation ─────
+  /* ─────────────────────────────────────────
+     1. HERO TITLE — word slide-up from clip
+     Each word is wrapped in an overflow:hidden
+     container so the slide looks like the text
+     is being revealed from behind a mask.
+  ───────────────────────────────────────────── */
   const heroTitle = document.querySelector('.hero__title');
   if (heroTitle) {
-    const words = heroTitle.textContent.split(' ');
-    heroTitle.innerHTML = words
-      .map((w, i) => `<span class="word" style="animation-delay:${0.2 + i * 0.09}s">${w}</span>`)
+    const raw = heroTitle.textContent.trim();
+    heroTitle.innerHTML = raw
+      .split(' ')
+      .map((word, i) =>
+        `<span class="hero__word-wrap" aria-hidden="true">`+
+          `<span class="hero__word" style="animation-delay:${0.18 + i * 0.1}s">${word}</span>`+
+        `</span>`
+      )
       .join(' ');
+
+    // Accessible fallback: keep text readable for screen readers
+    heroTitle.setAttribute('aria-label', raw);
   }
 
 
-  // ── Hero Subtitle & Badge Fade-in ────────────
-  const heroSub = document.querySelector('.hero__subtitle');
-  if (heroSub) {
-    heroSub.style.cssText = 'opacity:0;transform:translateY(20px);transition:opacity 0.8s ease 0.9s,transform 0.8s ease 0.9s';
-    setTimeout(() => { heroSub.style.opacity = '1'; heroSub.style.transform = 'translateY(0)'; }, 50);
-  }
-  const heroActions = document.querySelector('.hero__actions');
-  if (heroActions) {
-    heroActions.style.cssText = 'opacity:0;transform:translateY(20px);transition:opacity 0.8s ease 1.2s,transform 0.8s ease 1.2s';
-    setTimeout(() => { heroActions.style.opacity = '1'; heroActions.style.transform = 'translateY(0)'; }, 50);
-  }
-
-
-  // ── Floating Particles on Hero ───────────────
-  const hero = document.querySelector('.hero');
-  if (hero) {
-    const colors = ['rgba(59,130,246,0.6)', 'rgba(139,92,246,0.5)', 'rgba(6,182,212,0.5)', 'rgba(255,255,255,0.4)'];
-    for (let i = 0; i < 18; i++) {
-      const p = document.createElement('div');
-      p.className = 'hero__particle';
-      const size = 3 + Math.random() * 6;
-      p.style.cssText = [
-        `width:${size}px`, `height:${size}px`,
-        `left:${Math.random() * 100}%`,
-        `background:${colors[Math.floor(Math.random() * colors.length)]}`,
-        `animation-duration:${6 + Math.random() * 10}s`,
-        `animation-delay:${Math.random() * 8}s`
-      ].join(';');
-      hero.appendChild(p);
-    }
-  }
-
-
-  // ── Enhanced Staggered Reveal ────────────────
-  const reveals = document.querySelectorAll('.reveal');
-  const revealObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-  reveals.forEach(el => revealObserver.observe(el));
-
-
-  // ── Director section reveal directions ───────
-  const directorPhoto = document.querySelector('.director__photo');
+  /* ─────────────────────────────────────────
+     2. SCROLL REVEAL — IntersectionObserver
+  ───────────────────────────────────────────── */
+  // Director and team — add directional classes before observing
+  const directorPhoto   = document.querySelector('.director__photo');
   const directorContent = document.querySelector('.director__content');
-  if (directorPhoto) directorPhoto.classList.add('reveal--left');
-  if (directorContent) directorContent.classList.add('reveal--right');
+  if (directorPhoto)   directorPhoto.classList.add('reveal', 'reveal--left');
+  if (directorContent) directorContent.classList.add('reveal', 'reveal--right');
 
-  // Expert team
   const teamContent = document.querySelector('.expert-team__content');
-  const teamImage = document.querySelector('.expert-team__image-wrap');
-  if (teamContent) teamContent.classList.add('reveal--left');
-  if (teamImage) teamImage.classList.add('reveal--right');
+  const teamImage   = document.querySelector('.expert-team__image-wrap');
+  if (teamContent) teamContent.classList.add('reveal', 'reveal--left');
+  if (teamImage)   teamImage.classList.add('reveal', 'reveal--right');
+
+  // Section headers scale-in
+  document.querySelectorAll('.section__header').forEach(el => {
+    el.classList.add('reveal--scale');
+  });
+
+  // Observer — fires once per element, then disconnects it
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('visible');
+      io.unobserve(entry.target);
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -48px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
 
-  // ── Magnetic Buttons ─────────────────────────
-  const magnetBtns = document.querySelectorAll('.btn--primary, .btn--nav');
-  magnetBtns.forEach(btn => {
+  /* ─────────────────────────────────────────
+     3. TILT — smooth lerp, RAF-driven
+     No snapping: target values update on mouse-
+     move; a running RAF loop lerps current →
+     target every frame so the motion is fluid.
+  ───────────────────────────────────────────── */
+  const TILT_MAX    = 6;    // degrees
+  const LERP_FACTOR = 0.10; // lower = smoother/slower tracking
+
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  const tiltCards = document.querySelectorAll(
+    '.feature-card, .service-card, .contact-card'
+  );
+
+  tiltCards.forEach(card => {
+    let rafId   = null;
+    let inside  = false;
+    let targetX = 0, targetY = 0;
+    let currentX = 0, currentY = 0;
+
+    function tick() {
+      currentX = lerp(currentX, targetX, LERP_FACTOR);
+      currentY = lerp(currentY, targetY, LERP_FACTOR);
+
+      card.style.transform =
+        `perspective(900px) rotateX(${currentX}deg) rotateY(${currentY}deg) translateZ(4px)`;
+
+      // Stop RAF when card is idle and not hovered
+      if (!inside &&
+          Math.abs(currentX) < 0.01 &&
+          Math.abs(currentY) < 0.01) {
+        card.style.transform = '';
+        cancelAnimationFrame(rafId);
+        rafId = null;
+        return;
+      }
+      rafId = requestAnimationFrame(tick);
+    }
+
+    card.addEventListener('mousemove', e => {
+      const r  = card.getBoundingClientRect();
+      const nx = (e.clientX - r.left) / r.width  - 0.5; // -0.5 → 0.5
+      const ny = (e.clientY - r.top)  / r.height - 0.5;
+      targetY =  nx * TILT_MAX;
+      targetX = -ny * TILT_MAX;
+    });
+
+    card.addEventListener('mouseenter', () => {
+      inside = true;
+      if (!rafId) rafId = requestAnimationFrame(tick);
+    });
+
+    card.addEventListener('mouseleave', () => {
+      inside  = false;
+      targetX = 0;
+      targetY = 0;
+      // Let the RAF loop wind down naturally
+      if (!rafId) rafId = requestAnimationFrame(tick);
+    });
+  });
+
+
+  /* ─────────────────────────────────────────
+     4. MAGNETIC BUTTONS — subtle pull
+  ───────────────────────────────────────────── */
+  const MAGNET_STRENGTH = 0.22;
+
+  document.querySelectorAll('.btn--primary, .btn--nav').forEach(btn => {
     btn.addEventListener('mousemove', e => {
-      const rect = btn.getBoundingClientRect();
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top + rect.height / 2;
-      const dx = (e.clientX - cx) * 0.25;
-      const dy = (e.clientY - cy) * 0.25;
+      const r  = btn.getBoundingClientRect();
+      const dx = (e.clientX - r.left - r.width  / 2) * MAGNET_STRENGTH;
+      const dy = (e.clientY - r.top  - r.height / 2) * MAGNET_STRENGTH;
       btn.style.transform = `translate(${dx}px, ${dy}px)`;
     });
     btn.addEventListener('mouseleave', () => {
@@ -93,93 +143,39 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-  // ── Card Tilt Effect ─────────────────────────
-  const tiltCards = document.querySelectorAll('.feature-card, .service-card, .stat-card, .contact-card');
-  tiltCards.forEach(card => {
-    card.addEventListener('mousemove', e => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const cx = rect.width / 2;
-      const cy = rect.height / 2;
-      const tiltX = ((y - cy) / cy) * 5;
-      const tiltY = ((cx - x) / cx) * 5;
-      card.style.transform = `perspective(800px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-8px)`;
-    });
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
-    });
-  });
-
-
-  // ── Section Header Scale-In ───────────────────
-  const sectionHeaders = document.querySelectorAll('.section__header');
-  sectionHeaders.forEach(el => el.classList.add('reveal--scale'));
-
-
-  // ── Parallax on Hero ─────────────────────────
+  /* ─────────────────────────────────────────
+     5. HERO PARALLAX — passive, rAF-throttled
+  ───────────────────────────────────────────── */
   const heroCarousel = document.querySelector('.hero__carousel');
   if (heroCarousel && window.matchMedia('(min-width: 768px)').matches) {
-    let ticking = false;
+    const heroEl  = heroCarousel.parentElement;
+    let ticking   = false;
+
     window.addEventListener('scroll', () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          const scrollY = window.scrollY;
-          const heroH = heroCarousel.parentElement.offsetHeight;
-          if (scrollY < heroH) {
-            heroCarousel.style.transform = `translateY(${scrollY * 0.35}px)`;
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        if (scrollY < heroEl.offsetHeight) {
+          heroCarousel.style.transform = `translateY(${scrollY * 0.3}px)`;
+        }
+        ticking = false;
+      });
     }, { passive: true });
   }
 
 
-  // ── Service card link underline draw ─────────
-  const links = document.querySelectorAll('.service-card__link');
-  links.forEach(link => {
-    link.style.cssText += ';background-image:linear-gradient(currentColor,currentColor);background-position:0% 100%;background-size:0% 2px;background-repeat:no-repeat;transition:background-size 0.3s ease,gap 0.3s ease,color 0.3s ease';
-    link.parentElement.parentElement.addEventListener('mouseenter', () => {
-      link.style.backgroundSize = '100% 2px';
-    });
-    link.parentElement.parentElement.addEventListener('mouseleave', () => {
-      link.style.backgroundSize = '0% 2px';
-    });
-  });
-
-
-  // ── Features trust bar stagger ───────────────
-  const trustItems = document.querySelectorAll('.trust-item');
-  trustItems.forEach((item, i) => {
-    item.style.opacity = '0';
-    item.style.transform = 'translateY(16px)';
-    item.style.transition = `opacity 0.5s ease ${0.1 + i * 0.1}s, transform 0.5s ease ${0.1 + i * 0.1}s`;
-  });
-
-  const trustObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        trustItems.forEach(item => {
-          item.style.opacity = '1';
-          item.style.transform = 'translateY(0)';
-        });
-        trustObserver.disconnect();
-      }
-    });
-  }, { threshold: 0.3 });
-
+  /* ─────────────────────────────────────────
+     6. TRUST BAR — staggered reveal via class
+  ───────────────────────────────────────────── */
   const trustBar = document.querySelector('.features__trust-bar');
-  if (trustBar) trustObserver.observe(trustBar);
-
-
-  // ── Footer Links hover underline ─────────────
-  const footerLinks = document.querySelectorAll('.footer__links a, .footer__contact a');
-  footerLinks.forEach(link => {
-    link.style.transition = 'color 0.25s ease, padding-left 0.25s ease';
-    link.addEventListener('mouseenter', () => { link.style.paddingLeft = '6px'; });
-    link.addEventListener('mouseleave', () => { link.style.paddingLeft = '0'; });
-  });
+  if (trustBar) {
+    const items = trustBar.querySelectorAll('.trust-item');
+    items.forEach((item, i) => {
+      item.classList.add('reveal');
+      item.style.transitionDelay = `${i * 90}ms`;
+    });
+    io.observe(trustBar); // reuse the same observer
+  }
 
 });
