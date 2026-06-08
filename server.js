@@ -5,6 +5,7 @@ const { Pool } = require('pg');
 const session = require('express-session');
 const nodemailer = require('nodemailer');
 const path = require('path');
+const OpenAI = require('openai');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -70,6 +71,66 @@ function sendAdminEmail(appointment) {
     else console.log(`[Email] Notification sent for appointment #${id}`);
   });
 }
+
+// ── AI Chatbot ────────────────────────────────────────────────────────────
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+const SYSTEM_PROMPT = `You are a helpful, friendly, and professional AI assistant for Wangduk Health and Research, a hospital located in Bistupur, Jamshedpur, Jharkhand, India.
+
+Your role is to assist patients and visitors with:
+- Appointment booking guidance
+- Information about hospital services and departments
+- Doctor and staff information
+- Hospital timings and location
+- Fees and insurance queries
+- Emergency assistance
+
+Hospital details:
+- Name: Wangduk Health and Research
+- Location: Bistupur, Jamshedpur, Jharkhand, India
+- Phone: 9263403905 (24/7 Emergency)
+- Founded: 1889
+- Director: Prof. Laslong Wangduk (Cardiology & Orthopedics specialist, Yoshida Award recipient, trained at AIIMS Surat)
+- Staff: 145+ active healthcare professionals
+- Facilities: MRI, CT Scan, Diagnostics Lab, Emergency (24x7), Pharmacy (24x7), Blood Bank, Physiotherapy
+- Departments: Cardiology, Orthopedics, Radiology, Pathology, General Medicine, Pediatrics, Gynaecology, Emergency Care
+- OPD Hours: Mon–Sat, 9:00 AM – 7:00 PM
+- Emergency: 24x7
+- Lab: 7:00 AM – 8:00 PM
+- Consultation fees: General OPD ₹200–₹400, Specialist ₹400–₹800
+
+Rules:
+1. For emergencies (chest pain, difficulty breathing, severe bleeding, unconsciousness, stroke, heart attack), immediately urge them to call 9263403905 or visit the Emergency Department.
+2. Never provide a medical diagnosis. Give general educational information and always recommend consulting a doctor.
+3. Keep responses concise, warm, and patient-friendly.
+4. If you cannot find specific information, say so and offer to connect them with the support team via 9263403905.
+5. Do not repeat the same fallback message. Ask a specific follow-up question to better understand the user's need.`;
+
+app.post('/api/chat', async (req, res) => {
+  const { message, history = [] } = req.body;
+  if (!message) return res.status(400).json({ error: 'Message is required' });
+
+  try {
+    const messages = [
+      { role: 'system', content: SYSTEM_PROMPT },
+      ...history.slice(-10),
+      { role: 'user', content: message }
+    ];
+
+    const completion = await openai.chat.completions.create({
+      model: 'gpt-4o-mini',
+      messages,
+      max_tokens: 400,
+      temperature: 0.7
+    });
+
+    const reply = completion.choices[0]?.message?.content || "I'm sorry, I couldn't process that. Please call us at 9263403905.";
+    res.json({ reply });
+  } catch (err) {
+    console.error('[AI] Chat error:', err.message);
+    res.status(500).json({ error: 'AI service unavailable. Please call us at 9263403905.' });
+  }
+});
 
 // ── Auth middleware ────────────────────────────────────────────────────────
 function requireAdmin(req, res, next) {
