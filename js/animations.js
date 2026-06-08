@@ -240,8 +240,8 @@ document.addEventListener('DOMContentLoaded', () => {
     items.forEach((item, i) => {
       item.classList.add('reveal');
       item.style.transitionDelay = `${i * 80}ms`;
+      io.observe(item);
     });
-    io.observe(trustBar);
   }
 
   /* ─────────────────────────────────────────
