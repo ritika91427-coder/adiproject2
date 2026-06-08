@@ -111,20 +111,6 @@
   transition: left 0.55s ease;
 }
 
-/* ── Stat Card Counter ── */
-.stat-card {
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-              box-shadow 0.35s ease;
-}
-
-.stat-card:hover {
-  transform: translateY(-8px) scale(1.02);
-}
-
-.stat-card__number {
-  display: inline-block;
-  transition: transform 0.3s ease;
-}
 
 /* ── Feature Card — premium hover ── */
 .feature-card {

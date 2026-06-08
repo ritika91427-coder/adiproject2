@@ -49,42 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  // ── Stat Card Counter Animation ──────────────
-  const counters = document.querySelectorAll('.stat-card__number');
-  const counterObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting || entry.target.dataset.counted) return;
-      entry.target.dataset.counted = '1';
-      animateCounter(entry.target);
-    });
-  }, { threshold: 0.5 });
-
-  counters.forEach(el => counterObserver.observe(el));
-
-  function animateCounter(el) {
-    const text = el.textContent.trim();
-    const numMatch = text.match(/[\d]+/);
-    if (!numMatch) return;
-
-    const target = parseInt(numMatch[0]);
-    const prefix = text.slice(0, numMatch.index);
-    const suffix = text.slice(numMatch.index + numMatch[0].length);
-    const duration = 1800;
-    const start = performance.now();
-
-    function update(now) {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const current = Math.floor(eased * target);
-      el.textContent = prefix + current + suffix;
-      if (progress < 1) requestAnimationFrame(update);
-      else el.textContent = text;
-    }
-    requestAnimationFrame(update);
-  }
-
-
   // ── Enhanced Staggered Reveal ────────────────
   const reveals = document.querySelectorAll('.reveal');
   const revealObserver = new IntersectionObserver(entries => {
