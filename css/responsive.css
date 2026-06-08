@@ -403,12 +403,24 @@ iframe, video, embed, object {
 /* ============================================================
    SHOWCASE CARDS (about)
    ============================================================ */
-@media (max-width: 576px) {
+@media (max-width: 768px) {
+  /* Remove the fixed max-height so stacked cards aren't squashed */
   .about__showcase {
+    max-height: none;
     grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 0.75rem;
+  }
+
+  /* Reset span so large card doesn't try to span 2 rows in 1-col layout */
+  .showcase-card--large {
+    grid-row: span 1;
+    max-height: none;
+    min-height: 220px;
   }
 
   .showcase-card {
+    max-height: none;
     min-height: 180px;
   }
 }
