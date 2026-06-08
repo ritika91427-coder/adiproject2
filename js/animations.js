@@ -244,4 +244,54 @@ document.addEventListener('DOMContentLoaded', () => {
     io.observe(trustBar);
   }
 
+  /* ─────────────────────────────────────────
+     7. STAT COUNTER — animates numbers up
+        on first viewport entry
+  ───────────────────────────────────────────── */
+  function parseStatValue(text) {
+    const match = text.trim().match(/^([\d,]+)/);
+    return match ? parseInt(match[1].replace(/,/g, ''), 10) : null;
+  }
+
+  function animateCounter(el, target, suffix, duration) {
+    const start     = performance.now();
+    const formatter = new Intl.NumberFormat();
+    function step(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const ease     = 1 - Math.pow(1 - progress, 3);
+      el.textContent = formatter.format(Math.round(ease * target)) + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  document.querySelectorAll('.stat-card__number').forEach(el => {
+    const original = el.textContent.trim();
+    const value    = parseStatValue(original);
+    if (!value) return;
+    const suffix   = original.replace(/^[\d,]+/, '');
+    const statObs  = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        animateCounter(el, value, suffix, 1800);
+        statObs.unobserve(el);
+      });
+    }, { threshold: 0.4 });
+    statObs.observe(el);
+  });
+
+  /* ─────────────────────────────────────────
+     8. SCROLL PROGRESS BAR
+  ───────────────────────────────────────────── */
+  const progressBar = document.getElementById('scrollProgress');
+  if (progressBar) {
+    function updateProgress() {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct       = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
+      progressBar.style.setProperty('--scroll-pct', pct.toFixed(2) + '%');
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+  }
+
 });
