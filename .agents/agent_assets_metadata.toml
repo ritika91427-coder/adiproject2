@@ -48,6 +48,18 @@ uri = "file://attached_assets/generated_images/professional_portrait_of_a_7827.p
 type = "image"
 title = "generated_image"
 
+[[generated]]
+id = "r9chex9_IyKTLVjD9GvkK"
+uri = "file://assets/svc-emergency.png"
+type = "image"
+title = "hospital emergency entrance night"
+
+[[generated]]
+id = "3G3ZCZff4ft9zgiLVg5RI"
+uri = "file://assets/showcase-2-new.png"
+type = "image"
+title = "medical lab diagnostics technician"
+
 [[outputs]]
 id = "BxKVZBk8fWy0jHI_H_Y6o"
 uri = "file://attached_assets/stock_images/indian_care_team.jpg"
