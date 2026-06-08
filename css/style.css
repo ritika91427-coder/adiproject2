@@ -2810,17 +2810,25 @@ textarea {
 }
 
 .footer__admin-link {
-  font-size: 0.5rem;
-  color: rgba(255, 255, 255, 0.15);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.55);
   text-decoration: none;
-  transition: color 0.3s;
-  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 20px;
   position: absolute;
   right: 1rem;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
 }
 
 .footer__admin-link:hover {
-  color: rgba(255, 255, 255, 0.5);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 /* ── Admin Overlay ── */
