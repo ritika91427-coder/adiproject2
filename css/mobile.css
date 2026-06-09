@@ -121,6 +121,33 @@
     margin: 1.25rem 0 0 !important;
     justify-content: center !important;
   }
+
+  /* ── Section spacing — kill premium.css 6rem at tablet/canvas widths ── */
+  .section {
+    padding: 2.25rem 0 !important;
+  }
+
+  /* ── Tighten About → Director gap at all sub-desktop widths ── */
+  .about    { padding-bottom: 1rem !important; }
+  .director { padding-top:    1rem !important; }
+
+  /* ── Center section titles at all sub-desktop widths ── */
+  .section__header {
+    text-align: center !important;
+    align-items: center !important;
+  }
+  .section__title    { text-align: center !important; }
+  .section__subtitle { text-align: center !important; }
+  h1, h2, h3        { text-align: center !important; }
+
+  /* Keep card/footer content left-aligned */
+  .service-card h3, .service-card__title,
+  .testimonial-card h3, .contact-card h3,
+  .director__quote p, .about__text,
+  .footer h4, .footer__heading, .footer__links h3,
+  .director__name, .director__badges, .director__content h2 {
+    text-align: left !important;
+  }
 }
 
 /* ── Everything else — phones only (≤768px) ─────────────── */
