@@ -22,8 +22,10 @@
   function handleScroll() {
     if (window.scrollY > 60) {
       header.classList.add('scrolled');
+      nav.classList.add('scrolled');
     } else {
       header.classList.remove('scrolled');
+      nav.classList.remove('scrolled');
     }
   }
 

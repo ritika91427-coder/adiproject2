@@ -454,6 +454,12 @@ textarea {
 .nav {
   display: flex;
   align-items: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: var(--header-height);
+  z-index: 1200;
+  padding-right: var(--space-md);
 }
 
 .nav__list {
@@ -471,7 +477,7 @@ textarea {
   transition: all var(--transition);
 }
 
-.header:not(.scrolled) .nav__link {
+.nav:not(.scrolled) .nav__link {
   color: rgba(255, 255, 255, 0.85);
 }
 
@@ -480,14 +486,14 @@ textarea {
   color: var(--color-teal);
 }
 
-.header:not(.scrolled) .nav__link:hover,
-.header:not(.scrolled) .nav__link.active {
+.nav:not(.scrolled) .nav__link:hover,
+.nav:not(.scrolled) .nav__link.active {
   color: var(--color-white);
   background: rgba(255, 255, 255, 0.1);
 }
 
-.header.scrolled .nav__link:hover,
-.header.scrolled .nav__link.active {
+.nav.scrolled .nav__link:hover,
+.nav.scrolled .nav__link.active {
   color: var(--color-teal);
   background: rgba(37, 99, 235, 0.08);
 }
@@ -571,7 +577,7 @@ textarea {
     background: #ffffff;
     box-shadow: -4px 0 40px rgba(10, 31, 68, 0.16);
     transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1000;
+    z-index: 1200;
     overflow-y: auto;
     overflow-x: hidden;
   }

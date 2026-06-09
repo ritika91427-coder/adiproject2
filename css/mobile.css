@@ -35,23 +35,28 @@
     height: 44px !important;
     padding: 10px !important;
     cursor: pointer !important;
-    z-index: 1001 !important;
-    border-radius: 6px !important;
-    background: transparent !important;
-    border: none !important;
+    z-index: 1201 !important;
+    border-radius: 8px !important;
+    background: rgba(255,255,255,0.15) !important;
+    border: 1.5px solid rgba(255,255,255,0.35) !important;
     flex-shrink: 0 !important;
   }
 
   .hamburger__line {
     display: block !important;
-    width: 24px !important;
+    width: 22px !important;
     height: 2px !important;
-    background: rgba(255,255,255,0.9) !important;
+    background: #ffffff !important;
     border-radius: 2px !important;
     transition: all 0.25s ease !important;
   }
 
-  /* Lines go dark when header is scrolled */
+  /* Lines + button adapt when header is scrolled (white bg) */
+  .header.scrolled .hamburger {
+    background: rgba(10,31,68,0.08) !important;
+    border-color: rgba(10,31,68,0.18) !important;
+  }
+
   .header.scrolled .hamburger__line {
     background: var(--color-navy, #0a1f44) !important;
   }
@@ -81,7 +86,7 @@
     background: #ffffff !important;
     box-shadow: -4px 0 40px rgba(10,31,68,0.15) !important;
     transition: right 0.3s cubic-bezier(0.4,0,0.2,1) !important;
-    z-index: 1000 !important;
+    z-index: 1200 !important;
     overflow-y: auto !important;
     overflow-x: hidden !important;
   }
