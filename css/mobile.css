@@ -648,10 +648,18 @@
   }
 
   .footer__grid {
-    grid-template-columns: 1fr !important;
-    gap: 1.5rem !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 1.25rem 0.75rem !important;
     text-align: center !important;
   }
+
+  /* Brand and contact span both columns */
+  .footer__brand,
+  .footer__contact {
+    grid-column: 1 / -1 !important;
+  }
+
+  /* The two .footer__links columns sit naturally side-by-side (1fr each) */
 
   /* Brand block */
   .footer__brand {
