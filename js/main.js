@@ -7,7 +7,6 @@
 
   // ── DOM Elements ──
   const header = document.getElementById('header');
-  const hamburger = document.getElementById('hamburger');
   const nav = document.getElementById('nav');
   const heroCarousel = document.getElementById('heroCarousel');
   const heroDots = document.querySelectorAll('.hero__dot');
@@ -32,29 +31,11 @@
   window.addEventListener('scroll', handleScroll, { passive: true });
   handleScroll();
 
-  // ── Mobile Navigation ──
-  let navOverlay = document.querySelector('.nav-overlay');
-  if (!navOverlay) {
-    navOverlay = document.createElement('div');
-    navOverlay.className = 'nav-overlay';
-    navOverlay.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(navOverlay);
-  }
-
-  function toggleNav(forceClose) {
-    const isOpen = forceClose === true ? false : !nav.classList.contains('open');
-    nav.classList.toggle('open', isOpen);
-    hamburger.classList.toggle('active', isOpen);
-    hamburger.setAttribute('aria-expanded', isOpen);
-    navOverlay.classList.toggle('active', isOpen);
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-  }
-
-  hamburger.addEventListener('click', () => toggleNav());
-  navOverlay.addEventListener('click', () => toggleNav(true));
-
+  // ── Mobile Navigation (hamburger removed — nav is always visible) ──
   navLinks.forEach((link) => {
-    link.addEventListener('click', () => toggleNav(true));
+    link.addEventListener('click', () => {
+      nav.classList.remove('open');
+    });
   });
 
   // ── Smooth Scroll & Active Nav ──
@@ -306,12 +287,6 @@
     });
   }
 
-  // ── Keyboard: Escape closes mobile nav ──
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && nav.classList.contains('open')) {
-      toggleNav(true);
-    }
-  });
 
   // ── Updates (API-backed) ──────────────────────────────────────────────────
   function escapeHtml(str) {

@@ -4,19 +4,16 @@
    ============================================================ */
 
 /* ── NAV: always-visible inline strip at ALL widths ≤992px ────────────
-   No hamburger drawer. Nav links are always accessible as a horizontal
-   scrollable strip pinned to the right side of the header.
+   Nav lives INSIDE <header> as a flex child. No hamburger, no drawer.
+   The header is already position:fixed, so its children are safe from
+   the overflow-x:hidden body clipping bug.
    ────────────────────────────────────────────────────────────────── */
 @media (max-width: 992px) {
-
-  /* Hide hamburger entirely — we don't need it */
-  .hamburger {
-    display: none !important;
-  }
 
   /* Header stays single-row */
   .header {
     height: var(--header-height) !important;
+    overflow: visible !important;
   }
 
   .header__inner {
@@ -27,28 +24,29 @@
     padding-top: 0 !important;
     padding-bottom: 0 !important;
     gap: 0 !important;
+    overflow: visible !important;
   }
 
-  /* Nav: always-visible fixed strip on right side of header */
+  /* Nav: static inside the header flex layout (not fixed/drawer) */
   .nav {
-    position: fixed !important;
-    top: 0 !important;
-    right: 0 !important;
-    left: auto !important;
+    position: static !important;
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    max-width: none !important;
     width: auto !important;
-    max-width: calc(100vw - 180px) !important;
     height: var(--header-height) !important;
     flex-direction: row !important;
     align-items: center !important;
-    padding: 0 0.75rem !important;
+    justify-content: flex-end !important;
+    padding: 0 0.5rem 0 0 !important;
     background: transparent !important;
     box-shadow: none !important;
-    z-index: 1200 !important;
-    overflow: visible !important;
+    overflow: hidden !important;
     transition: none !important;
+    z-index: auto !important;
   }
 
-  /* Nav list: horizontal scrollable, no wrapping */
+  /* Nav list: scrollable horizontal row */
   .nav__list {
     display: flex !important;
     flex-direction: row !important;
@@ -59,18 +57,19 @@
     -webkit-overflow-scrolling: touch !important;
     scrollbar-width: none !important;
     width: auto !important;
+    max-width: 100% !important;
     padding-bottom: 0 !important;
   }
 
   .nav__list::-webkit-scrollbar { display: none !important; }
 
-  /* Nav links: compact, always white (or navy when scrolled) */
+  /* Nav links: compact, white on dark hero */
   .nav__link {
     display: inline-flex !important;
     width: auto !important;
     white-space: nowrap !important;
-    padding: 0.4rem 0.6rem !important;
-    font-size: 0.8rem !important;
+    padding: 0.35rem 0.55rem !important;
+    font-size: 0.78rem !important;
     font-weight: 500 !important;
     color: rgba(255,255,255,0.92) !important;
     border-bottom: none !important;
@@ -83,7 +82,7 @@
     background: rgba(255,255,255,0.12) !important;
   }
 
-  /* When header is scrolled (white bg), switch to dark text */
+  /* Scrolled header (white bg) → dark text */
   .nav.scrolled .nav__link {
     color: var(--color-navy, #0a1f44) !important;
   }
@@ -94,7 +93,7 @@
     background: rgba(37,99,235,0.08) !important;
   }
 
-  /* Hide "Book Appointment" button in nav on mobile — it's in the hero */
+  /* Hide "Book Appointment" in nav on mobile (hero has it) */
   .btn--nav {
     display: none !important;
   }
@@ -131,8 +130,8 @@
 /* ── Everything else — phones only (≤768px) ─────────────── */
 @media (max-width: 768px) {
 
-  /* ── Global overflow guard ── */
-  html, body { overflow-x: hidden !important; }
+  /* ── Global overflow guard (body excluded — it breaks position:fixed) ── */
+  html { overflow-x: hidden !important; }
   *, *::before, *::after { box-sizing: border-box; }
 
   /* ── Consistent horizontal padding ── */
