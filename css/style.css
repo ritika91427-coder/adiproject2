@@ -805,7 +805,7 @@ textarea {
 .about {
   background: linear-gradient(180deg, var(--color-white) 0%, var(--color-off-white) 100%);
   padding-top: var(--space-xl);
-  padding-bottom: var(--space-md);
+  padding-bottom: 0.5rem;
   position: relative;
   overflow: hidden;
 }
@@ -1035,7 +1035,7 @@ textarea {
    ============================================ */
 .director {
   background: var(--color-white);
-  padding-top: var(--space-sm);
+  padding-top: 0.5rem;
   padding-bottom: var(--space-xl);
 }
 
