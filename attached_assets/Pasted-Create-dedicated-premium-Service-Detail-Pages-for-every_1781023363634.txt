@@ -1,0 +1,63 @@
+Create dedicated premium Service Detail Pages for every "Learn More" button (Cardiology, Orthopedics, Emergency Care, etc.) without changing the current homepage design, card layout, spacing, desktop view, or mobile responsiveness.
+
+When a user clicks "Learn More", navigate to a separate service page.
+
+SERVICE PAGE DESIGN:
+
+1. Premium Hero Section
+- Large high-quality medical image related to the department.
+- Service title.
+- Short professional tagline.
+- "Book Appointment" CTA button.
+- Modern hospital-style layout.
+
+2. About the Department
+- 2-3 professionally written paragraphs explaining the service.
+- Focus on expertise, technology, patient care, and outcomes.
+
+3. Conditions We Treat
+- Elegant responsive card grid.
+- 6-8 conditions with icons and short descriptions.
+
+4. Treatments & Procedures
+- Premium icon-based cards.
+- Modern hover effects.
+- Brief treatment descriptions.
+
+5. Why Choose Wangduk Health
+- Statistics cards:
+  • Expert Doctors
+  • Patient Satisfaction
+  • Emergency Support
+  • Years of Experience
+- Smooth fade-in animations.
+
+6. Meet Our Specialists
+- Professional doctor cards with image, name, specialty, and experience.
+- Responsive layout.
+
+7. Patient Care Journey
+- Modern timeline:
+  Consultation → Diagnosis → Treatment → Recovery → Follow-up
+
+8. FAQ Section
+- Clean accordion design.
+- 5-6 service-specific questions.
+
+9. Final CTA Section
+- Premium blue gradient background.
+- Strong call-to-action.
+- "Book Appointment Now" button.
+
+DESIGN REQUIREMENTS:
+- Keep existing brand colors and identity.
+- White background with premium shadows.
+- Border radius 16-20px.
+- Consistent spacing and typography.
+- Smooth hover and scroll animations.
+- Fast loading and SEO-friendly.
+- Fully responsive on mobile and desktop.
+
+IMPORTANT:
+DO NOT modify the current homepage cards, navbar, spacing, sections, desktop layout, or mobile layout.
+Only create premium dedicated service pages and connect all "Learn More" buttons to those pages.

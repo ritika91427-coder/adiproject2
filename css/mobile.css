@@ -862,6 +862,11 @@
 
   .footer__bottom p { font-size: 0.775rem !important; }
 
+  .footer__admin-link {
+    position: static !important;
+    right: auto !important;
+  }
+
   /* ────────────────────────────────────────────
      CHATBOT — keep clear of content
   ──────────────────────────────────────────── */
