@@ -39,6 +39,7 @@ app.use((req, res, next) => {
       "font-src 'self' https://fonts.gstatic.com",
       "img-src 'self' data: blob: https://images.unsplash.com https://upload.wikimedia.org",
       "connect-src 'self'",
+      "frame-src 'self' https://www.google.com https://maps.google.com",
       "frame-ancestors 'self'",
       "base-uri 'self'",
       "form-action 'self'"
