@@ -132,6 +132,7 @@
     linear-gradient(180deg, #f8faff 0%, #f0f5ff 35%, #edf2ff 65%, #f5f8ff 100%) !important;
   position: relative !important;
   overflow: hidden !important;
+  padding-bottom: 0.5rem !important;
 }
 
 /* Large radial glow — top right */
@@ -221,6 +222,7 @@
     linear-gradient(155deg, #fafbff 0%, #f4f7ff 30%, #f8f6ff 60%, #fafbff 100%) !important;
   position: relative !important;
   overflow: hidden !important;
+  padding-top: 0.5rem !important;
 }
 
 /* Diagonal stripe overlay — very subtle */
