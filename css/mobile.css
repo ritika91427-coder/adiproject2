@@ -3,130 +3,131 @@
    Loaded LAST so these rules beat premium.css !important.
    ============================================================ */
 
-/* ── NAV — two-row mobile header at ≤768px ──────────────────────────
-   Row 1: logo (full width)
-   Row 2: nav strip (full width, horizontally scrollable)
-   ────────────────────────────────────────────────────────────────── */
+/* ── MOBILE NAV BAR (≤768px) ─────────────────────────────────────────
+   The header shows logo only (68px). The nav is a separate position:fixed
+   bar pinned just below the header. position:fixed is unaffected by any
+   parent overflow, stacking context, or flex layout — it always renders.
+   ────────────────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
-  /* Taller header to fit two rows */
-  :root {
-    --header-height: 108px !important;
-  }
 
+  /* Header shrinks to logo-only row */
   .header {
-    height: auto !important;
-    min-height: 108px !important;
+    height: 68px !important;
   }
 
-  /* Stack logo and nav vertically */
-  .header__inner {
-    flex-wrap: wrap !important;
-    align-items: center !important;
-    padding: 0.5rem 0 0 !important;
-    gap: 0 !important;
-    height: auto !important;
-  }
-
-  /* Logo: first row, left-aligned */
-  .logo {
-    flex: 0 0 auto !important;
-    width: 100% !important;
-    padding: 0 0 0.25rem 0 !important;
-  }
-
-  /* Nav: second row, full width */
+  /* Nav: own fixed bar directly below the logo row */
   .nav {
-    flex: 0 0 100% !important;
+    position: fixed !important;
+    top: 68px !important;
+    left: 0 !important;
+    right: 0 !important;
     width: 100% !important;
-    height: 38px !important;
-    min-width: 0 !important;
-    overflow: hidden !important;
-    padding: 0 !important;
-    border-top: 1px solid rgba(255,255,255,0.15) !important;
+    height: 40px !important;
+    z-index: 1199 !important;
+    padding: 0 0.5rem !important;
+    background: rgba(8, 18, 48, 0.96) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+    flex-direction: row !important;
+    align-items: center !important;
     justify-content: flex-start !important;
+    overflow: hidden !important;
+    transition: background 0.25s !important;
   }
 
-  .header.scrolled .nav {
-    border-top-color: rgba(10,31,68,0.1) !important;
+  /* White/scrolled state: light background */
+  .nav.scrolled {
+    background: rgba(255,255,255,0.96) !important;
+    border-bottom-color: rgba(10,31,68,0.1) !important;
   }
 
-  /* Scrollable list row */
+  /* Scrollable links row */
   .nav__list {
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: nowrap !important;
     overflow-x: auto !important;
-    scrollbar-width: none !important;
     -webkit-overflow-scrolling: touch !important;
-    width: 100% !important;
-    padding: 0 0.5rem !important;
-    gap: 0 !important;
+    scrollbar-width: none !important;
     align-items: center !important;
+    gap: 0 !important;
+    width: 100% !important;
+    height: 40px !important;
+    padding: 0 !important;
   }
 
   .nav__list::-webkit-scrollbar { display: none !important; }
 
+  /* Link styles */
   .nav__link {
     display: inline-flex !important;
+    align-items: center !important;
     white-space: nowrap !important;
-    padding: 0.45rem 0.75rem !important;
+    padding: 0 0.75rem !important;
+    height: 40px !important;
     font-size: 0.82rem !important;
     font-weight: 500 !important;
-    color: rgba(255,255,255,0.92) !important;
-    border-radius: 6px !important;
+    color: rgba(255,255,255,0.88) !important;
     border-bottom: none !important;
+    border-radius: 0 !important;
     width: auto !important;
-    height: 38px !important;
-    align-items: center !important;
   }
 
-  .nav.scrolled .nav__link,
-  .header.scrolled .nav .nav__link {
+  .nav__link.active {
+    color: #ffffff !important;
+    border-bottom: 2px solid rgba(255,255,255,0.6) !important;
+  }
+
+  .nav__link:hover {
+    color: #ffffff !important;
+    background: rgba(255,255,255,0.08) !important;
+  }
+
+  /* Scrolled state link colours */
+  .nav.scrolled .nav__link {
     color: var(--color-navy, #0a1f44) !important;
   }
 
-  .nav__link:hover,
-  .nav__link.active {
-    background: rgba(255,255,255,0.12) !important;
-    color: #fff !important;
-  }
-
-  .nav.scrolled .nav__link:hover,
   .nav.scrolled .nav__link.active {
     color: var(--color-teal, #0891b2) !important;
-    background: rgba(37,99,235,0.08) !important;
+    border-bottom-color: var(--color-teal, #0891b2) !important;
   }
 
-  /* Hide Book Appointment button in nav strip */
+  .nav.scrolled .nav__link:hover {
+    color: var(--color-teal, #0891b2) !important;
+    background: rgba(37,99,235,0.06) !important;
+  }
+
+  /* Hide Book Appointment button — hero has it */
   .btn--nav {
     display: none !important;
   }
 
-  /* Hero padding accounts for taller header */
+  /* Hero content clears combined header (68px) + nav bar (40px) = 108px */
   .hero__content {
-    padding-top: calc(108px + 1.25rem) !important;
+    padding-top: calc(108px + 1rem) !important;
+  }
+
+  /* Sections that use scroll-margin need the same offset */
+  section[id] {
+    scroll-margin-top: 108px !important;
   }
 }
 
-/* Compact link size at tablet widths (769–992px) — single row is fine */
+/* ── Tablet (769–992px): compact single-row nav ── */
 @media (min-width: 769px) and (max-width: 992px) {
-  .nav {
-    overflow: hidden;
-    padding-right: 0.5rem;
-  }
-
   .nav__list {
     flex-wrap: nowrap;
     overflow-x: auto;
     scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
   }
 
   .nav__list::-webkit-scrollbar { display: none; }
 
   .nav__link {
-    font-size: 0.82rem;
-    padding: 0.35rem 0.55rem;
+    font-size: 0.84rem;
+    padding: 0.35rem 0.6rem;
     white-space: nowrap;
   }
 
