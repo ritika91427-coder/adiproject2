@@ -15,6 +15,12 @@
     height: 56px !important;
   }
 
+  /* Shift logo text slightly upward */
+  .header__inner {
+    align-items: flex-start !important;
+    padding-top: 6px !important;
+  }
+
   /* Nav: own fixed bar directly below the logo row */
   .nav {
     position: fixed !important;
