@@ -219,4 +219,35 @@ document.addEventListener('DOMContentLoaded', () => {
     updateProgress();
   }
 
+  /* ─────────────────────────────────────────
+     SHOWCASE LARGE CARD — 3-D tilt on mousemove
+  ───────────────────────────────────────────── */
+  const largeCard = document.getElementById('showcaseLarge');
+  if (largeCard) {
+    const MAX_TILT = 6;
+    let rafId = null;
+
+    largeCard.addEventListener('mousemove', e => {
+      const rect = largeCard.getBoundingClientRect();
+      const dx   = (e.clientX - rect.left - rect.width  / 2) / (rect.width  / 2);
+      const dy   = (e.clientY - rect.top  - rect.height / 2) / (rect.height / 2);
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        largeCard.style.transform =
+          `perspective(900px) rotateY(${dx * MAX_TILT}deg) rotateX(${-dy * MAX_TILT}deg) scale(1.018)`;
+      });
+    });
+
+    largeCard.addEventListener('mouseleave', () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      largeCard.style.transition = 'transform 0.7s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s ease';
+      largeCard.style.transform  = '';
+      setTimeout(() => { largeCard.style.transition = ''; }, 750);
+    });
+
+    largeCard.addEventListener('mouseenter', () => {
+      largeCard.style.transition = 'none';
+    });
+  }
+
 });

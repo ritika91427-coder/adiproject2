@@ -651,3 +651,199 @@
   .director__grid::after { display: none; }
   .about .section__header::after { display: none; }
 }
+
+/* ══════════════════════════════════════════════════════════
+   ABOUT SHOWCASE — Premium Frames, Glows & Animations
+══════════════════════════════════════════════════════════ */
+
+/* Ambient showcase backdrop */
+.about__showcase {
+  position: relative;
+  z-index: 1;
+}
+
+.about__showcase::before {
+  content: '';
+  position: absolute;
+  inset: -80px -60px;
+  background:
+    radial-gradient(ellipse 65% 60% at 22% 55%, rgba(37,99,235,0.13) 0%, transparent 70%),
+    radial-gradient(ellipse 45% 55% at 82% 50%, rgba(20,184,166,0.09) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Cards above the backdrop */
+.about__showcase .showcase-card {
+  z-index: 1;
+}
+
+/* ── Staggered entrance ── */
+.about__showcase .showcase-card {
+  opacity: 0;
+  transform: translateY(40px) scale(0.96);
+  transition:
+    opacity 0.8s cubic-bezier(0.16,1,0.3,1),
+    transform 0.8s cubic-bezier(0.16,1,0.3,1),
+    box-shadow 0.5s ease;
+}
+
+.about__showcase.visible .showcase-card               { opacity: 1; transform: translateY(0) scale(1); }
+.about__showcase.visible .showcase-card:nth-child(1)  { transition-delay: 0.05s; }
+.about__showcase.visible .showcase-card:nth-child(2)  { transition-delay: 0.28s; }
+.about__showcase.visible .showcase-card:nth-child(3)  { transition-delay: 0.48s; }
+
+/* ── Gradient glow border on hover (pseudo mask trick) ── */
+.showcase-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(
+    135deg,
+    rgba(37,99,235,0.95) 0%,
+    rgba(99,102,241,0.75) 40%,
+    rgba(20,184,166,0.85) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.showcase-card:hover::before { opacity: 1; }
+
+/* ── Shimmer light sweep on hover ── */
+.showcase-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -130%;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(255,255,255,0.14) 50%,
+    transparent 80%
+  );
+  transform: skewX(-18deg);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.showcase-card:hover::after {
+  animation: scShimmer 0.75s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+
+@keyframes scShimmer {
+  0%   { left: -130%; }
+  100% { left: 160%;  }
+}
+
+/* ── Enhanced hover glow shadow ── */
+.showcase-card:hover {
+  box-shadow:
+    0 0 0 1.5px rgba(37,99,235,0.25),
+    0 22px 55px rgba(37,99,235,0.28),
+    0 6px 18px rgba(0,0,0,0.18) !important;
+  transform: translateY(-4px) scale(1.008) !important;
+}
+
+.showcase-card--large:hover {
+  box-shadow:
+    0 0 0 1.5px rgba(37,99,235,0.3),
+    0 32px 75px rgba(37,99,235,0.32),
+    0 8px 24px rgba(0,0,0,0.2) !important;
+}
+
+/* ── Corner bracket accents ── */
+.sc-corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  z-index: 6;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+
+.sc-corner.sc-tl {
+  top: 11px;
+  left: 11px;
+  border-top: 2.5px solid rgba(147,210,255,0.95);
+  border-left: 2.5px solid rgba(147,210,255,0.95);
+  border-radius: 3px 0 0 0;
+  transform: translate(-7px, -7px);
+}
+
+.sc-corner.sc-br {
+  bottom: 11px;
+  right: 11px;
+  border-bottom: 2.5px solid rgba(20,184,166,0.9);
+  border-right: 2.5px solid rgba(20,184,166,0.9);
+  border-radius: 0 0 3px 0;
+  transform: translate(7px, 7px);
+}
+
+.showcase-card:hover .sc-corner.sc-tl {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.showcase-card:hover .sc-corner.sc-br {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+/* ── Est. 1889 floating badge on large card ── */
+.sc-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(4,13,26,0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(147,210,255,0.35);
+  border-radius: 24px;
+  padding: 5px 13px 5px 10px;
+  color: rgba(147,210,255,0.95);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  pointer-events: none;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+.sc-badge::before {
+  content: '';
+  display: block;
+  width: 7px;
+  height: 7px;
+  background: #14b8a6;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px rgba(20,184,166,0.8);
+  animation: scBadgePulse 2.2s ease-in-out infinite;
+}
+
+@keyframes scBadgePulse {
+  0%, 100% { opacity: 1; transform: scale(1);   box-shadow: 0 0 8px  rgba(20,184,166,0.8); }
+  50%       { opacity: 0.6; transform: scale(0.7); box-shadow: 0 0 4px  rgba(20,184,166,0.4); }
+}
+
+/* ── Disable heavy transforms in mobile ── */
+@media (max-width: 768px) {
+  .about__showcase .showcase-card { opacity: 1 !important; transform: none !important; }
+  .showcase-card:hover { transform: none !important; }
+  .sc-badge, .sc-corner { display: none !important; }
+}
