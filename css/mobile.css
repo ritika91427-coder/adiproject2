@@ -1,0 +1,794 @@
+/* ============================================================
+   Wangduk Health — Mobile Override Layer
+   Loaded LAST so these rules beat premium.css !important.
+   Scope: max-width 768px only. Desktop untouched.
+   ============================================================ */
+
+@media (max-width: 768px) {
+
+  /* ── Global overflow guard ── */
+  html, body { overflow-x: hidden !important; }
+  *, *::before, *::after { box-sizing: border-box; }
+
+  /* ── Consistent horizontal padding ── */
+  .container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  /* ── Section spacing — premium.css forces 6rem, kill it ── */
+  .section {
+    padding: 2.25rem 0 !important;
+  }
+
+  /* ── Section header spacing ── */
+  .section__header {
+    margin-bottom: 1.25rem !important;
+  }
+
+  /* ── Section titles ── */
+  .section__title {
+    font-size: clamp(1.4rem, 5.5vw, 1.9rem) !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  .section__subtitle {
+    font-size: 0.9rem !important;
+    line-height: 1.6 !important;
+  }
+
+  .section__eyebrow {
+    font-size: 0.68rem !important;
+    padding: 0.2rem 0.75rem !important;
+    letter-spacing: 0.1em !important;
+  }
+
+  /* ────────────────────────────────────────────
+     HEADER — hamburger drawer on ≤768px
+  ──────────────────────────────────────────── */
+  .header {
+    height: var(--header-height) !important;
+  }
+
+  .header__inner {
+    flex-wrap: nowrap !important;
+    height: var(--header-height) !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    gap: 0 !important;
+  }
+
+  /* Nav: slide-out drawer */
+  .nav {
+    position: fixed !important;
+    top: 0 !important;
+    right: -100% !important;
+    left: auto !important;
+    width: min(300px, 82vw) !important;
+    height: 100vh !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: calc(var(--header-height) + 1.25rem) 1.5rem 1.5rem !important;
+    background: #fff !important;
+    box-shadow: -4px 0 40px rgba(10,31,68,0.15) !important;
+    transition: right 0.3s ease !important;
+    z-index: 1000 !important;
+    overflow-y: auto !important;
+  }
+
+  .nav.open { right: 0 !important; }
+
+  .nav__list {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    width: 100% !important;
+    overflow-x: visible !important;
+    flex-wrap: wrap !important;
+    gap: 0 !important;
+  }
+
+  .nav__link {
+    display: block !important;
+    width: 100% !important;
+    white-space: normal !important;
+    padding: 0.875rem 0 !important;
+    font-size: 1rem !important;
+    color: #1e293b !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+  }
+
+  .btn--nav {
+    display: flex !important;
+    width: 100% !important;
+    margin: 1.25rem 0 0 !important;
+    justify-content: center !important;
+  }
+
+  /* Hamburger visible */
+  .hamburger { display: flex !important; }
+
+  /* ────────────────────────────────────────────
+     HERO
+  ──────────────────────────────────────────── */
+  .hero { min-height: 75vh !important; }
+
+  .hero__content {
+    padding: calc(var(--header-height) + 1.25rem) 1.125rem 2rem !important;
+    max-width: 100% !important;
+  }
+
+  /* Kill the giant title from premium.css */
+  .hero__title {
+    font-size: clamp(1.75rem, 7vw, 2.4rem) !important;
+    line-height: 1.18 !important;
+    letter-spacing: -0.02em !important;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.3) !important;
+  }
+
+  .hero__subtitle {
+    font-size: 0.9375rem !important;
+    max-width: 100% !important;
+    line-height: 1.65 !important;
+    margin-bottom: 1.375rem !important;
+  }
+
+  .hero__badge {
+    font-size: 0.68rem !important;
+    padding: 0.3rem 0.7rem !important;
+    letter-spacing: 0.06em !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .hero__actions {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.625rem !important;
+  }
+
+  .hero__actions .btn {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 0.8rem 1.25rem !important;
+  }
+
+  .hero__cross { display: none !important; }
+  .hero__pagination { bottom: 1rem !important; }
+
+  /* ────────────────────────────────────────────
+     ABOUT
+  ──────────────────────────────────────────── */
+  .about__showcase {
+    grid-template-columns: 1fr 1fr !important;
+    grid-template-rows: auto auto !important;
+    max-height: none !important;
+    gap: 0.5rem !important;
+    margin-bottom: 1.125rem !important;
+  }
+
+  .showcase-card--large {
+    grid-column: 1 / -1 !important;
+    min-height: 170px !important;
+    border-radius: 14px !important;
+  }
+
+  .showcase-card {
+    min-height: 120px !important;
+    border-radius: 12px !important;
+  }
+
+  .about__grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  /* Kill premium.css large font */
+  .about__text {
+    font-size: 0.9rem !important;
+    line-height: 1.7 !important;
+  }
+
+  .about__stats {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+  }
+
+  .stat-card {
+    padding: 0.875rem 0.75rem !important;
+    text-align: center !important;
+    border-radius: 12px !important;
+  }
+
+  /* Kill the 3rem number from premium.css */
+  .stat-card__number {
+    font-size: 1.5rem !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  .stat-card__icon  { margin: 0 auto 0.375rem !important; width: 32px !important; height: 32px !important; }
+  .stat-card__label { font-size: 0.72rem !important; line-height: 1.35 !important; }
+
+  /* ────────────────────────────────────────────
+     DIRECTOR
+  ──────────────────────────────────────────── */
+  .director__grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+
+  .director__photo { max-width: 180px !important; margin: 0 auto !important; }
+
+  /* Kill premium 1.65rem */
+  .director__name {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .director__badges { flex-wrap: wrap !important; gap: 0.275rem !important; margin-bottom: 0.75rem !important; }
+  .badge { font-size: 0.65rem !important; padding: 0.2rem 0.55rem !important; }
+
+  .director__quote {
+    padding: 0.875rem !important;
+    padding-left: calc(0.875rem + 4px) !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .director__quote p {
+    font-size: 0.875rem !important;
+    line-height: 1.65 !important;
+    padding-left: 0.75rem !important;
+    margin-bottom: 0.375rem !important;
+  }
+
+  /* Hide the giant decorative quote mark */
+  .director__content::before {
+    display: none !important;
+  }
+
+  /* ────────────────────────────────────────────
+     FEATURES (dark cards grid)
+  ──────────────────────────────────────────── */
+  .features__grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+  }
+
+  .feature-card {
+    padding: 0.875rem !important;
+    border-radius: 14px !important;
+  }
+
+  .feature-card .feature-card__icon {
+    width: 44px !important;
+    height: 44px !important;
+    padding: 10px !important;
+    margin-bottom: 0.625rem !important;
+  }
+
+  .feature-card .feature-card__icon svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  .feature-card .feature-card__title {
+    font-size: 0.875rem !important;
+    line-height: 1.3 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .feature-card .feature-card__title::after {
+    margin-top: 0.375rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .feature-card .feature-card__desc {
+    font-size: 0.8rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .feature-card__badge-24 {
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 0.65rem !important;
+    bottom: 0.75rem !important;
+    right: 0.75rem !important;
+  }
+
+  /* Trust bar — 2 column on mobile */
+  .features__trust-bar {
+    grid-template-columns: repeat(2, 1fr) !important;
+    margin-top: 1rem !important;
+  }
+
+  .trust-item {
+    padding: 0.875rem 1rem !important;
+    gap: 0.625rem !important;
+  }
+
+  .trust-item__icon { width: 34px !important; height: 34px !important; }
+  .trust-item__text { font-size: 0.75rem !important; }
+
+  .features__banner { margin-bottom: 1rem !important; border-radius: 12px !important; overflow: hidden !important; }
+  .features__banner img { max-height: 140px !important; object-fit: cover !important; width: 100% !important; }
+  .features__banner-text h3 { font-size: 0.95rem !important; }
+  .features__banner-text p  { font-size: 0.825rem !important; }
+
+  /* ────────────────────────────────────────────
+     TESTIMONIALS
+  ──────────────────────────────────────────── */
+  .testimonials__grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+    margin-top: 1.125rem !important;
+  }
+
+  .testimonial-card {
+    padding: 1.125rem !important;
+    gap: 0.625rem !important;
+    border-radius: 14px !important;
+  }
+
+  .testimonial-card__quote { font-size: 0.875rem !important; line-height: 1.65 !important; }
+  .testimonial-card__name  { font-size: 0.875rem !important; }
+  .testimonial-card__role  { font-size: 0.72rem !important; }
+  .testimonial-card__avatar { width: 38px !important; height: 38px !important; font-size: 0.7rem !important; }
+  .testimonial-card__author { padding-top: 0.75rem !important; gap: 0.625rem !important; }
+
+  .testimonials__rating-bar {
+    gap: 0.375rem !important;
+    margin-top: 1rem !important;
+    flex-wrap: wrap !important;
+  }
+
+  .rating-pill {
+    font-size: 0.775rem !important;
+    padding: 0.375rem 0.875rem !important;
+    gap: 0.375rem !important;
+  }
+
+  /* ────────────────────────────────────────────
+     EXPERT TEAM
+  ──────────────────────────────────────────── */
+  .expert-team__inner {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+
+  .expert-team__image-wrap { order: -1 !important; }
+
+  /* Kill premium 2.65rem */
+  .expert-team__title {
+    font-size: 1.45rem !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.01em !important;
+    -webkit-text-fill-color: unset !important;
+    background: none !important;
+    color: var(--color-navy) !important;
+  }
+
+  .expert-team__desc {
+    font-size: 0.9rem !important;
+    line-height: 1.7 !important;
+  }
+
+  .expert-team__highlights { gap: 0.5rem !important; }
+  .expert-team__highlight-text { font-size: 0.875rem !important; }
+
+  .expert-team__image-badge {
+    font-size: 0.7rem !important;
+    padding: 0.3rem 0.625rem !important;
+  }
+
+  /* Decorative circle behind image — too large on mobile */
+  .expert-team__image-wrap::before {
+    width: 100px !important;
+    height: 100px !important;
+    top: -12px !important;
+    right: -12px !important;
+  }
+
+  /* ────────────────────────────────────────────
+     SERVICES — 2-col compact
+  ──────────────────────────────────────────── */
+  .services__grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.625rem !important;
+  }
+
+  .service-card {
+    border-radius: 16px !important;
+    box-shadow: 0 3px 16px rgba(10,31,68,0.1), 0 1px 4px rgba(10,31,68,0.06) !important;
+    border: 1px solid rgba(37,99,235,0.08) !important;
+  }
+
+  /* Kill premium's 260px image height */
+  .service-card__image {
+    height: 105px !important;
+    overflow: hidden !important;
+    position: relative !important;
+  }
+
+  .service-card__image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    transition: none !important;
+  }
+
+  .service-card__image-overlay {
+    background: linear-gradient(180deg, transparent 30%, rgba(10,31,68,0.55) 100%) !important;
+  }
+
+  .service-card__body {
+    padding: 0.625rem 0.75rem 0.75rem !important;
+    gap: 0.2rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .service-card__icon {
+    width: 30px !important;
+    height: 30px !important;
+    padding: 6px !important;
+    border-radius: 8px !important;
+    margin-bottom: 0.3rem !important;
+  }
+
+  .service-card__icon svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  /* Kill premium's 1.425rem title */
+  .service-card__title {
+    font-size: 0.825rem !important;
+    line-height: 1.25 !important;
+    margin-bottom: 0.2rem !important;
+  }
+
+  .service-card__desc {
+    font-size: 0.75rem !important;
+    line-height: 1.45 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+  }
+
+  .service-card__link {
+    font-size: 0.72rem !important;
+    margin-top: auto !important;
+    padding-top: 0.25rem !important;
+  }
+
+  /* Disable hover transform on mobile */
+  .service-card:hover {
+    transform: none !important;
+  }
+
+  /* Updates card — full width */
+  .updates-card {
+    grid-column: 1 / -1 !important;
+    border-radius: 16px !important;
+  }
+
+  .updates-card__header { padding: 0.875rem 1rem 0.375rem !important; }
+  .updates-card__title  { font-size: 0.95rem !important; }
+  .updates-card__list   { padding: 0 1rem 0.875rem !important; }
+
+  /* ────────────────────────────────────────────
+     PARTNERS STRIP
+  ──────────────────────────────────────────── */
+  .partners-strip {
+    height: 44px !important;
+    font-size: 0.75rem !important;
+  }
+
+  .partners-strip__item { padding: 0 1.25rem !important; font-size: 0.75rem !important; }
+
+  /* ────────────────────────────────────────────
+     APPOINTMENT / MAP / TRACKER
+  ──────────────────────────────────────────── */
+  .appointment__grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.125rem !important;
+  }
+
+  .map-container {
+    aspect-ratio: 16/9 !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    box-shadow: 0 8px 24px rgba(10,31,68,0.1) !important;
+  }
+
+  .location-card {
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    gap: 0.625rem !important;
+    padding: 0.75rem 0.875rem !important;
+    border-radius: 12px !important;
+  }
+
+  .location-card__icon { width: 34px !important; height: 34px !important; flex-shrink: 0 !important; }
+  .location-card__title { font-size: 0.9rem !important; margin-bottom: 0.125rem !important; }
+  .location-card__address { font-size: 0.825rem !important; }
+  .location-card__detail  { font-size: 0.75rem !important; }
+
+  .tracker__inline {
+    padding: 0.875rem 1rem !important;
+    margin-top: 0.625rem !important;
+    border-radius: 12px !important;
+  }
+
+  .tracker__inline-header h3 { font-size: 0.9375rem !important; }
+
+  .tracker__search {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+    margin-top: 0.75rem !important;
+  }
+
+  .tracker__btn {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 0.65rem 1rem !important;
+  }
+
+  .tracker__steps { overflow-x: auto !important; padding: 0.75rem 0.25rem !important; }
+  .tracker__step span { font-size: 0.68rem !important; }
+
+  .appointment-form.glass {
+    padding: 1rem !important;
+    border-radius: 14px !important;
+  }
+
+  .form-row { grid-template-columns: 1fr !important; gap: 0 !important; }
+  .form-group { margin-bottom: 0.625rem !important; }
+  .form-group label { font-size: 0.825rem !important; margin-bottom: 0.25rem !important; }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 1rem !important;
+    padding: 0.575rem 0.8rem !important;
+    border-radius: 9px !important;
+  }
+
+  /* ────────────────────────────────────────────
+     CONTACT CARDS
+  ──────────────────────────────────────────── */
+  .contact__grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+  }
+
+  .contact-card {
+    padding: 1rem 0.75rem !important;
+    border-radius: 14px !important;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0.3rem !important;
+  }
+
+  .contact-card__icon { width: 38px !important; height: 38px !important; margin-bottom: 0.25rem !important; }
+  .contact-card__title  { font-size: 0.825rem !important; }
+  .contact-card__value  { font-size: 0.775rem !important; word-break: break-all !important; }
+  .contact-card__detail { font-size: 0.72rem !important; }
+  .contact-card .btn    { font-size: 0.72rem !important; padding: 0.4rem 0.75rem !important; margin-top: 0.25rem !important; }
+
+  /* Disable hover transforms on mobile */
+  .contact-card:hover { transform: none !important; }
+
+  /* ────────────────────────────────────────────
+     FOOTER — clean single column, centered
+  ──────────────────────────────────────────── */
+  .footer {
+    padding-top: 2rem !important;
+    padding-bottom: 5rem !important;
+  }
+
+  .footer__grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+    text-align: center !important;
+  }
+
+  /* Brand block */
+  .footer__brand {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 0.5rem !important;
+  }
+
+  .footer__logo {
+    justify-content: center !important;
+    font-size: 0.9rem !important;
+    gap: 0.5rem !important;
+  }
+
+  .footer__logo .logo__icon { width: 28px !important; height: 28px !important; }
+
+  .footer__desc {
+    font-size: 0.825rem !important;
+    line-height: 1.55 !important;
+    max-width: 260px !important;
+    margin: 0 auto !important;
+    color: rgba(255,255,255,0.6) !important;
+  }
+
+  /* Social icons — single centered row, 40px each */
+  .footer__social {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+    margin-top: 0.25rem !important;
+  }
+
+  .footer__social-link {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .footer__social-link svg { width: 16px !important; height: 16px !important; }
+
+  /* Quick links & services columns */
+  .footer__links {
+    text-align: center !important;
+  }
+
+  .footer__links ul {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 0.125rem 0.875rem !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    list-style: none !important;
+  }
+
+  .footer__links a,
+  .footer__contact a {
+    font-size: 0.825rem !important;
+    line-height: 1.8 !important;
+  }
+
+  .footer__heading {
+    font-size: 0.825rem !important;
+    margin-bottom: 0.625rem !important;
+    text-align: center !important;
+    letter-spacing: 0.06em !important;
+  }
+
+  /* Contact column */
+  .footer__contact {
+    text-align: center !important;
+  }
+
+  .footer__contact ul {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    padding: 0 !important;
+    list-style: none !important;
+    margin: 0 !important;
+  }
+
+  .footer__contact li {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.375rem !important;
+    justify-content: center !important;
+  }
+
+  .footer__contact li svg { width: 13px !important; height: 13px !important; flex-shrink: 0 !important; }
+
+  /* Bottom bar */
+  .footer__bottom {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 0.375rem !important;
+    padding-top: 1rem !important;
+    margin-top: 1rem !important;
+    border-top: 1px solid rgba(255,255,255,0.08) !important;
+  }
+
+  .footer__bottom p { font-size: 0.775rem !important; }
+
+  /* ────────────────────────────────────────────
+     CHATBOT — keep clear of content
+  ──────────────────────────────────────────── */
+  .chatbot {
+    right: 1rem !important;
+    bottom: 1rem !important;
+    z-index: 1100 !important;
+  }
+
+  .chatbot__toggle {
+    width: 52px !important;
+    height: 52px !important;
+  }
+
+  .chatbot__window {
+    width: calc(100vw - 2rem) !important;
+    max-height: 60vh !important;
+    border-radius: 16px !important;
+    right: 0 !important;
+    bottom: 64px !important;
+  }
+
+  .chatbot__messages { max-height: 34vh !important; }
+
+  /* ────────────────────────────────────────────
+     FAB GROUP — stack neatly, no overlap
+  ──────────────────────────────────────────── */
+  .fab-group {
+    bottom: 4.5rem !important;
+    right: 1rem !important;
+    gap: 0.5rem !important;
+  }
+
+  .fab {
+    width: 44px !important;
+    height: 44px !important;
+  }
+
+  .fab svg { width: 18px !important; height: 18px !important; }
+
+  .fab__label { font-size: 0.5rem !important; }
+
+  /* ────────────────────────────────────────────
+     WAVE DIVIDERS
+  ──────────────────────────────────────────── */
+  .wave-divider { height: 28px !important; overflow: hidden !important; }
+  .wave-divider svg { height: 28px !important; }
+
+  /* ────────────────────────────────────────────
+     TICKER BAR
+  ──────────────────────────────────────────── */
+  .ticker-bar {
+    height: 30px !important;
+    font-size: 0.75rem !important;
+  }
+
+  .ticker-bar__item { padding: 0 1.5rem !important; font-size: 0.75rem !important; }
+
+  /* ────────────────────────────────────────────
+     ADMIN MODAL
+  ──────────────────────────────────────────── */
+  .admin-modal__box,
+  .admin-modal {
+    width: calc(100vw - 2rem) !important;
+    max-height: 88vh !important;
+    overflow-y: auto !important;
+    padding: 1.25rem !important;
+    border-radius: 14px !important;
+  }
+
+  /* ────────────────────────────────────────────
+     GENERAL — kill hover transforms on touch
+  ──────────────────────────────────────────── */
+  .showcase-card:hover,
+  .stat-card:hover,
+  .feature-card:hover,
+  .testimonial-card:hover,
+  .expert-team__image-frame:hover {
+    transform: none !important;
+  }
+}
