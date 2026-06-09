@@ -3,88 +3,92 @@
    Loaded LAST so these rules beat premium.css !important.
    ============================================================ */
 
-/* ── NAV: always-visible inline strip at ALL widths ≤992px ────────────
-   Nav lives INSIDE <header> as a flex child. No hamburger, no drawer.
-   The header is already position:fixed, so its children are safe from
-   the overflow-x:hidden body clipping bug.
+/* ── NAV — two-row mobile header at ≤768px ──────────────────────────
+   Row 1: logo (full width)
+   Row 2: nav strip (full width, horizontally scrollable)
    ────────────────────────────────────────────────────────────────── */
-@media (max-width: 992px) {
+@media (max-width: 768px) {
+  /* Taller header to fit two rows */
+  :root {
+    --header-height: 108px !important;
+  }
 
-  /* Header stays single-row */
   .header {
-    height: var(--header-height) !important;
-    overflow: visible !important;
+    height: auto !important;
+    min-height: 108px !important;
   }
 
+  /* Stack logo and nav vertically */
   .header__inner {
-    flex-wrap: nowrap !important;
-    height: var(--header-height) !important;
+    flex-wrap: wrap !important;
     align-items: center !important;
-    justify-content: space-between !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
+    padding: 0.5rem 0 0 !important;
     gap: 0 !important;
-    overflow: visible !important;
+    height: auto !important;
   }
 
-  /* Nav: static inside the header flex layout (not fixed/drawer) */
+  /* Logo: first row, left-aligned */
+  .logo {
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    padding: 0 0 0.25rem 0 !important;
+  }
+
+  /* Nav: second row, full width */
   .nav {
-    position: static !important;
-    flex: 1 1 0 !important;
+    flex: 0 0 100% !important;
+    width: 100% !important;
+    height: 38px !important;
     min-width: 0 !important;
-    max-width: none !important;
-    width: auto !important;
-    height: var(--header-height) !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: flex-end !important;
-    padding: 0 0.5rem 0 0 !important;
-    background: transparent !important;
-    box-shadow: none !important;
     overflow: hidden !important;
-    transition: none !important;
-    z-index: auto !important;
+    padding: 0 !important;
+    border-top: 1px solid rgba(255,255,255,0.15) !important;
+    justify-content: flex-start !important;
   }
 
-  /* Nav list: scrollable horizontal row */
+  .header.scrolled .nav {
+    border-top-color: rgba(10,31,68,0.1) !important;
+  }
+
+  /* Scrollable list row */
   .nav__list {
     display: flex !important;
     flex-direction: row !important;
-    align-items: center !important;
     flex-wrap: nowrap !important;
-    gap: 0 !important;
     overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch !important;
     scrollbar-width: none !important;
-    width: auto !important;
-    max-width: 100% !important;
-    padding-bottom: 0 !important;
+    -webkit-overflow-scrolling: touch !important;
+    width: 100% !important;
+    padding: 0 0.5rem !important;
+    gap: 0 !important;
+    align-items: center !important;
   }
 
   .nav__list::-webkit-scrollbar { display: none !important; }
 
-  /* Nav links: compact, white on dark hero */
   .nav__link {
     display: inline-flex !important;
-    width: auto !important;
     white-space: nowrap !important;
-    padding: 0.35rem 0.55rem !important;
-    font-size: 0.78rem !important;
+    padding: 0.45rem 0.75rem !important;
+    font-size: 0.82rem !important;
     font-weight: 500 !important;
     color: rgba(255,255,255,0.92) !important;
-    border-bottom: none !important;
     border-radius: 6px !important;
+    border-bottom: none !important;
+    width: auto !important;
+    height: 38px !important;
+    align-items: center !important;
+  }
+
+  .nav.scrolled .nav__link,
+  .header.scrolled .nav .nav__link {
+    color: var(--color-navy, #0a1f44) !important;
   }
 
   .nav__link:hover,
   .nav__link.active {
-    color: #ffffff !important;
     background: rgba(255,255,255,0.12) !important;
-  }
-
-  /* Scrolled header (white bg) → dark text */
-  .nav.scrolled .nav__link {
-    color: var(--color-navy, #0a1f44) !important;
+    color: #fff !important;
   }
 
   .nav.scrolled .nav__link:hover,
@@ -93,12 +97,46 @@
     background: rgba(37,99,235,0.08) !important;
   }
 
-  /* Hide "Book Appointment" in nav on mobile (hero has it) */
+  /* Hide Book Appointment button in nav strip */
   .btn--nav {
     display: none !important;
   }
 
-  /* ── Section spacing ── */
+  /* Hero padding accounts for taller header */
+  .hero__content {
+    padding-top: calc(108px + 1.25rem) !important;
+  }
+}
+
+/* Compact link size at tablet widths (769–992px) — single row is fine */
+@media (min-width: 769px) and (max-width: 992px) {
+  .nav {
+    overflow: hidden;
+    padding-right: 0.5rem;
+  }
+
+  .nav__list {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav__list::-webkit-scrollbar { display: none; }
+
+  .nav__link {
+    font-size: 0.82rem;
+    padding: 0.35rem 0.55rem;
+    white-space: nowrap;
+  }
+
+  .btn--nav {
+    display: none;
+  }
+}
+
+/* ── Section spacing ── */
+@media (max-width: 992px) {
   .section {
     padding: 2.25rem 0 !important;
   }
