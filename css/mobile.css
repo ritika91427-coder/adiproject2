@@ -131,7 +131,73 @@
   .section {
     padding: 2.25rem 0 !important;
   }
+}
 
+/* ── Tablet range (769–992px): show nav inline, hide hamburger ──────────
+   At this width (includes the 784px Replit preview) the nav links fit
+   inline. Hamburger drawer only kicks in for real phones (≤768px).
+   ────────────────────────────────────────────────────────────────────── */
+@media (min-width: 769px) and (max-width: 992px) {
+  .hamburger {
+    display: none !important;
+  }
+
+  .nav {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    left: auto !important;
+    width: auto !important;
+    height: var(--header-height) !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    padding: 0 1rem !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    z-index: 1200 !important;
+    overflow: visible !important;
+    transition: none !important;
+  }
+
+  .nav__list {
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 0.15rem !important;
+    width: auto !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    padding-bottom: 0 !important;
+  }
+
+  .nav__list::-webkit-scrollbar { display: none !important; }
+
+  .nav__link {
+    display: inline-flex !important;
+    width: auto !important;
+    padding: 0.4rem 0.65rem !important;
+    font-size: 0.875rem !important;
+    white-space: nowrap !important;
+    border-bottom: none !important;
+    color: rgba(255,255,255,0.9) !important;
+  }
+
+  .nav.scrolled .nav__link {
+    color: var(--color-navy, #0a1f44) !important;
+  }
+
+  .btn--nav {
+    display: flex !important;
+    width: auto !important;
+    margin: 0 0 0 0.5rem !important;
+    padding: 0.45rem 0.875rem !important;
+    font-size: 0.8rem !important;
+    white-space: nowrap !important;
+  }
+}
+
+@media (max-width: 992px) {
   /* ── Tighten About → Director gap at all sub-desktop widths ── */
   .about    { padding-bottom: 1rem !important; }
   .director { padding-top:    1rem !important; }
