@@ -12,17 +12,6 @@
   --midnight:    #040d1a;
 }
 
-/* ── Scroll-progress bar (filled by JS) ── */
-.scroll-progress {
-  position: fixed;
-  top: 0; left: 0;
-  width: var(--scroll-pct, 0%);
-  height: 3px;
-  background: linear-gradient(90deg, #2563eb 0%, #8b5cf6 50%, #06b6d4 100%);
-  z-index: 9999;
-  pointer-events: none;
-  transition: width 0.08s linear;
-}
 
 /* ══════════════════════════════════════════════════════════
    GLOBAL — spacing, typography, section headers

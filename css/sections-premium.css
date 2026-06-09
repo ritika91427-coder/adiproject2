@@ -878,3 +878,282 @@
   .showcase-card:hover { transform: none !important; }
   .sc-badge, .sc-corner { display: none !important; }
 }
+
+/* ══════════════════════════════════════════════════════════
+   DESKTOP PREMIUM PASS — Services · Director · Testimonials · Appointment
+   Desktop only (≥ 769px). Mobile overrides are in mobile.css.
+══════════════════════════════════════════════════════════ */
+
+@media (min-width: 769px) {
+
+/* ────────────────────────────────────────────
+   SERVICE CARDS — staggered entrance + per-specialty glow
+──────────────────────────────────────────── */
+
+/* Start hidden; IO + reveal class drives entrance */
+.service-card.reveal {
+  opacity: 0;
+  transform: translateY(36px) scale(0.96);
+  transition:
+    opacity  0.72s cubic-bezier(0.16,1,0.3,1),
+    transform 0.72s cubic-bezier(0.16,1,0.3,1),
+    box-shadow 0.45s ease,
+    border-color 0.35s ease;
+}
+.service-card.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger by position */
+.services__grid .service-card:nth-child(1) { transition-delay: 0.04s; }
+.services__grid .service-card:nth-child(2) { transition-delay: 0.14s; }
+.services__grid .service-card:nth-child(3) { transition-delay: 0.24s; }
+.services__grid .service-card:nth-child(4) { transition-delay: 0.34s; }
+.services__grid .service-card:nth-child(5) { transition-delay: 0.44s; }
+.services__grid .service-card:nth-child(6) { transition-delay: 0.54s; }
+.services__grid .service-card:nth-child(7) { transition-delay: 0.64s; }
+
+/* Shimmer sweep on hover */
+.service-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -120%;
+  width: 55%; height: 100%;
+  background: linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.1) 50%, transparent 80%);
+  transform: skewX(-18deg);
+  pointer-events: none;
+  z-index: 4;
+}
+.service-card:hover::after {
+  animation: svcShimmer 0.7s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+@keyframes svcShimmer {
+  0%   { left: -120%; }
+  100% { left: 160%;  }
+}
+
+/* Per-specialty glow on hover: matches icon gradient colour */
+.service-card:nth-child(1):hover {
+  box-shadow: 0 0 0 1.5px rgba(239,68,68,0.35),
+              0 24px 60px rgba(239,68,68,0.22), 0 6px 18px rgba(0,0,0,0.1) !important;
+  transform: translateY(-9px) scale(1.01) !important;
+}
+.service-card:nth-child(2):hover {
+  box-shadow: 0 0 0 1.5px rgba(59,130,246,0.35),
+              0 24px 60px rgba(59,130,246,0.22), 0 6px 18px rgba(0,0,0,0.1) !important;
+  transform: translateY(-9px) scale(1.01) !important;
+}
+.service-card:nth-child(3):hover {
+  box-shadow: 0 0 0 1.5px rgba(245,158,11,0.35),
+              0 24px 60px rgba(245,158,11,0.2), 0 6px 18px rgba(0,0,0,0.1) !important;
+  transform: translateY(-9px) scale(1.01) !important;
+}
+.service-card:nth-child(4):hover {
+  box-shadow: 0 0 0 1.5px rgba(139,92,246,0.35),
+              0 24px 60px rgba(139,92,246,0.22), 0 6px 18px rgba(0,0,0,0.1) !important;
+  transform: translateY(-9px) scale(1.01) !important;
+}
+.service-card:nth-child(5):hover {
+  box-shadow: 0 0 0 1.5px rgba(6,182,212,0.35),
+              0 24px 60px rgba(6,182,212,0.22), 0 6px 18px rgba(0,0,0,0.1) !important;
+  transform: translateY(-9px) scale(1.01) !important;
+}
+.service-card:nth-child(6):hover {
+  box-shadow: 0 0 0 1.5px rgba(99,102,241,0.35),
+              0 24px 60px rgba(99,102,241,0.22), 0 6px 18px rgba(0,0,0,0.1) !important;
+  transform: translateY(-9px) scale(1.01) !important;
+}
+.service-card:nth-child(7):hover {
+  box-shadow: 0 0 0 1.5px rgba(16,185,129,0.35),
+              0 24px 60px rgba(16,185,129,0.22), 0 6px 18px rgba(0,0,0,0.1) !important;
+  transform: translateY(-9px) scale(1.01) !important;
+}
+
+/* Icon float + glow on hover */
+.service-card:hover .service-card__icon {
+  transform: translateY(-3px) scale(1.08);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.35) !important;
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease;
+}
+
+/* ────────────────────────────────────────────
+   DIRECTOR SECTION — premium photo frame + quote
+──────────────────────────────────────────── */
+
+/* Animated gradient ring around the photo */
+.director__photo-frame {
+  position: relative;
+}
+
+.director__photo-frame::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: calc(var(--radius-xl) + 4px);
+  background: linear-gradient(135deg, #2563eb 0%, #8b5cf6 40%, #06b6d4 70%, #2563eb 100%);
+  background-size: 300% 300%;
+  animation: dirRingRotate 5s linear infinite;
+  z-index: 0;
+}
+
+@keyframes dirRingRotate {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* White inset to create ring effect */
+.director__photo-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0px;
+  border-radius: var(--radius-xl);
+  background: white;
+  z-index: 0;
+}
+
+.director__photo-img {
+  position: relative;
+  z-index: 1;
+}
+
+.director__photo-accent {
+  z-index: 2;
+  opacity: 0.35 !important;
+  background: linear-gradient(135deg, #2563eb, #8b5cf6) !important;
+  width: 100px !important;
+  height: 100px !important;
+}
+
+/* Enhanced quote block */
+.director__quote {
+  position: relative;
+  border-left: 3px solid transparent !important;
+  background:
+    linear-gradient(white, white) padding-box,
+    linear-gradient(135deg, #2563eb, #8b5cf6 50%, #06b6d4) border-box !important;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0 !important;
+  box-shadow: 0 8px 32px rgba(37,99,235,0.1), inset 0 1px 0 rgba(255,255,255,0.8) !important;
+  transition: box-shadow 0.4s ease;
+}
+
+.director__quote:hover {
+  box-shadow: 0 16px 48px rgba(37,99,235,0.16), inset 0 1px 0 rgba(255,255,255,0.8) !important;
+}
+
+/* Quote icon enhancement */
+.director__quote-icon {
+  background: linear-gradient(135deg, rgba(37,99,235,0.12), rgba(139,92,246,0.08)) !important;
+  box-shadow: 0 4px 16px rgba(37,99,235,0.12) !important;
+  animation: quoteFloat 4s ease-in-out infinite;
+}
+
+@keyframes quoteFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-5px); }
+}
+
+/* ────────────────────────────────────────────
+   TESTIMONIAL CARDS — enhanced hover + staggered entrance
+──────────────────────────────────────────── */
+
+/* Stagger entrance for testimonial cards */
+.testimonials__grid .testimonial-card.reveal {
+  opacity: 0;
+  transform: translateY(30px) scale(0.97);
+  transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease, transform 0.4s ease;
+}
+.testimonials__grid .testimonial-card.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+.testimonials__grid .testimonial-card:nth-child(1) { transition-delay: 0.05s; }
+.testimonials__grid .testimonial-card:nth-child(2) { transition-delay: 0.2s; }
+.testimonials__grid .testimonial-card:nth-child(3) { transition-delay: 0.35s; }
+
+/* Richer hover: glow + brighter top accent */
+.testimonial-card:hover {
+  box-shadow:
+    0 0 0 1.5px rgba(37,99,235,0.2),
+    0 22px 55px rgba(37,99,235,0.18),
+    0 6px 18px rgba(0,0,0,0.08) !important;
+  transform: translateY(-8px) !important;
+}
+
+/* Bigger, brighter top accent on hover */
+.testimonial-card:hover::before {
+  height: 3px !important;
+  background: linear-gradient(90deg, #2563eb, #8b5cf6, #06b6d4) !important;
+  opacity: 1 !important;
+  left: 0 !important;
+  right: 0 !important;
+}
+
+/* Avatar ring on hover */
+.testimonial-card:hover .testimonial-card__avatar {
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.3), 0 4px 14px rgba(37,99,235,0.25) !important;
+  transition: box-shadow 0.35s ease;
+}
+
+/* ────────────────────────────────────────────
+   APPOINTMENT FORM — glass-premium card
+──────────────────────────────────────────── */
+
+/* Glowing frame around the form panel */
+.appointment-form {
+  position: relative;
+  border-radius: var(--radius-xl) !important;
+  background: rgba(255,255,255,0.97) !important;
+  box-shadow:
+    0 0 0 1.5px rgba(37,99,235,0.14),
+    0 24px 64px rgba(37,99,235,0.1),
+    0 6px 18px rgba(0,0,0,0.05) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: box-shadow 0.5s ease;
+}
+
+.appointment-form:hover {
+  box-shadow:
+    0 0 0 1.5px rgba(37,99,235,0.22),
+    0 32px 80px rgba(37,99,235,0.14),
+    0 8px 24px rgba(0,0,0,0.06) !important;
+}
+
+/* Glowing gradient top border on the form */
+.appointment-form::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #2563eb 0%, #8b5cf6 50%, #06b6d4 100%);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  pointer-events: none;
+}
+
+/* Enhanced input focus ring */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 4px rgba(37,99,235,0.12), 0 2px 8px rgba(37,99,235,0.1) !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Label micro-animation on sibling focus */
+.form-group input:focus ~ label,
+.form-group select:focus ~ label {
+  color: #2563eb;
+}
+
+/* Appointment map frame */
+.appointment__map {
+  border-radius: var(--radius-xl) !important;
+  overflow: hidden !important;
+  box-shadow:
+    0 0 0 1.5px rgba(37,99,235,0.12),
+    0 16px 48px rgba(37,99,235,0.08) !important;
+}
+
+} /* end @media (min-width: 769px) */

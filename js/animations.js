@@ -205,19 +205,6 @@ document.addEventListener('DOMContentLoaded', () => {
      7. STAT COUNTER — removed (static display)
   ───────────────────────────────────────────── */
 
-  /* ─────────────────────────────────────────
-     8. SCROLL PROGRESS BAR
-  ───────────────────────────────────────────── */
-  const progressBar = document.getElementById('scrollProgress');
-  if (progressBar) {
-    function updateProgress() {
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const pct       = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
-      progressBar.style.setProperty('--scroll-pct', pct.toFixed(2) + '%');
-    }
-    window.addEventListener('scroll', updateProgress, { passive: true });
-    updateProgress();
-  }
 
   /* ─────────────────────────────────────────
      SHOWCASE LARGE CARD — 3-D tilt on mousemove
