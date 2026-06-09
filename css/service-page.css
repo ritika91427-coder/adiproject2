@@ -2,6 +2,45 @@
    SERVICE PAGE — Shared styles for all service detail pages
    ================================================================ */
 
+/* ── Header: always dark opaque on service pages (both states) ── */
+.header,
+.header.scrolled {
+  background: rgba(8, 18, 48, 0.97) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  box-shadow: 0 1px 12px rgba(0,0,0,.3) !important;
+}
+
+/* Keep logo + nav text white since background is always dark */
+.header .logo__name,
+.header .logo__tagline,
+.header.scrolled .logo__name,
+.header.scrolled .logo__tagline {
+  color: #fff !important;
+}
+.header .logo__tagline,
+.header.scrolled .logo__tagline {
+  color: rgba(255,255,255,.75) !important;
+}
+.header .logo__icon,
+.header.scrolled .logo__icon {
+  color: var(--color-teal-light, #5eead4) !important;
+}
+.nav .nav__link,
+.nav.scrolled .nav__link {
+  color: rgba(255,255,255,.85) !important;
+}
+.nav .nav__link:hover,
+.nav .nav__link.active,
+.nav.scrolled .nav__link:hover,
+.nav.scrolled .nav__link.active {
+  color: #fff !important;
+  background: rgba(255,255,255,.1) !important;
+}
+.hamburger__line {
+  background: #fff !important;
+}
+
 /* ── Hero ── */
 .sp-hero {
   position: relative;
