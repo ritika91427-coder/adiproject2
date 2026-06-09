@@ -316,28 +316,7 @@ textarea {
 }
 
 /* ── Hero title — line curtain reveal ── */
-.hero__line-wrap {
-  display: block;
-  overflow: hidden;
-  line-height: 1.18;
-  padding-bottom: 0.06em;
-}
-
-.hero__line {
-  display: block;
-  transform: translateY(108%);
-  opacity: 0;
-  animation: lineReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  will-change: transform, opacity;
-}
-
-@keyframes lineReveal {
-  0%   { transform: translateY(108%); opacity: 0; }
-  20%  { opacity: 1; }
-  100% { transform: translateY(0);    opacity: 1; }
-}
-
-/* gradient accent on last hero line */
+/* gradient accent on hero title */
 .hero__line--accent {
   background: linear-gradient(90deg, #fff 0%, rgba(147,210,255,0.9) 60%, #fff 100%);
   -webkit-background-clip: text;
