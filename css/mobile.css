@@ -144,8 +144,7 @@
   .service-card h3, .service-card__title,
   .testimonial-card h3, .contact-card h3,
   .director__quote p, .about__text,
-  .footer h4, .footer__heading, .footer__links h3,
-  .director__name, .director__badges, .director__content h2 {
+  .footer h4, .footer__heading, .footer__links h3 {
     text-align: left !important;
   }
 }
@@ -222,9 +221,18 @@
   }
 
   .director__name,
-  .director__badges,
   .director__content h2 {
-    text-align: left !important;
+    text-align: center !important;
+  }
+
+  .director__badges {
+    text-align: center !important;
+    justify-content: center !important;
+  }
+
+  .director .section__eyebrow {
+    display: block !important;
+    text-align: center !important;
   }
 
   /* ────────────────────────────────────────────
