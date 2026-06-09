@@ -2,6 +2,10 @@
  * Wangduk Health and Research — Main JavaScript
  */
 
+// Always open at the top — disable browser scroll restoration
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+
 (function () {
   'use strict';
 
