@@ -687,21 +687,114 @@
    ABOUT SHOWCASE — Premium Frames, Glows & Animations
 ══════════════════════════════════════════════════════════ */
 
-/* Ambient showcase backdrop */
+/* ══════════════════════════════════════════════════════════
+   ABOUT SHOWCASE — Premium Framed Gallery Panel
+══════════════════════════════════════════════════════════ */
 .about__showcase {
-  position: relative;
-  z-index: 1;
+  /* Glass-panel frame */
+  background: linear-gradient(155deg, rgba(248,250,255,0.97) 0%, rgba(237,242,255,0.93) 55%, rgba(245,248,255,0.96) 100%) !important;
+  border: 1.5px solid rgba(37,99,235,0.13) !important;
+  border-radius: 22px !important;
+  padding: 13px !important;
+  max-height: none !important;
+  overflow: visible !important;
+  position: relative !important;
+  z-index: 1 !important;
+  box-shadow:
+    /* outer halo ring */
+    0 0 0 6px rgba(37,99,235,0.04),
+    /* deep lift shadow */
+    0 40px 90px rgba(10,31,68,0.15),
+    0 12px 30px rgba(37,99,235,0.10),
+    /* inner highlight */
+    inset 0 1px 0 rgba(255,255,255,0.95),
+    inset 0 0 24px rgba(37,99,235,0.02) !important;
 }
 
+/* Ambient glow orbs behind the frame */
 .about__showcase::before {
-  content: '';
-  position: absolute;
-  inset: -80px -60px;
+  content: '' !important;
+  position: absolute !important;
+  inset: -60px -50px !important;
   background:
-    radial-gradient(ellipse 65% 60% at 22% 55%, rgba(37,99,235,0.13) 0%, transparent 70%),
-    radial-gradient(ellipse 45% 55% at 82% 50%, rgba(20,184,166,0.09) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
+    radial-gradient(ellipse 65% 60% at 25% 55%, rgba(37,99,235,0.10) 0%, transparent 70%),
+    radial-gradient(ellipse 45% 55% at 80% 48%, rgba(20,184,166,0.07) 0%, transparent 70%) !important;
+  border-radius: 40px !important;
+  pointer-events: none !important;
+  z-index: -1 !important;
+}
+
+/* Top gradient accent stripe */
+.about__showcase::after {
+  content: '' !important;
+  position: absolute !important;
+  top: -1.5px !important;
+  left: 10% !important;
+  width: 80% !important;
+  height: 3px !important;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(37,99,235,0.75) 25%,
+    rgba(99,102,241,0.65) 50%,
+    rgba(20,184,166,0.75) 75%,
+    transparent 100%
+  ) !important;
+  border-radius: 0 0 4px 4px !important;
+  pointer-events: none !important;
+  z-index: 10 !important;
+}
+
+/* ── Top-left corner bracket on the outer frame ── */
+.about__showcase > figure:first-child::before {
+  content: '' !important;
+  position: absolute !important;
+  top: -27px !important;
+  left: -27px !important;
+  width: 28px !important;
+  height: 28px !important;
+  border-top: 2px solid rgba(37,99,235,0.45) !important;
+  border-left: 2px solid rgba(37,99,235,0.45) !important;
+  border-radius: 6px 0 0 0 !important;
+  z-index: 10 !important;
+  pointer-events: none !important;
+}
+
+/* ── Bottom-right corner bracket on the outer frame ── */
+.about__showcase > figure:last-child::after {
+  content: '' !important;
+  position: absolute !important;
+  bottom: -27px !important;
+  right: -27px !important;
+  width: 28px !important;
+  height: 28px !important;
+  border-bottom: 2px solid rgba(20,184,166,0.45) !important;
+  border-right: 2px solid rgba(20,184,166,0.45) !important;
+  border-radius: 0 0 6px 0 !important;
+  z-index: 10 !important;
+  pointer-events: none !important;
+}
+
+/* ── Floating "OUR FACILITY" label chip in bottom-left of frame ── */
+.about__showcase > figure:last-child::before {
+  content: '✦  OUR FACILITY' !important;
+  position: absolute !important;
+  bottom: -28px !important;
+  left: -14px !important;
+  font-size: 0.58rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.13em !important;
+  text-transform: uppercase !important;
+  color: rgba(37,99,235,0.6) !important;
+  background: rgba(255,255,255,0.92) !important;
+  border: 1px solid rgba(37,99,235,0.12) !important;
+  border-radius: 20px !important;
+  padding: 3px 10px !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  pointer-events: none !important;
+  z-index: 10 !important;
+  white-space: nowrap !important;
 }
 
 /* Cards above the backdrop */
