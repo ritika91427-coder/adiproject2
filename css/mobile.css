@@ -935,8 +935,7 @@
   /* ────────────────────────────────────────────
      WAVE DIVIDERS
   ──────────────────────────────────────────── */
-  .wave-divider { height: 28px !important; overflow: hidden !important; }
-  .wave-divider svg { height: 28px !important; }
+  .wave-divider { display: none !important; }
 
   /* ────────────────────────────────────────────
      TICKER BAR
