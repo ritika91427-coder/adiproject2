@@ -31,6 +31,34 @@
   max-width: 720px;
   padding: 7rem 1.5rem 4rem;
 }
+/* ── Back button ── */
+.sp-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  color: rgba(255,255,255,.82);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: .875rem;
+  font-weight: 500;
+  text-decoration: none;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.18);
+  padding: .45rem 1rem .45rem .75rem;
+  border-radius: 50px;
+  margin-bottom: 1.5rem;
+  transition: background .2s, color .2s, border-color .2s;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.sp-back-btn:hover {
+  background: rgba(255,255,255,.2);
+  color: #fff;
+  border-color: rgba(255,255,255,.35);
+}
+.sp-back-btn svg {
+  flex-shrink: 0;
+}
+
 .sp-hero__eyebrow {
   display: inline-flex;
   align-items: center;
