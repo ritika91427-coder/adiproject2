@@ -301,6 +301,10 @@
   .stat-card__icon  { margin: 0 auto 0.375rem !important; width: 32px !important; height: 32px !important; }
   .stat-card__label { font-size: 0.72rem !important; line-height: 1.35 !important; }
 
+  /* ── Tighten the About → Director gap ── */
+  .about  { padding-bottom: 1rem !important; }
+  .director { padding-top: 1rem !important; }
+
   /* ────────────────────────────────────────────
      DIRECTOR
   ──────────────────────────────────────────── */
