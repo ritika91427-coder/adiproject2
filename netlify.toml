@@ -1,5 +1,8 @@
 [build]
-  command = "npm install --omit=dev"
+  command = "npm ci --omit=dev"
 
 [build.environment]
-  NODE_VERSION = "20"
+  NODE_VERSION = "22"
+
+[functions]
+  directory = "netlify/functions"
