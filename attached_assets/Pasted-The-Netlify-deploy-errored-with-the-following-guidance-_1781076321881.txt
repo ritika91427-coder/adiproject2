@@ -1,0 +1,94 @@
+The Netlify deploy errored, with the following guidance provided:
+
+Diagnosis
+
+- Relevant log lines: [lines 12–16](#L12-L16) show Netlify installed Node v22.22.3/npm v10.9.8. The install step fails at [line 19](#L19) and Netlify reports the npm internal error "Exit handler never called!" at [lines 21–24](#L21-L24). The overall failure is reported at [lines 25–26](#L25-L26).
+- Error type and cause: npm failed during dependency installation with an internal npm error ("Exit handler never called!"). This is commonly caused by an incompatibility or bug between the Node.js + npm version shipped on the build image (here Node 22 / npm 10) and your project's dependency/install process, or by a corrupted/mismatched lockfile/cache. The immediate cause is an npm runtime/internal failure during npm install.
+
+Solution
+
+1) Verify repository basics
+- Confirm package.json is present at the repository root and committed. If not present, add/commit it. Netlify must see package.json to install dependencies.
+- Also make sure package-lock.json (or yarn.lock) is committed if you want reproducible installs.
+
+2) Pin a stable Node.js version (recommended)
+This error often disappears by using a stable LTS Node.js (e.g. 18.x or 20.x) instead of Node 22. On Netlify you can set the Node version by adding a .nvmrc file or by specifying engines in package.json. See Netlify docs for changing Node versions: https://docs.netlify.com/configure-builds/manage-dependencies/#node-js-and-javascript
+
+Option A — add .nvmrc (simple)
+- Create a file .nvmrc at repo root with one line, for example:
+```text
+18
+```
+- Commit and push:
+```bash
+git add .nvmrc
+git commit -m "Pin Node version to 18 via .nvmrc for Netlify builds"
+git push
+```
+
+Option B — declare engines in package.json
+- In package.json add an engines field:
+```json
+"engines": {
+  "node": "18.x"
+}
+```
+- Commit and push.
+
+Either option causes Netlify to use the pinned Node version during the build.
+
+3) Use a clean, reproducible install
+- Locally run:
+```bash
+npm ci
+```
+This will surface any install errors locally. If it succeeds, commit the generated package-lock.json so Netlify uses the exact locked dependency tree.
+
+- On Netlify you can force a clean install by ensuring package-lock.json exists (so Netlify runs npm ci) or by setting a build command to clear cache before installing (less ideal). Example build.command in netlify.toml:
+```toml
+[build]
+  command = "npm cache clean --force && npm ci && npm run build"
+```
+
+4) If problem persists: inspect npm debug log
+- The log path in Netlify is shown in the build log: /opt/buildhome/.npm/_logs/2026-06-10T07_17_33_009Z-debug-0.log ([line 24](#L24)). Re-run the build and examine that debug file for stack traces. Locally you can re-run npm install with verbose logging:
+```bash
+npm install --verbose
+```
+Capture and paste the relevant part of that debug log if you need more help.
+
+5) Optional fallback
+- If npm itself appears to be buggy on the chosen Node, try changing Node to another LTS (20 or 18) until the error disappears.
+
+If you try the Node pin (step 2) and committing package-lock.json (step 3) and still get the "Exit handler never called" error, post the npm debug log from the path above or the verbose output from a local install and I will analyze further.
+
+The relevant error logs are:
+
+Line 0: build-image version: ac6eb13fbf000e5c09ad677efd8b7c3c2d0142b6 (noble-new-builds)
+Line 1: buildbot version: 24ab26d65f817590ea807b86ec0d98d4dcebe8f9
+Line 2: Fetching cached dependencies
+Line 3: Failed to fetch cache, continuing with build
+Line 4: Starting to prepare the repo for build
+Line 5: No cached dependencies found. Cloning fresh repo
+Line 6: git clone --filter=blob:none https://github.com/ritika91427-coder/adiproject2
+Line 7: Preparing Git Reference refs/heads/main
+Line 8: Installing dependencies
+Line 9: mise ~/.config/mise/config.toml tools: python@3.14.3
+Line 10: mise ~/.config/mise/config.toml tools: ruby@3.4.8
+Line 11: mise ~/.config/mise/config.toml tools: go@1.26.2
+Line 12: Downloading and installing node v22.22.3...
+Line 13: Downloading https://nodejs.org/dist/v22.22.3/node-v22.22.3-linux-x64.tar.xz...
+Line 14: Computing checksum with sha256sum
+Line 15: Checksums matched!
+Line 16: Now using node v22.22.3 (npm v10.9.8)
+Line 17: Enabling Node.js Corepack
+Line 18: No npm workspaces detected
+Line 19: Installing npm packages using npm version 10.9.8
+Line 20: Failed during stage 'Install dependencies': dependency_installation script returned non-zero exit code: 1
+Line 21: npm error Exit handler never called!
+Line 22: npm error This is an error with npm itself. Please report this error at:
+Line 23: npm error   <https://github.com/npm/cli/issues>
+Line 24: npm error A complete log of this run can be found in: /opt/buildhome/.npm/_logs/2026-06-10T07_17_33_009Z-debug-0.log
+Line 25: Error during npm install
+Line 26: Failing build: Failed to install dependencies
+Line 27: Finished processing build request in 1m19.238s

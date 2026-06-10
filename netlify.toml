@@ -1,0 +1,5 @@
+[build]
+  command = "npm install --omit=dev"
+
+[build.environment]
+  NODE_VERSION = "20"
